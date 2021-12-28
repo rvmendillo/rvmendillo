@@ -14,6 +14,7 @@ def home():
 def create_user(username, password):
     create_entry(users, {'username': username,
                          'password': password})
+    return f'Created user {username}.'
 
 if __name__ == '__main__':
     app.run()
