@@ -1,6 +1,6 @@
 # Import Libraries
 from flask import Flask, render_template, request
-import database
+from database import *
 
 # Global
 app = Flask(__name__)
