@@ -2,10 +2,16 @@
 import pymongo
 
 # Functions
-def configure_database(username, password, project, database):
-    client = pymongo.MongoClient(f'mongodb+srv://{username}:{password}@{project}.romwh.mongodb.net/{database}?retryWrites=true&w=majority')
+def configure_database(username, password, project, cluster):
+    client = pymongo.MongoClient(f'mongodb+srv://{username}:{password}@{project}.romwh.mongodb.net/{cluster}?retryWrites=true&w=majority')
     return client
+
+def create_entry(table, entry):
+    table.insert_one(entry)
 
 # Global
 client = configure_database('admin', 'password', 'rvmendillo', 'rvmendillo')
-db = client.test
+database = client['rvmendillo']
+users = database['users']
+create_entry(users, {'username': 'admin',
+                     'password': 'password'})
