@@ -4,6 +4,7 @@ from database import *
 
 # Global
 app = Flask(__name__)
+app.jinja_env.trim_blocks = True
 
 # Routes
 @app.route('/', methods=['GET'])

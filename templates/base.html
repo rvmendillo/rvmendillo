@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        {% filter indent(width=8, first=False) -%}
+        {% filter indent(width=8, first=False) %}
         {% include 'metadata.html' %}
-        {%- endfilter %}
-        {% filter indent(width=8, first=False) -%}
+        {% endfilter %}
+        {% filter indent(width=8, first=False) %}
         {% include 'stylesheets.html' %}
-        {%- endfilter %}
-        {% filter indent(width=8, first=False) -%}
+        {% endfilter %}
+        {% filter indent(width=8, first=False) %}
         {% include 'scripts.html' %}
-        {%- endfilter %}
+        {% endfilter %}
         <title>Rey Victor Mendillo | Computer Scientist</title>
     </head>
     <body>
-        {%- block body %}
+        {% block body %}
         {% endblock %}
     </body>
 </html>
