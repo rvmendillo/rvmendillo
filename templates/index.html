@@ -3,7 +3,11 @@
     <head>
         {% filter indent(width=8, first=False) -%}
         {% include 'metadata.html' %}
+        {%- endfilter %}
+        {% filter indent(width=8, first=False) -%}
         {% include 'stylesheets.html' %}
+        {%- endfilter %}
+        {% filter indent(width=8, first=False) -%}
         {% include 'scripts.html' %}
         {%- endfilter %}
         <title>Rey Victor Mendillo</title>
@@ -11,6 +15,8 @@
     <body>
         {% filter indent(width=8, first=False) -%}
         {% include 'facebook_integration.html' %}
+        {%- endfilter %}
+        {% filter indent(width=8, first=False) -%}
         {% include 'adsense_integration.html' %}
         {%- endfilter %}
     </body>
