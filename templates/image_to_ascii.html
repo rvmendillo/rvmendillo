@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% include 'metadata.html' %}
+        {% include 'stylesheets.html' %}
+        {% include 'scripts.html' %}
+        <title>Rey Victor Mendillo | Computer Scientist and Full-Stack Software Engineer</title>
+    </head>
+    <body>
+        <form action="/image_to_ascii" method="post" enctype="multipart/form-data">
+            <input placeholder="Image File" onClick="image_file.click();" onMouseOut="this.value = document.getElementById('image_file').files[0].name;" onMouseOver="this.value = document.getElementById('image_file').files[0].name;" readonly />
+		    <input type="file" id="image_file" name="image_file" accept=".jpg, .png, .bmp" />
+            <br />
+            <button type="submit">Asciify</button>
+        </form>
+        {% include 'facebook_integration.html' %}
+        {% include 'adsense_integration.html' %}
+        {% if base64_string %}
+        <img src='data:image/png;base64,{{base64_string}}' />
+        {% endif %}
+    </body>
+</html>

@@ -1,3 +1,4 @@
 flask
 gunicorn
 pymongo[srv]
+rvmendillo-image-to-ascii
