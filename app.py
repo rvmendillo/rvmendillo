@@ -19,7 +19,7 @@ def image_to_ascii():
         image_file = request.files['image_file']
         image_path = 'static/images/' + image_file.filename
         image_file.save(image_path)
-        image_to_ascii_converter = ImageToASCII(image_path)
+        image_to_ascii_converter = ImageToASCII(image_path, default_font=True)
         inverted_colored_ascii_image = image_to_ascii_converter.generate_colored_ascii_image(300)
         base64_string = image_to_ascii_converter.convert_image_to_base64(inverted_colored_ascii_image)
         remove(image_path)
