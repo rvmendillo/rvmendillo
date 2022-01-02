@@ -20,9 +20,9 @@ def image_to_ascii():
         image_path = 'static/images/' + image_file.filename
         image_file.save(image_path)
         image_to_ascii_converter = ImageToASCII(image_path)
-        remove(image_path)
         inverted_colored_ascii_image = image_to_ascii_converter.generate_colored_ascii_image(300)
         base64_string = image_to_ascii_converter.convert_image_to_base64(inverted_colored_ascii_image)
+        remove(image_path)
         return render_template('image_to_ascii.html', base64_string=base64_string)
     return render_template('image_to_ascii.html')
 
