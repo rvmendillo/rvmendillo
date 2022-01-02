@@ -15,7 +15,7 @@ def home():
 
 @app.route('/image_to_ascii', methods=['GET', 'POST'])
 def image_to_ascii():
-    if request.method == 'POST':
+    if request.method == 'POST' and request.form['g-recaptcha-response'] == True:
         image_file = request.files['image_file']
         image_path = 'static/images/' + image_file.filename
         image_file.save(image_path)
