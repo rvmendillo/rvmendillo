@@ -10,6 +10,7 @@
         <form action="/image_to_ascii" method="post" enctype="multipart/form-data">
             <input placeholder="Image File" onClick="image_file.click();" onMouseOut="this.value = document.getElementById('image_file').files[0].name;" onMouseOver="this.value = document.getElementById('image_file').files[0].name;" readonly />
 		    <input type="file" id="image_file" name="image_file" accept=".jpg, .png, .bmp" />
+            <div class="g-recaptcha" data-sitekey="6Lfq6-QdAAAAACk4wX-YuRhedQk23IYm1ZaodOPE"></div>
             <br />
             <button type="submit">Asciify</button>
         </form>
