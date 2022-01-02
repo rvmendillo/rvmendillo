@@ -24,6 +24,7 @@ def image_to_ascii():
         inverted_colored_ascii_image = image_to_ascii_converter.generate_colored_ascii_image(300)
         base64_string = image_to_ascii_converter.convert_image_to_base64(inverted_colored_ascii_image)
         return render_template('image_to_ascii.html', base64_string=base64_string)
+    return render_template('image_to_ascii.html')
 
 @app.route('/create/users/<username>/<password>', methods=['GET'])
 def create_user(username=None, password=None):
