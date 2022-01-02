@@ -1,4 +1,4 @@
 flask
 gunicorn
 pymongo[srv]
-rvmendillo-image-to-ascii
+rvmendillo-image-to-ascii==1.5.0
