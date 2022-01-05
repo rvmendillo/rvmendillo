@@ -41,11 +41,11 @@ def create_user(username=None, password=None):
 @app.route('/projects/new', methods=['GET'])
 def create_project():
     create_entry(projects, {'name': request.args['name'],
-                            'category': request.args['category'],
-                            'description': request.args['description'],
-                            'image': request.args['image'],
-                            'github': request.args['github'],
-                            'demo': request.args['demo']})
+                            'category': request.args['category']})
+#                            'description': request.args['description'],
+#                            'image': request.args['image'],
+#                            'github': request.args['github'],
+#                            'demo': request.args['demo']})
     return f"Created project {request.args['name']}."
 
 if __name__ == '__main__':
