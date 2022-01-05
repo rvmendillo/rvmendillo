@@ -46,7 +46,7 @@ def create_project():
                             'image': request.args['image'],
                             'github': request.args['github'],
                             'demo': request.args['demo']})
-    return f'Created project {request.args['name']}.'
+    return f"Created project {request.args['name']}."
 
 if __name__ == '__main__':
     app.run()
