@@ -9,6 +9,10 @@ def configure_database(username, password, project, cluster):
 def create_entry(table, entry):
     table.insert_one(entry)
 
+def search_entry(table, query):
+    entry = table.find_one(query)
+    return entry
+
 # Global
 client = configure_database('admin', 'pass', 'rvmendillo', 'rvmendillo')
 database = client['rvmendillo']

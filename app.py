@@ -48,5 +48,10 @@ def create_project():
 #                            'demo': request.args['demo']})
     return f"Created project {request.args['name']}."
 
+@app.route('/project/<name>', methods=['GET'])
+def view_project_info(name=None):
+    project = search_entry(projects, {'path': name})
+    return f"{project['name']}, {project['category']}"
+
 if __name__ == '__main__':
     app.run()
