@@ -13,3 +13,4 @@ def create_entry(table, entry):
 client = configure_database('admin', 'pass', 'rvmendillo', 'rvmendillo')
 database = client['rvmendillo']
 users = database['users']
+projects = database['projects']
