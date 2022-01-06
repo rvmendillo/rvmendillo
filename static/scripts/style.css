@@ -1,6 +1,6 @@
-html, body {
-	height: 100%;
-	margin: 0;
+@font-face {
+	font-family: 'Montserrat Light';
+	src: url("../fonts/Montserrat-Light.woff");
 }
 
 @font-face {
@@ -8,13 +8,32 @@ html, body {
 	src: url("../fonts/Montserrat-Hairline.woff");
 }
 
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0% 5%;
+	font-family: 'Montserrat Light';
+}
+
 header {
 	height: 100%;
 }
 
-#name {
+.center_y {
+	display: flex;
+	align-items: center;
+}
+
+h1#name {
 	font-family: 'Montserrat Hairline';
-	font-size: 5.83rem;
+	font-size: 4rem;
 	color: teal;
+	text-transform: uppercase;
+	letter-spacing: -0.06em;
+}
+
+h2#subtitle {
+	font-size: 2rem;
+	color: slategray;
 	text-transform: uppercase;
 }
