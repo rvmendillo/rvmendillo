@@ -22,7 +22,7 @@ header {
 	flex-direction: column;
 }
 
-h1, h2 {
+h1, h2, h3 {
 	margin: 0;
 }
 
@@ -31,11 +31,17 @@ h1#name {
 	font-size: 4rem;
 	color: teal;
 	text-transform: uppercase;
-	letter-spacing: -0.05em;
+	letter-spacing: -0.05rem;
+	margin-bottom: 1rem;
 }
 
 h2#subtitle {
 	font-size: 1.75rem;
 	color: slategray;
 	text-transform: uppercase;
+	margin-bottom: 2rem;
+}
+
+h3#description {
+	font-size: 1.5rem;
 }
