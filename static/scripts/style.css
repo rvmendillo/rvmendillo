@@ -3,7 +3,18 @@ html, body {
 	margin: 0;
 }
 
+@font-face {
+	font-family: 'Montserrat Hairline';
+	src: url("../fonts/Montserrat-Hairline.woff");
+}
+
 header {
 	height: 100%;
-	background: teal;
+}
+
+#name {
+	font-family: 'Montserrat Hairline';
+	font-size: 5.83rem;
+	color: teal;
+	text-transform: uppercase;
 }
