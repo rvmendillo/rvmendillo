@@ -24,16 +24,20 @@ header {
 	align-items: center;
 }
 
+h1, h2 {
+	margin: 0;
+}
+
 h1#name {
 	font-family: 'Montserrat Hairline';
 	font-size: 4rem;
 	color: teal;
 	text-transform: uppercase;
-	letter-spacing: -0.06em;
+	letter-spacing: -0.05em;
 }
 
 h2#subtitle {
-	font-size: 2rem;
+	font-size: 1.75rem;
 	color: slategray;
 	text-transform: uppercase;
 }
