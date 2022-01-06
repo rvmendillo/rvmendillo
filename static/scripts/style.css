@@ -15,11 +15,15 @@ html, body {
 	font-family: 'Montserrat Light';
 }
 
-header {
+section {
 	height: 100%;
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
+}
+
+.column_half {
+	width: 50%;
 }
 
 h1, h2, h3 {
