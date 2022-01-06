@@ -17,9 +17,6 @@ html, body {
 
 header {
 	height: 100%;
-}
-
-.center_y {
 	display: flex;
 	align-items: center;
 }
