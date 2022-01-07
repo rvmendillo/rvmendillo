@@ -15,13 +15,12 @@ html, body {
 }
 
 section {
+	height: 100%;
 	padding: 0% 5%;
 }
 
 .row {
 	position: relative;
-	height: 100%;
-	width: 100%;
 }
 
 .column_half {
