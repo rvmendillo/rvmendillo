@@ -27,6 +27,7 @@ section {
 .column_half {
 	float: left;
 	width: 50%;
+	background: cyan;
 }
 
 .row:after {
