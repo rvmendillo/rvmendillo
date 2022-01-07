@@ -17,14 +17,14 @@ html, body {
 
 section {
 	height: 100%;
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
 }
 
 .column_half {
 	float: left;
 	width: 50%;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 .row:after {
