@@ -17,22 +17,15 @@ html, body {
 
 section {
 	height: 100%;
-}
-
-.row {
-	position: relative;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 .column_half {
 	display: inline-block;
 	width: 45%;
 	background: cyan;
-}
-
-.center_y {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
 }
 
 h1, h2, h3 {
