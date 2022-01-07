@@ -19,9 +19,14 @@ section {
 	height: 100%;
 }
 
-.column {
+.row {
+	position: relative;
+}
+
+.column_half {
 	display: inline-block;
 	width: 45%;
+	background: cyan;
 }
 
 .center_y {
@@ -52,7 +57,4 @@ h2#subtitle {
 
 h3#description {
 	font-size: 1.25rem;
-}
-
-#logo {
 }
