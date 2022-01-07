@@ -21,11 +21,11 @@ section {
 
 .row {
 	position: relative;
+	width: 100%;
 }
 
 .column_half {
 	float: left;
-	height: 100%;
 	width: 50%;
 }
 
