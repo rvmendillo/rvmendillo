@@ -25,14 +25,8 @@ section {
 
 .column_half {
 	display: inline-block;
-	width: 50%;
+	width: 45%;
 	background: cyan;
-}
-
-.row:after {
-	content: "";
-	display: table;
-	clear: both;
 }
 
 .center_y {
