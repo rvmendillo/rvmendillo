@@ -11,8 +11,8 @@
 html, body {
 	height: 100%;
 	margin: 0;
-	font-family: 'Montserrat Light';
 	padding: 0% 5%;
+	font-family: 'Montserrat Light';
 }
 
 section {
@@ -26,7 +26,6 @@ section {
 .column_half {
 	float: left;
 	width: 50%;
-	background: cyan;
 }
 
 .row:after {
