@@ -22,14 +22,17 @@ section {
 .column_half {
 	float: left;
 	width: 50%;
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
 }
 
 .row:after {
 	content: "";
 	clear: both;
+}
+
+.center_y {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 h1, h2, h3 {
