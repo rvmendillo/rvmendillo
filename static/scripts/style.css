@@ -63,7 +63,7 @@ h3#description {
 #logo {
 	display: block;
 	margin: 0 auto;
-	clip-path: circle(100%);
+	clip-path: circle();
 	width: 50%;
 	height: auto;
 }
