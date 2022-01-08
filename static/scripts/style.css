@@ -79,6 +79,7 @@ h3#description {
 
 	.row {
 		display: flex;
+		flex-wrap: wrap;
 		flex-direction: column-reverse;
 	}
 
