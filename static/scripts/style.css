@@ -11,7 +11,7 @@
 html, body {
 	height: 100%;
 	margin: 0;
-	font-family: 'Montserrat Light';
+	font-family: 'Montserrat Light', Helvetica;
 }
 
 section {
@@ -41,7 +41,7 @@ h1, h2, h3 {
 }
 
 h1#name {
-	font-family: 'Montserrat Hairline';
+	font-family: 'Montserrat Hairline', Helvetica;
 	font-size: 3.75rem;
 	color: teal;
 	text-transform: uppercase;
