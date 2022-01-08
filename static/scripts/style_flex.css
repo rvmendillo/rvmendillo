@@ -11,6 +11,7 @@
 html, body {
 	height: 100%;
 	margin: 0;
+	padding: 0% 5%;
 	font-family: 'Montserrat Light', Helvetica;
 }
 
@@ -18,7 +19,6 @@ section {
 	display: flex;
 	flex-flow: column wrap;
 	height: 100%;
-	background: silver;
 }
 
 .row {
@@ -27,7 +27,7 @@ section {
 	flex: 1;
 }
 
-.column_half {
+.column {
 	flex: 1;
 }
 
