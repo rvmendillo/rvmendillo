@@ -27,7 +27,6 @@ section {
 	display: flex;
 	flex-flow: column wrap;
 	flex: 1;
-	align-items: center;
 }
 
 h1, h2, h3 {
@@ -55,6 +54,7 @@ h3#description {
 }
 
 #logo {
+	display: flex;
 	justify-content: flex-end;
 	width: 75%;
 	height: auto;
