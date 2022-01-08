@@ -24,14 +24,8 @@ section {
 }
 
 .column_half {
-	float: left;
+	display: inline-block;
 	width: 45%;
-}
-
-.row:after {
-	content: "";
-	display: table;
-	clear: both;
 }
 
 .center_y {
