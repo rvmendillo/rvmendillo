@@ -65,20 +65,7 @@ h3#description {
 		text-align: center;
 	}
 
-	.column_half {
-		display: block;
-		width: 100%;
-	}
-
-	.column_half::after {
-		content: '\a';
-    	white-space: pre;
-	}
-
-	#logo {
-		float: none;
-		display: block;
-		margin: 0 auto;
-		width: 100%;
+	.row {
+		flex-flow: column wrap;
 	}
 }
