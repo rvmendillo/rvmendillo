@@ -70,7 +70,11 @@ h3#description {
 		flex-flow: column wrap;
 	}
 
-	header {
+	header .row {
 		flex-flow: column-reverse wrap;
+	}
+
+	#logo {
+		width: 100%;
 	}
 }
