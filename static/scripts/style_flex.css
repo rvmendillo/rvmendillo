@@ -15,6 +15,8 @@ html, body {
 }
 
 section {
+	display: flex;
+	flex-flow: column wrap;
 	height: 100%;
 	background: silver;
 }
@@ -26,8 +28,6 @@ section {
 }
 
 .column_half {
-	display: flex;
-	flex-flow: column wrap;
 	flex: 1;
 }
 
