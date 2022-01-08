@@ -105,7 +105,7 @@ h3#description {
 	width: 75%;
 	height: auto;
 	transform: scale(0);
-	animation: zoom_in 1s ease 5s forwards;
+	animation: zoom_in 3s ease 5s forwards;
 }
 
 #logo::after {
