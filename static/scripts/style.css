@@ -11,14 +11,14 @@
 html, body {
 	height: 100%;
 	margin: 0;
-	padding: 0% 5%;
 	font-family: 'Montserrat Light', Helvetica;
 }
 
 header, section {
 	display: flex;
-	flex-flow: column wrap;
+	flex-direction: column;
 	height: 100%;
+	padding: 0% 5%;
 }
 
 .dark_background {
@@ -30,7 +30,6 @@ header, section {
 	align-items: center;
 	flex: 1;
 	gap: 2rem;
-	justify-content: space-between;
 }
 
 .column {
@@ -113,11 +112,11 @@ h3#description {
 	}
 
 	.row {
-		flex-flow: column wrap;
+		flex-direction: column;
 	}
 
 	header .row {
-		flex-flow: column-reverse wrap;
+		flex-direction: column-reverse;
 	}
 
 	#logo {
