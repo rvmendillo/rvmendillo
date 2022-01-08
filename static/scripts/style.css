@@ -9,7 +9,7 @@
 }
 
 html, body {
-	height: 100%;
+	min-height: 100%;
 	margin: 0;
 	font-family: 'Montserrat Light', Helvetica;
 }
@@ -17,7 +17,7 @@ html, body {
 header, section {
 	display: flex;
 	flex-direction: column;
-	height: 100%;
+	min-height: 100%;
 	padding: 0% 5%;
 }
 
