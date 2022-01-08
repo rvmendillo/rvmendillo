@@ -122,6 +122,10 @@ header .button:hover {
 }
 
 @media only screen and (max-width: 768px) {
+	html, body {
+		font-size: 0.75rem;
+	}
+
 	h1#name, h2#subtitle, h3#description {
 		text-align: center;
 	}
