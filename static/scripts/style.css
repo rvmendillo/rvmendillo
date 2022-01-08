@@ -61,5 +61,9 @@ h3#description {
 }
 
 #logo {
+	display: block;
+	margin: 0 auto;
 	clip-path: circle();
+	width: 100%;
+	height: auto;
 }
