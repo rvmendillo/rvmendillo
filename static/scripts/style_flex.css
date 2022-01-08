@@ -21,6 +21,7 @@ section {
 .row {
 	display: flex;
 	align-items: center;
+	flex: 1;
 }
 
 .column_half {
