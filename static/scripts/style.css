@@ -17,6 +17,7 @@ html, body {
 
 section {
 	height: 100%;
+	line-height: 100vh;
 }
 
 .row {
