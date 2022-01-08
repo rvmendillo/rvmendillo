@@ -1,0 +1,89 @@
+@font-face {
+	font-family: 'Montserrat Light';
+	src: url("../fonts/Montserrat-Light.woff");
+}
+
+@font-face {
+	font-family: 'Montserrat Hairline';
+	src: url("../fonts/Montserrat-Hairline.woff");
+}
+
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0% 10%;
+	font-family: 'Montserrat Light', Helvetica;
+}
+
+section {
+	height: 100%;
+}
+
+.row {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.column_half {
+	display: flex;
+	flex-flow: column wrap;
+}
+
+h1, h2, h3 {
+	margin: 0;
+}
+
+h1#name {
+	font-family: 'Montserrat Hairline', Helvetica;
+	font-size: 3.75rem;
+	color: teal;
+	text-transform: uppercase;
+	letter-spacing: -0.05rem;
+	margin-bottom: 1rem;
+}
+
+h2#subtitle {
+	font-size: 1.5rem;
+	color: slategray;
+	text-transform: uppercase;
+	margin-bottom: 2rem;
+}
+
+h3#description {
+	font-size: 1.25rem;
+}
+
+#logo {
+	float: right;
+	width: 75%;
+	height: auto;
+}
+
+#logo::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+@media only screen and (max-width: 768px) {
+	h1#name, h2#subtitle, h3#description {
+		text-align: center;
+	}
+
+	.column_half {
+		display: block;
+		width: 100%;
+	}
+
+	.column_half::after {
+		content: '\a';
+    	white-space: pre;
+	}
+
+	#logo {
+		float: none;
+		display: block;
+		margin: 0 auto;
+		width: 100%;
+	}
+}
