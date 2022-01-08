@@ -71,3 +71,9 @@ h3#description {
 	clear: both;
 	display: table;
 }
+
+@media only screen and (max-width: 768px) {
+	.column_half {
+		display: block;
+	}
+}
