@@ -16,6 +16,7 @@ html, body {
 
 section {
 	height: 100%;
+	background: silver;
 }
 
 .row {
@@ -54,8 +55,8 @@ h3#description {
 }
 
 #logo {
-	display: flex;
-	justify-content: flex-end;
+	display: block;
+	float: right;
 	width: 75%;
 	height: auto;
 }
