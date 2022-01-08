@@ -62,8 +62,16 @@ h3#description {
 }
 
 #logo {
+	display: block;
+	float: right;
 	width: 75%;
 	height: auto;
+}
+
+#logo::after {
+	content: '';
+	clear: both;
+	display: table;
 }
 
 @media only screen and (max-width: 768px) {
