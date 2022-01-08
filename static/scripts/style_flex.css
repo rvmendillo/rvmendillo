@@ -27,16 +27,12 @@ header, section {
 	flex: 1;
 }
 
-header .row {
-	justify-content: space-between;
-}
-
 .column {
 	flex: 1;
 }
 
-header .column {
-	flex: 0;
+.column-3 {
+	flex: 3;
 }
 
 h1, h2, h3 {
