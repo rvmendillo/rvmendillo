@@ -75,5 +75,6 @@ h3#description {
 @media only screen and (max-width: 768px) {
 	.column_half {
 		display: block;
+		width: 80%;
 	}
 }
