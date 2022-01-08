@@ -20,13 +20,13 @@ section {
 
 .row {
 	display: table;
-	padding: 0% 5%;
+	padding: 0% 10%;
 }
 
 .column_half {
 	display: table-cell;
 	vertical-align: middle;
-	width: 45%;
+	width: 40%;
 }
 
 .center_y {
