@@ -16,6 +16,7 @@ html, body {
 
 section {
 	height: 100%;
+	position: relative;
 }
 
 .row {
