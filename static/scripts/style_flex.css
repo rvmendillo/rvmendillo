@@ -71,7 +71,7 @@ h3#description {
 #logo::after {
 	content: '';
 	clear: both;
-	display: table;
+	display: flex;
 }
 
 @media only screen and (max-width: 768px) {
