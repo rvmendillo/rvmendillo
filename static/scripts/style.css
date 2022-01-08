@@ -21,8 +21,8 @@ header, section {
 	padding: 0% 5%;
 }
 
-.dark_background {
-	background: midnightblue;
+.second_background {
+	background: whitesmoke;
 }
 
 .row {
@@ -57,8 +57,8 @@ h1#name {
 	color: teal;
 }
 
-.dark_background h1 {
-	color: cyan;
+.second_background h1 {
+	color: midnightblue;
 }
 
 h2#subtitle {
@@ -90,8 +90,6 @@ h3#description {
 
 .button {
 	display: inline-block;
-	background: midnightblue;
-	border: 0.1rem solid midnightblue;
 	color: white;
 	padding: 1.25rem 2rem;
 	text-align: center;
@@ -101,9 +99,26 @@ h3#description {
 	transition: ease-out 0.4s;
 }
 
+header .button {
+	background: midnightblue;
+	border: 0.1rem solid midnightblue;
+}
+
+.second_background .button {
+	background: teal;
+	border: 0.1rem solid teal;
+}
+
 .button:hover {
 	box-shadow: inset -35rem 0 0 0 white;
+}
+
+header .button:hover {
 	color: midnightblue;
+}
+
+.second_background .button:hover {
+	color: teal;
 }
 
 @media only screen and (max-width: 768px) {
