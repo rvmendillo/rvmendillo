@@ -56,6 +56,7 @@ h3#description {
 }
 
 #logo {
+	display: flex;
 	justify-content: flex-end;
 	width: 50%;
 	height: auto;
