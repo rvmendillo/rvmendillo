@@ -61,9 +61,13 @@ h3#description {
 }
 
 #logo {
-	display: block;
-	margin: 0 auto;
-	border-radius: 50%;
+	float: right;
 	width: 50%;
 	height: auto;
+}
+
+#logo::after {
+	content: "";
+	clear: both;
+	display: table;
 }
