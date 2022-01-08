@@ -86,4 +86,11 @@ h3#description {
 		content: '\a';
     	white-space: pre;
 	}
+
+	#logo {
+		float: none;
+		display: block;
+		margin: 0 auto;
+		width: 100%;
+	}
 }
