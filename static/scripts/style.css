@@ -17,22 +17,16 @@ html, body {
 
 section {
 	height: 100%;
-	line-height: 100vh;
 }
 
 .row {
-	position: relative;
+	display: table;
 }
 
 .column_half {
-	display: inline-block;
+	display: table-cell;
+	vertical-align: middle;
 	width: 45%;
-}
-
-.center_y {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
 }
 
 h1, h2, h3 {
