@@ -20,12 +20,14 @@ section {
 
 .row {
 	display: flex;
+	align-items: center;
 }
 
 .column_half {
 	display: flex;
 	flex-flow: column wrap;
 	flex: 1;
+	justify-content: center;
 }
 
 h1, h2, h3 {
