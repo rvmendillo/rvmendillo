@@ -73,7 +73,8 @@ h1 {
 
 h1#name {
 	color: teal;
-	animation: fade_in 2s ease 2s;
+	opacity: 0;
+	animation: fade_in 2s ease 2s forwards;
 }
 
 .second_background h1 {
@@ -86,12 +87,16 @@ h2#subtitle {
 	color: slategray;
 	text-transform: uppercase;
 	margin-bottom: 1.75rem;
+	opacity: 0;
+	animation: fade_in 2s ease 4s forwards;
 }
 
 h3#description {
 	font-size: 1.25rem;
 	font-weight: 150;
 	margin-bottom: 3rem;
+	opacity: 0;
+	animation: fade_in 2s ease 6s forwards;
 }
 
 #logo {
