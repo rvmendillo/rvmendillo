@@ -11,65 +11,100 @@
 html, body {
 	height: 100%;
 	margin: 0;
+	padding: 0% 5%;
 	font-family: 'Montserrat Light', Helvetica;
 }
 
-section {
+header, section {
+	display: flex;
+	flex-flow: column wrap;
 	height: 100%;
-	position: relative;
+}
+
+.dark_background {
+	background: midnightblue;
 }
 
 .row {
-	display: table;
-	padding: 0% 10%;
+	display: flex;
+	align-items: center;
+	flex: 1;
+	gap: 2rem;
+	justify-content: space-between;
 }
 
-.column_half {
-	display: table-cell;
-	vertical-align: middle;
-	width: 40%;
+.column {
+	flex: 1;
 }
 
-.center_y {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
+.column_2 {
+	flex: 2;
 }
 
 h1, h2, h3 {
 	margin: 0;
 }
 
-h1#name {
+h1 {
 	font-family: 'Montserrat Hairline', Helvetica;
 	font-size: 3.75rem;
-	color: teal;
+	font-weight: 150;
 	text-transform: uppercase;
-	letter-spacing: -0.05rem;
-	margin-bottom: 1rem;
+	letter-spacing: -0.055rem;
+	margin-bottom: 0.75rem;
+}
+
+h1#name {
+	color: teal;
+}
+
+.dark_background h1 {
+	color: cyan;
 }
 
 h2#subtitle {
 	font-size: 1.5rem;
+	font-weight: 150;
 	color: slategray;
 	text-transform: uppercase;
-	margin-bottom: 2rem;
+	margin-bottom: 1.75rem;
 }
 
 h3#description {
 	font-size: 1.25rem;
+	font-weight: 150;
+	margin-bottom: 3rem;
 }
 
 #logo {
+	display: block;
 	float: right;
 	width: 75%;
 	height: auto;
 }
 
 #logo::after {
-	content: "";
+	content: '';
 	clear: both;
 	display: table;
+}
+
+.button {
+	display: inline-block;
+	background: midnightblue;
+	border: 0.1rem solid midnightblue;
+	color: white;
+	padding: 1.25rem 2rem;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	box-shadow: inset 0 0 0 0 white;
+	transition: ease-out 0.4s;
+}
+
+.button:hover {
+	box-shadow: inset -35rem 0 0 0 white;
+	color: midnightblue;
 }
 
 @media only screen and (max-width: 768px) {
@@ -77,20 +112,22 @@ h3#description {
 		text-align: center;
 	}
 
-	.column_half {
-		display: block;
-		width: 100%;
+	.row {
+		flex-flow: column wrap;
 	}
 
-	.column_half::after {
-		content: '\a';
-    	white-space: pre;
+	header .row {
+		flex-flow: column-reverse wrap;
 	}
 
 	#logo {
-		float: none;
-		display: block;
-		margin: 0 auto;
 		width: 100%;
+		margin-top: 2rem;
+	}
+
+	.button {
+		display: block;
+		text-decoration: none;
+		margin-bottom: 2rem;
 	}
 }
