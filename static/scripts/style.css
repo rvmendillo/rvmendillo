@@ -44,9 +44,12 @@ header, section {
 
 .row {
 	display: flex;
-	align-items: center;
 	flex: 1;
 	gap: 2rem;
+}
+
+.center_y {
+	align-items: center;
 }
 
 .column {
@@ -146,10 +149,6 @@ header .button:hover {
 
 .second_background .button:hover {
 	color: teal;
-}
-
-.height_100 {
-	height: 100;
 }
 
 .padding {
