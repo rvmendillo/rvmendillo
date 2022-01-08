@@ -12,7 +12,8 @@ app.jinja_env.trim_blocks = True
 # Routes
 @app.route('/', methods=['GET'])
 def home():
-    return render_template('index.html')
+    project_list = search_all(projects)
+    return render_template('index.html', project_list=project_list)
 
 @app.route('/resume', methods=['GET'])
 def download_resume():

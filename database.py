@@ -13,6 +13,10 @@ def search_entry(table, query):
     entry = table.find_one(query)
     return entry
 
+def search_all(table):
+    entries = table.find()
+    return entries
+
 # Global
 client = configure_database('admin', 'pass', 'rvmendillo', 'rvmendillo')
 database = client['rvmendillo']

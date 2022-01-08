@@ -3,7 +3,9 @@
     <div class="row">
         <div class="column padding second_background">
             <h1>Projects</h1>
-            <a class="button">Test</a>
+            {% for project in project_list %}
+            <a class="button" href="{{project['path']}}">{{project['name']}}</a>
+            {% endfor %}
         </div>
         <div class="column padding">
             <h1>Projects</h1>
