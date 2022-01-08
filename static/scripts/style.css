@@ -74,7 +74,7 @@ h1 {
 h1#name {
 	color: teal;
 	opacity: 0;
-	animation: fade_in 2s ease 2s forwards;
+	animation: fade_in 1s ease 1s forwards;
 }
 
 .second_background h1 {
@@ -88,7 +88,7 @@ h2#subtitle {
 	text-transform: uppercase;
 	margin-bottom: 1.75rem;
 	opacity: 0;
-	animation: fade_in 2s ease 4s forwards;
+	animation: fade_in 1s ease 2s forwards;
 }
 
 h3#description {
@@ -96,7 +96,7 @@ h3#description {
 	font-weight: 150;
 	margin-bottom: 3rem;
 	opacity: 0;
-	animation: fade_in 2s ease 6s forwards;
+	animation: fade_in 1s ease 3s forwards;
 }
 
 #logo {
@@ -104,6 +104,8 @@ h3#description {
 	float: right;
 	width: 75%;
 	height: auto;
+	transform: scale(0);
+	animation: zoom_in 1s ease 5s forwards;
 }
 
 #logo::after {
@@ -126,6 +128,8 @@ h3#description {
 header .button {
 	background: midnightblue;
 	border: 0.1rem solid midnightblue;
+	transform: scale(0);
+	animation: zoom_in 1s ease 4s forwards;
 }
 
 .second_background .button {
