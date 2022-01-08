@@ -77,8 +77,13 @@ h3#description {
 		text-align: center;
 	}
 
+	.row {
+		display: flex;
+		flex-direction: column-reverse;
+	}
+
 	.column_half {
-		display: block;
+		display: flex;
 		width: 100%;
 	}
 
