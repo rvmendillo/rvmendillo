@@ -25,7 +25,8 @@ header, section {
 	display: flex;
 	align-items: center;
 	flex: 1;
-	column-gap: 1rem;
+	column-gap: 3rem;
+	justify-content: space-between;
 }
 
 .column {
