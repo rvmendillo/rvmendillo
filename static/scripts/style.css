@@ -79,7 +79,7 @@ h3#description {
 
 	.column_half {
 		display: block;
-		width: 80%;
+		width: 100%;
 	}
 
 	.column_half::after {
