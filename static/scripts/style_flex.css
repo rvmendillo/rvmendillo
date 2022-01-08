@@ -35,6 +35,10 @@ header .row {
 	flex: 1;
 }
 
+header .column {
+	flex: 0;
+}
+
 h1, h2, h3 {
 	margin: 0;
 }
