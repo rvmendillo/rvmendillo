@@ -4,7 +4,7 @@
         <div class="column padding second_background">
             <h1>Projects</h1>
             {% for project in project_list %}
-            <a class="button" href="{{project['path']}}">{{project['name']}}</a>
+            <a class="button" href="project/{{project['path']}}">{{project['name']}}</a>
             {% endfor %}
         </div>
         <div class="column padding">

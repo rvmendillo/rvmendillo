@@ -80,7 +80,8 @@ h1#name {
 }
 
 .second_background h1 {
-	color: midnightblue;
+	color: teal;
+	margin-top: 2rem;
 }
 
 h2#subtitle {

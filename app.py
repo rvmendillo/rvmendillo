@@ -56,7 +56,11 @@ def create_project():
 @app.route('/project/<name>', methods=['GET'])
 def view_project_info(name=None):
     project = search_entry(projects, {'path': name})
-    return f"{project['name']}, {project['category']}"
+    return render_template('project.html', name=project['name'],
+                                           category=project['category'],
+                                           description=project['description'],
+                                           github=project['github'],
+                                           demo=project['demo'])
 
 if __name__ == '__main__':
     app.run()
