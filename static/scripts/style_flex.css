@@ -47,20 +47,21 @@ h1#name {
 	font-weight: 100;
 	color: teal;
 	text-transform: uppercase;
-	letter-spacing: -0.05rem;
+	letter-spacing: -0.055rem;
 	margin-bottom: 1rem;
 }
 
 h2#subtitle {
 	font-size: 1.5rem;
+	font-weight: 150;
 	color: slategray;
 	text-transform: uppercase;
-	margin-bottom: 2rem;
+	margin-bottom: 1.75rem;
 }
 
 h3#description {
 	font-size: 1.25rem;
-	margin-bottom: 2rem;
+	margin-bottom: 3rem;
 }
 
 #logo {
@@ -80,7 +81,7 @@ h3#description {
 	background-color: midnightblue;
 	border: none;
 	color: white;
-	padding: 1rem 2rem;
+	padding: 1.25rem 2rem;
 	text-align: center;
 	text-decoration: none;
 }

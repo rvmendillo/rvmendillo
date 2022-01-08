@@ -1,5 +1,5 @@
 # Import Libraries
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from database import *
 from os import remove
 from rvmendillo_image_to_ascii import ImageToASCII
@@ -13,6 +13,10 @@ app.jinja_env.trim_blocks = True
 @app.route('/', methods=['GET'])
 def home():
     return render_template('index.html')
+
+@app.route('/resume', methods=['GET'])
+def download_resume():
+    return redirect("http://www.rvmendillo.com/static/files/Resume.pdf", code=302)
 
 @app.route('/image_to_ascii', methods=['GET', 'POST'])
 def image_to_ascii():
