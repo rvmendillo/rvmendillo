@@ -59,3 +59,7 @@ h2#subtitle {
 h3#description {
 	font-size: 1.25rem;
 }
+
+#logo {
+	height: 100%;
+}
