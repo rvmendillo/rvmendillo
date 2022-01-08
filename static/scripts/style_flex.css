@@ -44,7 +44,7 @@ h1, h2, h3 {
 h1#name {
 	font-family: 'Montserrat Hairline', Helvetica;
 	font-size: 3.75rem;
-	font-weight: 100;
+	font-weight: 150;
 	color: teal;
 	text-transform: uppercase;
 	letter-spacing: -0.055rem;
@@ -61,6 +61,7 @@ h2#subtitle {
 
 h3#description {
 	font-size: 1.25rem;
+	font-weight: 150;
 	margin-bottom: 3rem;
 }
 
