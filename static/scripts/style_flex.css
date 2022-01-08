@@ -27,7 +27,6 @@ section {
 .column_half {
 	display: flex;
 	flex-wrap: wrap;
-	flex: 0 0 90%;
 }
 
 h1, h2, h3 {
