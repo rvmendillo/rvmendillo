@@ -21,11 +21,12 @@ section {
 
 .row {
 	display: flex;
+	flex-flow: column wrap;
 }
 
 .column_half {
 	display: flex;
-	flex-flow: column wrap;
+	flex-wrap: wrap;
 }
 
 h1, h2, h3 {
