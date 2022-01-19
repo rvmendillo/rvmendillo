@@ -14,10 +14,10 @@
                     <a class="button" href="{{project['github']}}"><span class="fab fa-github fa-lg"></span></a>
                     <a class="button" href="{{project['demo']}}">Live Demo</a>
                 </div>
-                {% if loop.index % 3 == 3 %}
+                {% if loop.index % 3 == 0 %}
                     </div>
                 {% endif %}
-                {% if loop.index == loop.length and loop.index % 3 != 3 %}
+                {% if loop.index == loop.length and loop.index % 3 != 0 %}
                     </div>
                 {% endif %}
             {% endfor %}
