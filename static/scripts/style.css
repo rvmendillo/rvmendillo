@@ -172,11 +172,14 @@ h3#description {
 
 	.row {
 		flex-direction: column;
-		width: 100%;
 	}
 
 	header .row {
 		flex-direction: column-reverse;
+	}
+
+	.column {
+		width: 100%;
 	}
 
 	#logo {
