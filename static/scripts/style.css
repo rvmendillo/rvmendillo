@@ -30,6 +30,7 @@ html, body {
 	height: 100%;
 	margin: 0;
 	font-family: 'Montserrat Light', Helvetica;
+	font-weight: 150;
 }
 
 header, section {
@@ -71,7 +72,6 @@ h1, h2, h3 {
 h1 {
 	font-family: 'Montserrat Hairline', Helvetica;
 	font-size: 3.75rem;
-	font-weight: 150;
 	text-transform: uppercase;
 	letter-spacing: -0.055rem;
 	margin-bottom: 0.75rem;
@@ -85,7 +85,6 @@ h1#name {
 
 h2#subtitle {
 	font-size: 1.5rem;
-	font-weight: 150;
 	color: slategray;
 	text-transform: uppercase;
 	margin-bottom: 1.75rem;
@@ -99,7 +98,6 @@ section h3 {
 
 h3#description {
 	font-size: 1.25rem;
-	font-weight: 150;
 	margin-bottom: 3rem;
 	opacity: 0;
 	animation: fade_in 1s ease 3s forwards;
