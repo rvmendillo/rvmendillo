@@ -187,5 +187,6 @@ header .button:hover {
 		display: block;
 		text-decoration: none;
 		margin-bottom: 2rem;
+		margin-right: 0;
 	}
 }
