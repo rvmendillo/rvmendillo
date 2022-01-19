@@ -4,7 +4,7 @@
         <div class="column padding">
             <h1>Projects</h1>
             {% for project in project_list %}
-                {% if loop.index % 3 == 0 %}
+                {% if loop.index % 3 == 1 %}
                     <div class="row">
                 {% endif %}
                 <div class="column">
@@ -14,10 +14,10 @@
                     <a class="button" href="{{project['github']}}">GitHub Repository</a>
                     <a class="button" href="{{project['demo']}}">Live Demo</a>
                 </div>
-                {% if loop.index % 3 == 2 %}
+                {% if loop.index % 3 == 3 %}
                     </div>
                 {% endif %}
-                {% if loop.index == loop.length and loop.index % 3 != 2 %}
+                {% if loop.index == loop.length and loop.index % 3 != 3 %}
                     </div>
                 {% endif %}
             {% endfor %}
