@@ -69,7 +69,7 @@ h1, h2, h3 {
 }
 
 h1 {
-	font-family: 'Montserrat Light', Helvetica;
+	font-family: 'Montserrat Hairline', Helvetica;
 	font-size: 3.75rem;
 	font-weight: 150;
 	text-transform: uppercase;
@@ -130,6 +130,7 @@ h3#description {
 	text-transform: uppercase;
 	box-shadow: inset 0 0 0 0 white;
 	transition: ease-out 0.4s;
+	margin-right: 0.75rem;
 }
 
 header .button {
