@@ -75,17 +75,12 @@ h1 {
 	text-transform: uppercase;
 	letter-spacing: -0.055rem;
 	margin-bottom: 0.75rem;
+	color: teal;
 }
 
 h1#name {
-	color: teal;
 	opacity: 0;
 	animation: fade_in 1s ease 1s forwards;
-}
-
-.second_background h1 {
-	color: teal;
-	margin-top: 2rem;
 }
 
 h2#subtitle {
@@ -96,6 +91,10 @@ h2#subtitle {
 	margin-bottom: 1.75rem;
 	opacity: 0;
 	animation: fade_in 1s ease 2s forwards;
+}
+
+section h3 {
+	color: slategray;
 }
 
 h3#description {
