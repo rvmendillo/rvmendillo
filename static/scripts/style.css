@@ -38,6 +38,10 @@ header, section {
 	min-height: 100%;
 }
 
+.first_background {
+	background: white;
+}
+
 .second_background {
 	background: whitesmoke;
 }
@@ -65,7 +69,7 @@ h1, h2, h3 {
 }
 
 h1 {
-	font-family: 'Montserrat Hairline', Helvetica;
+	font-family: 'Montserrat Light', Helvetica;
 	font-size: 3.75rem;
 	font-weight: 150;
 	text-transform: uppercase;
