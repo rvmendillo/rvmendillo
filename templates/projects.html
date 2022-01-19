@@ -3,13 +3,20 @@
     <div class="row">
         <div class="column padding second_background">
             <h1>Projects</h1>
+            <div class="row">
+                <div class="column padding">
+                    <a class="button">A</a>
+                </div>
+                <div class="column padding">
+                    <a class="button">B</a>
+                </div>
+                <div class="column padding">
+                    <a class="button">C</a>
+                </div>
+            </div>
             {% for project in project_list %}
             <a class="button" href="project/{{project['path']}}">{{project['name']}}</a>
             {% endfor %}
-        </div>
-        <div class="column padding">
-            <h1>Projects</h1>
-            <a class="button">Test</a>
         </div>
     </div>
 </section>
