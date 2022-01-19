@@ -3,23 +3,23 @@
     <div class="row center_y">
         <div class="column padding">
             <h1>Projects</h1>
-            <div class="row">
-                <div class="column">
-                    <h2>Image to ASCII</h2>
-                    <h3>Image Processing</h3>
-                    <h4>It generates and saves ASCII texts and colored images from pixels of a JPEG file.</h4>
-                    <a class="button">GitHub Repository</a>
-                    <a class="button">Live Demo</a>
-                </div>
-                <div class="column">
-                    <a class="button">B</a>
-                </div>
-                <div class="column">
-                    <a class="button">C</a>
-                </div>
-            </div>
             {% for project in project_list %}
-            <a class="button" href="project/{{project['path']}}">{{project['name']}}</a>
+                {% if loop.index % 3 == 0 %}
+                    <div class="row">
+                {% endif %}
+                <div class="column">
+                    <h2>{{project['name']}}</h2>
+                    <h3>{{project['category']}}</h3>
+                    <h4>{{project['description']}}</h4>
+                    <a class="button" href="{{project['github']}}">GitHub Repository</a>
+                    <a class="button" href="{{project['demo']}}">Live Demo</a>
+                </div>
+                {% if loop.index % 3 == 2 %}
+                    </div>
+                {% endif %}
+                {% if loop.index == loop.length and loop.index % 3 != 2 %}
+                    </div>
+                {% endif %}
             {% endfor %}
         </div>
     </div>
