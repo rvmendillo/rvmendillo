@@ -1,7 +1,7 @@
 {% filter indent(width=8) %}
-<section class="second_background">
+<section class="padding second_background">
     <div class="row center_y">
-        <div class="column padding">
+        <div class="column">
             <h1>Projects</h1>
             {% for project in project_list %}
                 {% if loop.index % 3 == 1 %}
@@ -11,7 +11,7 @@
                     <h2>{{project['name']}}</h2>
                     <h3>{{project['category']}}</h3>
                     <h4>{{project['description']}}</h4>
-                    <a class="button" href="{{project['github']}}">GitHub Repository</a>
+                    <a class="button" href="{{project['github']}}"><span class="fab fa-github"></span></a>
                     <a class="button" href="{{project['demo']}}">Live Demo</a>
                 </div>
                 {% if loop.index % 3 == 3 %}
