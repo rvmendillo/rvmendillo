@@ -172,6 +172,7 @@ h3#description {
 
 	.row {
 		flex-direction: column;
+		width: 100%;
 	}
 
 	header .row {
