@@ -3,25 +3,25 @@
     <div class="row center_y">
         <div class="column">
             <h1>Projects</h1>
-            {% for project in project_list %}
-                {% if loop.index % 3 == 1 %}
-                    <div class="row">
-                {% endif %}
-                <div class="column">
-                    <h2>{{project['name']}}</h2>
-                    <h3>{{project['category']}}</h3>
-                    <h4>{{project['description']}}</h4>
-                    <a class="button" href="{{project['github']}}"><span class="fab fa-github fa-lg"></span></a>
-                    <a class="button" href="{{project['demo']}}">Live Demo</a>
-                </div>
-                {% if loop.index % 3 == 0 %}
-                    </div>
-                {% endif %}
-                {% if loop.index == loop.length and loop.index % 3 != 0 %}
-                    </div>
-                {% endif %}
-            {% endfor %}
         </div>
     </div>
+    {% for project in project_list %}
+        {% if loop.index % 3 == 1 %}
+            <div class="row center_y">
+        {% endif %}
+        <div class="column">
+            <h2>{{project['name']}}</h2>
+            <h3>{{project['category']}}</h3>
+            <h4>{{project['description']}}</h4>
+            <a class="button" href="{{project['github']}}"><span class="fab fa-github fa-lg"></span></a>
+            <a class="button" href="{{project['demo']}}">Live Demo</a>
+        </div>
+        {% if loop.index % 3 == 0 %}
+            </div>
+        {% endif %}
+        {% if loop.index == loop.length and loop.index % 3 != 0 %}
+            </div>
+        {% endif %}
+    {% endfor %}
 </section>
 {% endfilter %}
