@@ -12,7 +12,7 @@
 
 LinkedIn: [https://linkedin.com/in/rvmendillo][linkedin-url]
 
-Website: [http://rvmendillo.com][website-url]
+Website: [https://rvmendillo.com][website-url]
 
 Email: admin@rvmendillo.com
 
