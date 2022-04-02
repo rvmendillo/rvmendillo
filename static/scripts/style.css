@@ -133,7 +133,7 @@ h3#description {
 	margin-right: 0.75rem;
 }
 
-.first_background .button {
+.first_background .button, header .button {
 	background: midnightblue;
 	border: 0.1rem solid midnightblue;
 	transform: scale(0);
@@ -149,7 +149,7 @@ h3#description {
 	box-shadow: inset -35rem 0 0 0 white;
 }
 
-.first_background .button:hover {
+.first_background .button:hover, header .button:hover {
 	color: midnightblue;
 }
 
