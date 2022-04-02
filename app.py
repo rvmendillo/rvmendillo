@@ -38,7 +38,7 @@ def image_to_ascii():
     return render_template('image_to_ascii.html')
 
 @app.route('/skirt_sloper', methods=['GET', 'POST'])
-def image_to_ascii():
+def skirt_sloper():
     if request.method == 'POST':
         response = requests.post('https://www.google.com/recaptcha/api/siteverify', data={'secret': '6Lfq6-QdAAAAAI6KgavwJfqdPq-FdQFoogEngYTv',
                                                                                           'response': request.form['g-recaptcha-response']})
