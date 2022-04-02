@@ -3,3 +3,5 @@ gunicorn
 pymongo[srv]
 rvmendillo-image-to-ascii==1.5.0
 requests
+matplotlib
+numpy

@@ -38,8 +38,6 @@
             <br />
             <button type="submit">Generate Pattern</button>
         </form>
-        {% include 'facebook_integration.html' %}
-        {% include 'adsense_integration.html' %}
         {% if base64_string %}
         <embed width="100%" height="100%" src="data:application/pdf;base64,{{base64_string}}" />
         {% endif %}
