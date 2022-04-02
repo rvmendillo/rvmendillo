@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+cm = 1/2.54
+
 class Dimension:
     def __init__(self, full):
         self.full = full
