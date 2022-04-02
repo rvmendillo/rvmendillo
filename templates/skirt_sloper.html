@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% include 'metadata.html' %}
+        {% include 'stylesheets.html' %}
+        {% include 'scripts.html' %}
+        <title>Rey Victor Mendillo | Computer Scientist and Full-Stack Software Engineer</title>
+    </head>
+    <body>
+        <form action="/skirt_sloper" method="post">
+            <label for="waist">Waist</label>
+		    <input type="number" id="waist" name="waist" step="0.01" />
+            <br />
+            <label for="waist_ease">Waist Ease</label>
+		    <input type="number" id="waist_ease" name="waist_ease" step="0.01" />
+            <br />
+            <label for="hip">Hip</label>
+		    <input type="number" id="hip" name="hip" step="0.01" />
+            <br />
+            <label for="hip_height">Hip Height</label>
+		    <input type="number" id="hip_height" name="hip_height" step="0.01" />
+            <br />
+            <label for="hip_ease">Hip Ease</label>
+		    <input type="number" id="hip_ease" name="hip_ease" step="0.01" />
+            <br />
+            <label for="length">Length</label>
+		    <input type="number" id="length" name="length" step="0.01" />
+            <br />
+            <label for="back_dart">Back Dart</label>
+		    <input type="number" id="back_dart" name="back_dart" step="0.01" />
+            <br />
+            <label for="front_dart">Front Dart</label>
+		    <input type="number" id="front_dart" name="front_dart" step="0.01" />
+            <div class="g-recaptcha" data-sitekey="6Lfq6-QdAAAAACk4wX-YuRhedQk23IYm1ZaodOPE"></div>
+            <br />
+            <button type="submit">Generate Pattern</button>
+        </form>
+        {% include 'facebook_integration.html' %}
+        {% include 'adsense_integration.html' %}
+        {% if base64_string %}
+        <embed width="100%" height="100%" src="data:application/pdf;base64,{{base64_string}}" />
+        {% endif %}
+    </body>
+</html>
