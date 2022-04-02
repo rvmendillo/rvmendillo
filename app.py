@@ -60,7 +60,7 @@ def skirt_sloper():
             front_dart = Dart(float(request.form['front_dart']), hip_height.full * 0.5)
             side_seam_balance = ((hip.half+hip_ease.half) - (waist.half+waist_ease.half) - (front_dart.depth+back_dart.depth)) / 2
             setattr(hip, 'total', hip.back + hip.front)
-            
+
             plt.figure(figsize=(hip.total*cm, (length.full+1.5)*cm))
 
             # Back
@@ -96,7 +96,7 @@ def skirt_sloper():
             plt.xticks(np.arange(0, (hip.total+1)*cm, 1.0))
 
             temporary_file = BytesIO()
-            plt.savefig(temporary_file, format='pdf', dpi=request.form['dpi'], bbox_inches='tight', pad_inches=0)
+            plt.savefig(temporary_file, format='pdf', dpi=int(request.form['dpi']), bbox_inches='tight', pad_inches=0)
             base64_string = b64encode(temporary_file.getvalue())
             return render_template('skirt_sloper.html', base64_string=base64_string.decode())
         else:
