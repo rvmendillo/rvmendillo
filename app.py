@@ -56,8 +56,8 @@ def skirt_sloper():
             setattr(waist, 'front', waist.fourth + 0.75 + waist_ease.fourth)
             setattr(hip, 'back', hip.fourth - 0.5 + hip_ease.fourth)
             setattr(hip, 'front', hip.fourth + 0.5 + hip_ease.fourth)
-            back_dart = Dart(float(back_dart_depth_field.text()), hip_height.full * 0.75)
-            front_dart = Dart(float(front_dart_depth_field.text()), hip_height.full * 0.5)
+            back_dart = Dart(float(request.form['back_dart']), hip_height.full * 0.75)
+            front_dart = Dart(float(request.form['front_dart']), hip_height.full * 0.5)
             side_seam_balance = ((hip.half+hip_ease.half) - (waist.half+waist_ease.half) - (front_dart.depth+back_dart.depth)) / 2
             cm = 1/2.54
             
