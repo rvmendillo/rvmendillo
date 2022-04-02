@@ -31,6 +31,9 @@
             <br />
             <label for="front_dart">Front Dart</label>
 		    <input type="number" id="front_dart" name="front_dart" step="0.01" />
+            <br />
+            <label for="dpi">DPI</label>
+		    <input type="number" id="dpi" name="dpi" readonly />
             <div class="g-recaptcha" data-sitekey="6Lfq6-QdAAAAACk4wX-YuRhedQk23IYm1ZaodOPE"></div>
             <br />
             <button type="submit">Generate Pattern</button>
@@ -41,4 +44,7 @@
         <embed width="100%" height="100%" src="data:application/pdf;base64,{{base64_string}}" />
         {% endif %}
     </body>
+    <script>
+        document.getElementById("dpi").value = get_dpi();
+    </script>
 </html>

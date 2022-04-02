@@ -1,6 +1,7 @@
 # Import Libraries
 from flask import Flask, render_template, request, redirect
 from database import *
+from skirt_sloper import *
 from os import remove
 from rvmendillo_image_to_ascii import ImageToASCII
 import requests
