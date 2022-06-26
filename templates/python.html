@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% include 'metadata.html' %}
+        {% include 'stylesheets.html' %}
+        {% include 'scripts.html' %}
+        <title>Rey Victor Mendillo | Computer Scientist and Full-Stack Software Engineer</title>
+    </head>
+    <body>
+        <form action="/python" method="post">
+            <textarea id="python_code" name="python_code"></textarea>
+            <div class="g-recaptcha" data-sitekey="6Lfq6-QdAAAAACk4wX-YuRhedQk23IYm1ZaodOPE"></div>
+            <br />
+            <button type="submit">Run Code</button>
+        </form>
+        {% include 'facebook_integration.html' %}
+        {% include 'adsense_integration.html' %}
+        {% if output %}
+        <textarea readonly="readonly">{{output}}</textarea>
+        {% elif error %}
+        <textarea readonly="readonly">{{error}}</textarea>
+        {% endif %}
+    </body>
+</html>
