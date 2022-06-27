@@ -3,13 +3,10 @@
     <div class="row center_y">
         <div class="column">
             <h1>MIDI Player</h1>
-            <midi-visualizer type="waterfall" id="mainVisualizer" src="https://cdn.jsdelivr.net/gh/cifkao/html-midi-player@2b12128/jazz.mid" style="border: 0px;"></midi-visualizer>
-            <midi-visualizer type="piano-roll" id="mainVisualizer" src="https://cdn.jsdelivr.net/gh/cifkao/html-midi-player@2b12128/jazz.mid" style="border-radius: 0px;"></midi-visualizer>
-            <midi-visualizer type="staff" id="mainVisualizer" src="https://cdn.jsdelivr.net/gh/cifkao/html-midi-player@2b12128/jazz.mid" style="border-radius: 0px;"></midi-visualizer>
-            <midi-player src="https://cdn.jsdelivr.net/gh/cifkao/html-midi-player@2b12128/jazz.mid" sound-font="" visualizer="#mainVisualizer" id="mainPlayer"></midi-player>
+            <midi-visualizer type="waterfall" id="mainVisualizer" src="../static/files/A Lovely Dream.mid" style="border: 0px;"></midi-visualizer>
+            <midi-player src="../static/files/A Lovely Dream.mid" sound-font="" visualizer="#mainVisualizer" id="mainPlayer"></midi-player>
             <label for="midiFile">Load MIDI file:</label>
             <input type="file" id="midiFile" name="midiFile" accept="audio/midi, audio/x-midi" />
-            <a class="button" href="https://www.linkedin.com/in/rvmendillo/">Upload MIDI File</a>
         </div>
     </div>
 </section>
