@@ -62,7 +62,7 @@ header, section {
 	flex: 1;
 }
 
-.multicolumn .column {
+.multicolumn.column {
 	align-self: stretch;
 }
 
@@ -211,6 +211,10 @@ h3#description {
 }
 
 @media only screen and (max-width: 992px) {
+	html, body {
+		font-size: 0.75rem;
+	}
+
 	.column_2 {
 		flex: 1;
 	}
