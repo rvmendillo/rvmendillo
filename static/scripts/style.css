@@ -60,6 +60,9 @@ header, section {
 
 .column {
 	flex: 1;
+}
+
+.multicolumn .column {
 	align-self: stretch;
 }
 
