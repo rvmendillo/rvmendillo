@@ -210,7 +210,7 @@ h3#description {
 	}
 }
 
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 1024px) {
 	html, body {
 		font-size: 0.75rem;
 	}
