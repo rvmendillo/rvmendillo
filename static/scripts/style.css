@@ -194,6 +194,7 @@ h4 {
 
 	header .row {
 		flex-direction: column-reverse;
+		justify-content: center;
 	}
 
 	#logo {
