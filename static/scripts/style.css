@@ -182,6 +182,7 @@ h3#description {
 
 	.column {
 		width: 100%;
+		align-items: center;
 	}
 
 	#logo {
