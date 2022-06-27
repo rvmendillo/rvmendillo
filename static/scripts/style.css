@@ -147,6 +147,7 @@ h4 {
 	transition: ease-out 0.4s;
 	margin-right: 0.75rem;
 	font-family: 'Montserrat Hairline', Helvetica;
+	font-size: 1rem;
 }
 
 .first_background .button, header .button {
@@ -163,6 +164,7 @@ h4 {
 
 .button:hover {
 	box-shadow: inset -35rem 0 0 0 white;
+	cursor: pointer;
 }
 
 .first_background .button:hover, header .button:hover {
