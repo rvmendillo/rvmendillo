@@ -185,7 +185,7 @@ h4 {
 		text-align: center;
 	}
 
-	.row {
+	.multicolumn.row {
 		flex-direction: column;
 		gap: 0;
 		padding: 0;
@@ -193,10 +193,6 @@ h4 {
 
 	header .row {
 		flex-direction: column-reverse;
-	}
-
-	.column {
-		width: 100%;
 	}
 
 	#logo {
