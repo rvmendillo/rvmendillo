@@ -1,13 +1,13 @@
 {% filter indent(width=8) %}
 <section class="padding second_background">
-    <div class="row center_y multicolumn">
+    <div class="row center_y">
         <div class="column">
             <h1>Projects</h1>
         </div>
     </div>
     {% for project in project_list %}
         {% if loop.index % 3 == 1 %}
-            <div class="row center_y">
+            <div class="row center_y multicolumn">
         {% endif %}
         <div class="column">
             <h2>{{project['name']}}</h2>
