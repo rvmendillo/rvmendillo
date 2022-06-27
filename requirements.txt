@@ -5,3 +5,4 @@ rvmendillo-image-to-ascii
 requests
 matplotlib
 numpy
+music21

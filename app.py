@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request, redirect
 from database import *
 from skirt_sloper import *
+from midi_to_relative_scale import *
 from os import remove
 from io import BytesIO
 from base64 import b64encode
@@ -142,6 +143,25 @@ def create_project():
 @app.route('/project/<name>', methods=['GET'])
 def view_project_info(name=None):
     project = search_entry(projects, {'path': name})
+
+    if request.method == 'POST':
+        if name == 'midi_to_relative_scale':
+            midi_file = request.files['midi_file']
+            midi_path = 'static/files/' + midi_file.filename
+            midi_file.save(midi_path)
+            to_relative_scale(midi_path)
+            with open('static/files/output.mid', 'rb') as midi_file:
+                temporary_file = midi_file.read()
+            remove(midi_path)
+            base64_string = b64encode(temporary_file.getvalue())
+            return render_template('project.html', name=project['name'],
+                                                   category=project['category'],
+                                                   description=project['description'],
+                                                   github=project['github'],
+                                                   demo=project['demo'],
+                                                   path=project['path'],
+                                                   base64_string=base64_string.decode())
+
     return render_template('project.html', name=project['name'],
                                            category=project['category'],
                                            description=project['description'],
