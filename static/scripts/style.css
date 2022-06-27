@@ -209,3 +209,13 @@ h3#description {
 		padding: 0% 5%;
 	}
 }
+
+@media only screen and (max-width: 992px) {
+	.column_2 {
+		flex: 1;
+	}
+
+	.padding {
+		padding: 0% 5%;
+	}
+}
