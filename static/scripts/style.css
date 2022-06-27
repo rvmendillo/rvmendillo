@@ -51,7 +51,7 @@ header, section {
 	display: flex;
 	flex: 1;
 	column-gap: 2rem;
-	padding: 1rem 0rem;
+	padding-bottom: 1rem;
 }
 
 .center_y {
