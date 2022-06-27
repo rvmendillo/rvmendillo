@@ -62,7 +62,7 @@ header, section {
 	flex: 1;
 }
 
-.multicolumn.column {
+.multicolumn .column {
 	align-self: stretch;
 }
 
