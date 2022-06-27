@@ -153,7 +153,7 @@ def view_project_info(name=None):
             with open('static/files/output.mid', 'rb') as midi_file:
                 temporary_file = midi_file.read()
             remove(midi_path)
-            base64_string = b64encode(temporary_file.getvalue())
+            base64_string = b64encode(temporary_file)
             return render_template('project.html', name=project['name'],
                                                    category=project['category'],
                                                    description=project['description'],
