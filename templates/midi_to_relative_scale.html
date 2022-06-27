@@ -4,9 +4,12 @@
         <div class="column">
             <h1>MIDI Player</h1>
             <midi-visualizer type="waterfall" id="mainVisualizer" src="../static/files/A Lovely Dream.mid"></midi-visualizer>
-            <midi-player src="../static/files/A Lovely Dream.mid" sound-font="../static/files/MuseScore_General.sf3" visualizer="#mainVisualizer" id="mainPlayer"></midi-player>
-            <label for="midiFile">Load MIDI file:</label>
-            <input type="file" id="midiFile" name="midiFile" accept="audio/midi, audio/x-midi" />
+            <midi-player src="../static/files/A Lovely Dream.mid" sound-font="" visualizer="#mainVisualizer" id="mainPlayer"></midi-player>
+            <form action="/project/midi_to_relative_scale" method="post" enctype="multipart/form-data">
+                <input type="file" id="midi_file" name="midi_file" accept=".mid, .midi" />
+                <br />
+                <button type="submit" class="button">Upload MIDI File</button>
+            </form>
         </div>
     </div>
 </section>
