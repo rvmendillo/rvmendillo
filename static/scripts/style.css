@@ -50,7 +50,7 @@ header, section {
 .row {
 	display: flex;
 	flex: 1;
-	column-gap: 2rem;
+	column-gap: 4rem;
 	padding-bottom: 2rem;
 }
 
@@ -113,7 +113,12 @@ h3#description {
 	font-weight: 150;
 	margin-bottom: 3rem;
 	opacity: 0;
+	text-align: justify;
 	animation: fade_in 1s ease 3s forwards;
+}
+
+h4 {
+	text-align: justify;
 }
 
 #logo {
