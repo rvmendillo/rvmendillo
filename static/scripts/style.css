@@ -50,7 +50,8 @@ header, section {
 .row {
 	display: flex;
 	flex: 1;
-	gap: 2rem;
+	row-gap: 2rem;
+	column-gap: 10rem;
 }
 
 .center_y {
