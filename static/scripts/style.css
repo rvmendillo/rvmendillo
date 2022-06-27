@@ -159,7 +159,7 @@ h3#description {
 }
 
 .padding {
-	padding: 0% 5%;
+	padding: 0% 10%;
 }
 
 @media only screen and (max-width: 768px) {
@@ -173,6 +173,7 @@ h3#description {
 
 	.row {
 		flex-direction: column;
+		gap: 0;
 	}
 
 	header .row {
@@ -193,5 +194,9 @@ h3#description {
 		text-decoration: none;
 		margin-bottom: 2rem;
 		margin-right: 0;
+	}
+
+	.padding {
+		padding: 0% 5%;
 	}
 }
