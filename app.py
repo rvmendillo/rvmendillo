@@ -146,7 +146,8 @@ def view_project_info(name=None):
                                            category=project['category'],
                                            description=project['description'],
                                            github=project['github'],
-                                           demo=project['demo'])
+                                           demo=project['demo'],
+                                           path=project['path'])
 
 if __name__ == '__main__':
     app.run()
