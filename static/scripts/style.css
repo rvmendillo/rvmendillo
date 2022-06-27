@@ -50,7 +50,6 @@ header, section {
 .row {
 	display: flex;
 	flex: 1;
-	row-gap: 20rem;
 	column-gap: 2rem;
 }
 
@@ -60,6 +59,7 @@ header, section {
 
 .column {
 	flex: 1;
+	gap: 20rem;
 }
 
 .column_2 {
