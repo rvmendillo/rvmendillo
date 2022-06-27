@@ -70,6 +70,10 @@ header, section {
 	flex: 2;
 }
 
+.extra_column {
+	display: none;
+}
+
 h1, h2, h3 {
 	margin: 0;
 }
