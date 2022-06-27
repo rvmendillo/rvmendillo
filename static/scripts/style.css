@@ -51,7 +51,8 @@ header, section {
 	display: flex;
 	flex: 1;
 	column-gap: 2rem;
-	padding: 2rem 0rem;
+	padding: 1rem 0rem;
+	justify-content: stretch;
 }
 
 .center_y {
@@ -182,6 +183,7 @@ h3#description {
 	.row {
 		flex-direction: column;
 		gap: 0;
+		padding: 0;
 	}
 
 	header .row {
