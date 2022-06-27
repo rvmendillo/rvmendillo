@@ -89,7 +89,7 @@ h1#name {
 	animation: fade_in 1s ease 1s forwards;
 }
 
-section div:not([class="row center_y"]) .column h1 {
+section .row:not([class="row center_y"]) h1 {
 	margin-top: 2rem;
 	margin-bottom: 0rem;
 }
