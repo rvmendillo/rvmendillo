@@ -140,7 +140,7 @@ def create_project():
 #                            'demo': request.args['demo']})
     return f"Created project {request.args['name']}."
 
-@app.route('/project/<name>', methods=['GET'])
+@app.route('/project/<name>', methods=['GET', 'POST'])
 def view_project_info(name=None):
     project = search_entry(projects, {'path': name})
 
