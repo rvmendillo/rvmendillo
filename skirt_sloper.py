@@ -1,10 +1,16 @@
+# Import Libraries
 from app import app
 from flask import render_template, request
+from io import BytesIO
+from base64 import b64encode
+import requests
 import matplotlib.pyplot as plt
 import numpy as np
 
+# Global
 cm = 1/2.54
 
+# Classes
 class Dimension:
     def __init__(self, full):
         self.full = full
@@ -17,6 +23,7 @@ class Dart:
         self.depth = depth
         self.length = length
 
+# Functions
 def line(x1, y1, x2, y2):
     plt.plot([x1*cm, x2*cm], [y1*cm, y2*cm])
 
@@ -31,6 +38,7 @@ def curve(point1, point2, rotate=False):
         y_middle = np.linspace(point1[1]*cm, point2[1]*cm, 100)
         plt.plot(x, y_middle+(y_middle-y)[::-1])
 
+# Routes
 @app.route('/skirt_sloper', methods=['GET', 'POST'])
 def skirt_sloper():
     if request.method == 'POST':

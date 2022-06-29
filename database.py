@@ -1,4 +1,5 @@
 # Import Libraries
+from app import app
 import pymongo
 
 # Functions
@@ -22,3 +23,20 @@ client = configure_database('admin', 'pass', 'rvmendillo', 'rvmendillo')
 database = client['rvmendillo']
 users = database['users']
 projects = database['projects']
+
+# Routes
+@app.route('/users/new/<username>/<password>', methods=['GET'])
+def create_user(username=None, password=None):
+    create_entry(users, {'username': username,
+                         'password': password})
+    return f'Created user {username}.'
+
+@app.route('/projects/new', methods=['GET'])
+def create_project():
+    create_entry(projects, {'name': request.args['name'],
+                            'category': request.args['category']})
+#                            'description': request.args['description'],
+#                            'image': request.args['image'],
+#                            'github': request.args['github'],
+#                            'demo': request.args['demo']})
+    return f"Created project {request.args['name']}."
