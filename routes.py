@@ -31,7 +31,7 @@ def view_project_info(name=None):
     if request.method == 'POST':
         if name == 'midi_to_relative_scale':
             midi_path = save_file_and_get_path(request.files['midi_file'])
-            return redirect(url_for(name, project=dumps(project), midi_path=dumps(midi_path)), code=307)
+            return redirect(url_for(name, project=dumps(project), midi_path=dumps(midi_path)), code=302)
 
     return render_template('project.html', name=project['name'],
                                            category=project['category'],
