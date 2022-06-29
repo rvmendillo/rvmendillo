@@ -10,7 +10,7 @@
 
 ## Contact
 
-LinkedIn: [https://linkedin.com/in/rvmendillo][linkedin-url]
+LinkedIn: [https://rvmendillo.com/linkedin][linkedin-url]
 
 Website: [https://rvmendillo.com][website-url]
 
@@ -18,7 +18,7 @@ Email: [admin@rvmendillo.com][email-url]
 
 Phone: [+63 923 471 1021][phone-url]
 
-[linkedin-url]: https://linkedin.com/in/rvmendillo
+[linkedin-url]: http://rvmendillo.com/linkedin
 [website-url]: http://rvmendillo.com
 [email-url]: http://rvmendillo.com/email
 [phone-url]: http://rvmendillo.com/call
