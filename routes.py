@@ -1,4 +1,4 @@
-from app import flask_app
+from .app import app
 from flask import render_template, request, redirect, url_for
 from database import *
 from skirt_sloper import *
@@ -10,21 +10,21 @@ from rvmendillo_image_to_ascii import ImageToASCII
 import requests
 import subprocess
 
-@flask_app.route('/', methods=['GET'])
+@app.route('/', methods=['GET'])
 def home():
     project_list = search_all(projects)
     return render_template('index.html', project_list=project_list)
 
-@flask_app.route('/resume', methods=['GET'])
+@app.route('/resume', methods=['GET'])
 def download_resume():
     return redirect("http://www.rvmendillo.com/static/files/Resume.pdf", code=302)
 
-@flask_app.route('/projects', methods=['GET'])
+@app.route('/projects', methods=['GET'])
 def go_to_projects():
     project_list = search_all(projects)
     return render_template('index.html', project_list=project_list, forced_link=True)
 
-@flask_app.route('/image_to_ascii', methods=['GET', 'POST'])
+@app.route('/image_to_ascii', methods=['GET', 'POST'])
 def image_to_ascii():
     if request.method == 'POST':
         response = requests.post('https://www.google.com/recaptcha/api/siteverify', data={'secret': '6Lfq6-QdAAAAAI6KgavwJfqdPq-FdQFoogEngYTv',
@@ -42,7 +42,7 @@ def image_to_ascii():
             return 'reCAPTCHA validation failed.'
     return render_template('image_to_ascii.html')
 
-@flask_app.route('/python', methods=['GET', 'POST'])
+@app.route('/python', methods=['GET', 'POST'])
 def python():
     if request.method == 'POST':
         response = requests.post('https://www.google.com/recaptcha/api/siteverify', data={'secret': '6Lfq6-QdAAAAAI6KgavwJfqdPq-FdQFoogEngYTv',
@@ -61,13 +61,13 @@ def python():
             return 'reCAPTCHA validation failed.'
     return render_template('python.html')
 
-@flask_app.route('/users/new/<username>/<password>', methods=['GET'])
+@app.route('/users/new/<username>/<password>', methods=['GET'])
 def create_user(username=None, password=None):
     create_entry(users, {'username': username,
                          'password': password})
     return f'Created user {username}.'
 
-@flask_app.route('/projects/new', methods=['GET'])
+@app.route('/projects/new', methods=['GET'])
 def create_project():
     create_entry(projects, {'name': request.args['name'],
                             'category': request.args['category']})
@@ -77,7 +77,7 @@ def create_project():
 #                            'demo': request.args['demo']})
     return f"Created project {request.args['name']}."
 
-@flask_app.route('/project/<name>', methods=['GET', 'POST'])
+@app.route('/project/<name>', methods=['GET', 'POST'])
 def view_project_info(name=None):
     project = search_entry(projects, {'path': name})
 
