@@ -1,5 +1,5 @@
 # Import Libraries
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from database import *
 from skirt_sloper import *
 from midi_to_relative_scale import *
@@ -19,6 +19,11 @@ app.jinja_env.trim_blocks = True
 def home():
     project_list = search_all(projects)
     return render_template('index.html', project_list=project_list)
+
+@app.route('/projects', methods=['GET'])
+def projects():
+    return redirect(url_for('home', _anchor='projects'))
+
 
 @app.route('/resume', methods=['GET'])
 def download_resume():
