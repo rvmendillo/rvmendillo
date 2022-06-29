@@ -9,12 +9,12 @@
         {% if loop.index % 3 == 1 %}
             <div class="row multicolumn">
         {% endif %}
-        <div class="column">
-            <h2 data-aos="fade-up">{{project['name']}}</h2>
-            <h3 data-aos="fade-up">{{project['category']}}</h3>
-            <h4 data-aos="fade-up">{{project['description']}}</h4>
-            <a class="button" href="{{project['github']}}" data-aos="zoom-in"><span class="fab fa-github fa-lg"></span></a>
-            <a class="button" href="{{project['demo']}}" data-aos="zoom-in">Live Demo</a>
+        <div class="column" data-aos="zoom-in">
+            <h2>{{project['name']}}</h2>
+            <h3>{{project['category']}}</h3>
+            <h4>{{project['description']}}</h4>
+            <a class="button" href="{{project['github']}}"><span class="fab fa-github fa-lg"></span></a>
+            <a class="button" href="{{project['demo']}}">Live Demo</a>
         </div>
         {% if loop.index % 3 == 0 %}
             </div>
