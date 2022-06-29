@@ -16,7 +16,7 @@ from captcha import *
 # Routes
 @app.route('/', methods=['GET'])
 def home():
-    project_list = search_all(projects)
+    project_list = search_all(projects).sort('name')
     return render_template('index.html', project_list=project_list)
 
 @app.route('/projects', methods=['GET'])
