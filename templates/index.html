@@ -6,7 +6,11 @@
         {% include 'scripts.html' %}
         <title>Rey Victor Mendillo | Computer Scientist</title>
     </head>
-    <body>
+    {% if forced_link %}
+        <body onload="go_to_projects();">
+    {% else %}
+        <body>
+    {% endif %}    
         {% include 'header.html' %}
         {% include 'projects.html' %}
         {% include 'contact.html' %}
