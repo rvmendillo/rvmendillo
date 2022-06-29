@@ -25,6 +25,8 @@ def go_to_projects():
 @app.route('/project/<name>', methods=['GET', 'POST'])
 def view_project_info(name=None):
     project = search_entry(projects, {'path': name})
+    print(type(project))
+    print(type(request.files))
 
     if request.method == 'POST':
         if name == 'midi_to_relative_scale':
