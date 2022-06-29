@@ -1,4 +1,4 @@
-from __init__ import *
+from __main__ import *
 from flask import render_template, request, redirect, url_for
 from database import *
 from skirt_sloper import *
