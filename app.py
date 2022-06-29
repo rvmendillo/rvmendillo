@@ -26,7 +26,8 @@ def download_resume():
 
 @app.route('/projects', methods=['GET'])
 def go_to_projects():
-    return redirect(url_for('home') + '#projects', code=302)
+    project_list = search_all(projects)
+    return render_template('index.html', project_list=project_list, forced_link=True)
 
 @app.route('/image_to_ascii', methods=['GET', 'POST'])
 def image_to_ascii():
