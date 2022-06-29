@@ -1,10 +1,12 @@
 # Main Libraries
 from app import app
 from flask import render_template, request, redirect, url_for
+from json import dumps
 
 # Projects
 from database import *
 from skirt_sloper import *
+from midi_to_relative_scale import *
 from image_to_ascii import *
 from python import *
 from redirects import *
@@ -26,7 +28,7 @@ def view_project_info(name=None):
 
     if request.method == 'POST':
         if name == 'midi_to_relative_scale':
-            from midi_to_relative_scale import *
+            return redirect(url_for(name), project=dumps(project), files=dumps(request.files) code=307)
 
     return render_template('project.html', name=project['name'],
                                            category=project['category'],
