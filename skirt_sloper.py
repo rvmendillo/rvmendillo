@@ -1,4 +1,4 @@
-from __main__ import *
+from __main__ import app
 from flask import render_template, request
 import matplotlib.pyplot as plt
 import numpy as np
