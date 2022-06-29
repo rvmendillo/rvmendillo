@@ -21,7 +21,7 @@ def home():
 
 @app.route('/projects', methods=['GET'])
 def go_to_projects():
-    project_list = search_all(projects)
+    project_list = search_all(projects).sort('name')
     return render_template('index.html', project_list=project_list, forced_link=True)
 
 @app.route('/project/<name>', methods=['GET', 'POST'])
