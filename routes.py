@@ -31,8 +31,8 @@ def view_project_info(name=None):
             midi_file = request.files['midi_file']
             midi_path = 'static/files/' + midi_file.filename
             midi_file.save(midi_path)
-            print(project.pop('_id'))
-            return redirect(url_for(name), project=dumps(project.pop('_id')), midi_path=dumps(midi_path), code=307)
+            project.pop('_id')
+            return redirect(url_for(name), project=dumps(project), midi_path=dumps(midi_path), code=307)
 
     return render_template('project.html', name=project['name'],
                                            category=project['category'],
