@@ -17,9 +17,7 @@ def to_relative_scale(midi_path):
 @app.route('/midi_to_relative_scale', methods=['GET', 'POST'])
 def midi_to_relative_scale():
     project = loads(request.args['project'])
-    midi_file = loads(request.args['files'])
-    midi_path = 'static/files/' + midi_file.filename
-    midi_file.save(midi_path)
+    midi_path = loads(request.args['midi_path'])
     to_relative_scale(midi_path)
     with open('static/files/output.mid', 'rb') as midi_file:
         temporary_file = midi_file.read()
