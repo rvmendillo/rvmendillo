@@ -1,4 +1,6 @@
-def save_file_and_get_path(file, filename=file.filename):
+def save_file_and_get_path(file, filename=None):
+    if not filename:
+        filename = file.filename
     file_path = 'static/files/' + filename
     file.save(file_path)
     return file_path
