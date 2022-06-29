@@ -14,11 +14,11 @@ def python_compiler():
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     output, error = process.communicate()
     remove(code_path)
-    return render_template('python_compiler.html', name=project['name'],
-                                                   category=project['category'],
-                                                   description=project['description'],
-                                                   github=project['github'],
-                                                   demo=project['demo'],
-                                                   path=project['path'],
-                                                   output=output,
-                                                   error=error)
+    return render_template('project.html', name=project['name'],
+                                           category=project['category'],
+                                           description=project['description'],
+                                           github=project['github'],
+                                           demo=project['demo'],
+                                           path=project['path'],
+                                           output=output,
+                                           error=error)

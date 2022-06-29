@@ -96,10 +96,10 @@ def skirt_sloper():
     temporary_file = BytesIO()
     plt.savefig(temporary_file, format='pdf', dpi=int(request.form['dpi']), bbox_inches='tight', pad_inches=0)
     base64_string = b64encode(temporary_file.getvalue())
-    return render_template('skirt_sloper.html', name=project['name'],
-                                                category=project['category'],
-                                                description=project['description'],
-                                                github=project['github'],
-                                                demo=project['demo'],
-                                                path=project['path'],
-                                                base64_string=base64_string.decode())
+    return render_template('project.html', name=project['name'],
+                                           category=project['category'],
+                                           description=project['description'],
+                                           github=project['github'],
+                                           demo=project['demo'],
+                                           path=project['path'],
+                                           base64_string=base64_string.decode())
