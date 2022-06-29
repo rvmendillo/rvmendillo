@@ -45,6 +45,11 @@ def view_project_info(name=None):
                 image_path = save_file_and_get_path(request.files['image_file'])
                 return redirect(url_for(name, project=dumps(project), image_path=dumps(image_path)), code=302)
             return 'reCAPTCHA validation failed.'
+        elif name == 'python_compiler':
+            if verify_captcha():
+                code_path = save_text_and_get_path(request.form['python_code'])
+                return redirect(url_for(name, project=dumps(project), code_path=dumps(code_path)), code=302)
+            return 'reCAPTCHA validation failed.'
 
     return render_template('project.html', name=project['name'],
                                            category=project['category'],
