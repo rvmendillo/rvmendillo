@@ -20,10 +20,6 @@ def home():
     project_list = search_all(projects)
     return render_template('index.html', project_list=project_list)
 
-@app.route('/projects', methods=['GET'])
-def projects():
-    return redirect(url_for('home') + '#projects')
-
 @app.route('/resume', methods=['GET'])
 def download_resume():
     return redirect("http://www.rvmendillo.com/static/files/Resume.pdf", code=302)
