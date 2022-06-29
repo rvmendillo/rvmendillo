@@ -1,4 +1,4 @@
-from __main__ import app
+from app import flask_app
 from flask import render_template, request
 import matplotlib.pyplot as plt
 import numpy as np
@@ -31,7 +31,7 @@ def curve(point1, point2, rotate=False):
         y_middle = np.linspace(point1[1]*cm, point2[1]*cm, 100)
         plt.plot(x, y_middle+(y_middle-y)[::-1])
 
-@app.route('/skirt_sloper', methods=['GET', 'POST'])
+@flask_app.route('/skirt_sloper', methods=['GET', 'POST'])
 def skirt_sloper():
     if request.method == 'POST':
         response = requests.post('https://www.google.com/recaptcha/api/siteverify', data={'secret': '6Lfq6-QdAAAAAI6KgavwJfqdPq-FdQFoogEngYTv',
