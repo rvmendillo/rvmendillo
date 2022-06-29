@@ -22,7 +22,7 @@ def home():
 
 @app.route('/projects', methods=['GET'])
 def projects():
-    return redirect(url_for('home', anchor='projects'))
+    return redirect(url_for('home') + '#projects')
 
 @app.route('/resume', methods=['GET'])
 def download_resume():
