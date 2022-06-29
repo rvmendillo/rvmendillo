@@ -25,18 +25,16 @@ def go_to_projects():
 @app.route('/project/<name>', methods=['GET', 'POST'])
 def view_project_info(name=None):
     project = search_entry(projects, {'path': name})
-    print(type(project))
-    print(type(request.files))
-    print(project)
-    print(request.files)
-    print(request.files['midi_file'])
-    print(request.files.to_dict())
-    print(request.files.to_dict(flat=False))
-    print(request.files.to_dict(flat=False)['midi_file'])
 
     if request.method == 'POST':
         if name == 'midi_to_relative_scale':
-            return redirect(url_for(name), project=dumps(project), files=dumps(request.files['midi_file']), code=307)
+            print(type(request.files))
+            print(request.files)
+            print(request.files['midi_file'])
+            print(request.files.to_dict())
+            print(request.files.to_dict(flat=False))
+            print(request.files.to_dict(flat=False)['midi_file'])
+            return redirect(url_for(name), project=dumps(project.pop('_id')), files=dumps(request.files['midi_file']), code=307)
 
     return render_template('project.html', name=project['name'],
                                            category=project['category'],
