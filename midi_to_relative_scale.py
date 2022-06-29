@@ -24,9 +24,9 @@ def midi_to_relative_scale():
     remove(midi_path)
     base64_string = b64encode(temporary_file)
     return render_template('project.html', name=project['name'],
-                                            category=project['category'],
-                                            description=project['description'],
-                                            github=project['github'],
-                                            demo=project['demo'],
-                                            path=project['path'],
-                                            base64_string=base64_string.decode())
+                                           category=project['category'],
+                                           description=project['description'],
+                                           github=project['github'],
+                                           demo=project['demo'],
+                                           path=project['path'],
+                                           base64_string=base64_string.decode())

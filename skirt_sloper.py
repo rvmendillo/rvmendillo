@@ -3,6 +3,7 @@ from app import app
 from flask import render_template, request
 from io import BytesIO
 from base64 import b64encode
+from json import loads
 import requests
 import matplotlib.pyplot as plt
 import numpy as np
@@ -41,63 +42,64 @@ def curve(point1, point2, rotate=False):
 # Routes
 @app.route('/skirt_sloper', methods=['GET', 'POST'])
 def skirt_sloper():
-    if request.method == 'POST':
-        response = requests.post('https://www.google.com/recaptcha/api/siteverify', data={'secret': '6Lfq6-QdAAAAAI6KgavwJfqdPq-FdQFoogEngYTv',
-                                                                                          'response': request.form['g-recaptcha-response']})
-        if response.json()['success']:
-            waist = Dimension(float(request.form['waist']))
-            waist_ease = Dimension(float(request.form['waist_ease']))
-            hip = Dimension(float(request.form['hip']))
-            hip_height = Dimension(float(request.form['hip_height']))
-            hip_ease = Dimension(float(request.form['hip_ease']))
-            length = Dimension(float(request.form['length']))
-            setattr(waist, 'back', waist.fourth - 0.75 + waist_ease.fourth)
-            setattr(waist, 'front', waist.fourth + 0.75 + waist_ease.fourth)
-            setattr(hip, 'back', hip.fourth - 0.5 + hip_ease.fourth)
-            setattr(hip, 'front', hip.fourth + 0.5 + hip_ease.fourth)
-            back_dart = Dart(float(request.form['back_dart']), hip_height.full * 0.75)
-            front_dart = Dart(float(request.form['front_dart']), hip_height.full * 0.5)
-            side_seam_balance = ((hip.half+hip_ease.half) - (waist.half+waist_ease.half) - (front_dart.depth+back_dart.depth)) / 2
-            setattr(hip, 'total', hip.back + hip.front)
+    project = loads(request.args['project'])
 
-            plt.figure(figsize=(hip.total*cm, (length.full+1.5)*cm))
+    waist = Dimension(float(request.form['waist']))
+    waist_ease = Dimension(float(request.form['waist_ease']))
+    hip = Dimension(float(request.form['hip']))
+    hip_height = Dimension(float(request.form['hip_height']))
+    hip_ease = Dimension(float(request.form['hip_ease']))
+    length = Dimension(float(request.form['length']))
+    setattr(waist, 'back', waist.fourth - 0.75 + waist_ease.fourth)
+    setattr(waist, 'front', waist.fourth + 0.75 + waist_ease.fourth)
+    setattr(hip, 'back', hip.fourth - 0.5 + hip_ease.fourth)
+    setattr(hip, 'front', hip.fourth + 0.5 + hip_ease.fourth)
+    back_dart = Dart(float(request.form['back_dart']), hip_height.full * 0.75)
+    front_dart = Dart(float(request.form['front_dart']), hip_height.full * 0.5)
+    side_seam_balance = ((hip.half+hip_ease.half) - (waist.half+waist_ease.half) - (front_dart.depth+back_dart.depth)) / 2
+    setattr(hip, 'total', hip.back + hip.front)
 
-            # Back
-            line(0, -1.5, 0, -(1.5+length.full)) # 1
-            line(0, -1.5, hip.back, -1.5) # 3
-            line(0, -(1.5+hip_height.full), hip.total, -(1.5+hip_height.full)) # 4
-            line(0, -(1.5+length.full), hip.total, -(1.5+length.full)) # 4
-            line(hip.back, -(1.5+hip_height.full), hip.back, 0) # 6
-            line(hip.back, -(1.5+hip_height.full), hip.back, -(1.5+length.full)) # 6
-            line(hip.back-side_seam_balance, 0, hip.total, 0) # 7
-            line((hip.twelfth*2+back_dart.depth)/2, -1.5, (hip.twelfth*2+back_dart.depth)/2, -(1.5+hip_height.full)) # 10
-            curve([hip.twelfth/2, -1.5], [hip.back-side_seam_balance, 0]) # 12
-            line((hip.twelfth*2+back_dart.depth)/2, -(1.5+back_dart.length), hip.twelfth, -1.5) # 14
-            line((hip.twelfth*2+back_dart.depth)/2, -(1.5+back_dart.length), hip.twelfth+back_dart.depth, -1.5) # 14
+    plt.figure(figsize=(hip.total*cm, (length.full+1.5)*cm))
 
-            # Front
-            line(hip.total, -(1.5+length.full), hip.total, -(1.5-0.8)) # 2
-            line(hip.total, -(1.5-0.8), hip.total-hip.front, -(1.5-0.8)) # 3
-            line(hip.total, -(1.5-0.8), hip.total-hip.twelfth, -(1.5-0.8)) # 4
-            line(hip.total-hip.twelfth, -(1.5-0.8), hip.total-hip.twelfth-front_dart.depth, -(1.5-0.8)) # 5
-            line(((hip.total-hip.twelfth)+(hip.total-hip.twelfth-front_dart.depth))/2, -(1.5-0.8), ((hip.total-hip.twelfth)+(hip.total-hip.twelfth-front_dart.depth))/2, -(1.5+hip_height.full)) # 6
-            curve([((hip.total)+(hip.total-hip.twelfth))/2, -(1.5-0.8)], [hip.back+side_seam_balance, 0], rotate=True) # 8
-            line(((hip.total-hip.twelfth)+(hip.total-hip.twelfth-front_dart.depth))/2, -(1.5+front_dart.length), hip.total-hip.twelfth, -(1.5-0.8)) # 10
-            line(((hip.total-hip.twelfth)+(hip.total-hip.twelfth-front_dart.depth))/2, -(1.5+front_dart.length), hip.total-hip.twelfth-front_dart.depth, -(1.5-0.8)) # 10
+    # Back
+    line(0, -1.5, 0, -(1.5+length.full)) # 1
+    line(0, -1.5, hip.back, -1.5) # 3
+    line(0, -(1.5+hip_height.full), hip.total, -(1.5+hip_height.full)) # 4
+    line(0, -(1.5+length.full), hip.total, -(1.5+length.full)) # 4
+    line(hip.back, -(1.5+hip_height.full), hip.back, 0) # 6
+    line(hip.back, -(1.5+hip_height.full), hip.back, -(1.5+length.full)) # 6
+    line(hip.back-side_seam_balance, 0, hip.total, 0) # 7
+    line((hip.twelfth*2+back_dart.depth)/2, -1.5, (hip.twelfth*2+back_dart.depth)/2, -(1.5+hip_height.full)) # 10
+    curve([hip.twelfth/2, -1.5], [hip.back-side_seam_balance, 0]) # 12
+    line((hip.twelfth*2+back_dart.depth)/2, -(1.5+back_dart.length), hip.twelfth, -1.5) # 14
+    line((hip.twelfth*2+back_dart.depth)/2, -(1.5+back_dart.length), hip.twelfth+back_dart.depth, -1.5) # 14
 
-            # Trace
-            curve([hip.back, -(1.5+back_dart.length), ((-(1.5+back_dart.length))+((-(1.5+back_dart.length))/2))/2], [hip.back-side_seam_balance, 0]) # 1
-            curve([hip.back, -(1.5+back_dart.length), ((-(1.5+back_dart.length))+((-(1.5+back_dart.length))/2))/2], [hip.back+side_seam_balance, 0], rotate=True) # 2
+    # Front
+    line(hip.total, -(1.5+length.full), hip.total, -(1.5-0.8)) # 2
+    line(hip.total, -(1.5-0.8), hip.total-hip.front, -(1.5-0.8)) # 3
+    line(hip.total, -(1.5-0.8), hip.total-hip.twelfth, -(1.5-0.8)) # 4
+    line(hip.total-hip.twelfth, -(1.5-0.8), hip.total-hip.twelfth-front_dart.depth, -(1.5-0.8)) # 5
+    line(((hip.total-hip.twelfth)+(hip.total-hip.twelfth-front_dart.depth))/2, -(1.5-0.8), ((hip.total-hip.twelfth)+(hip.total-hip.twelfth-front_dart.depth))/2, -(1.5+hip_height.full)) # 6
+    curve([((hip.total)+(hip.total-hip.twelfth))/2, -(1.5-0.8)], [hip.back+side_seam_balance, 0], rotate=True) # 8
+    line(((hip.total-hip.twelfth)+(hip.total-hip.twelfth-front_dart.depth))/2, -(1.5+front_dart.length), hip.total-hip.twelfth, -(1.5-0.8)) # 10
+    line(((hip.total-hip.twelfth)+(hip.total-hip.twelfth-front_dart.depth))/2, -(1.5+front_dart.length), hip.total-hip.twelfth-front_dart.depth, -(1.5-0.8)) # 10
 
-            plt.subplots_adjust(top=1, bottom=0, right=1, left=0, hspace=0, wspace=0)
-            plt.margins(0, 0)
-            plt.yticks(np.arange(-(length.full+1.5)*cm, 0, 1.0))
-            plt.xticks(np.arange(0, (hip.total+1)*cm, 1.0))
+    # Trace
+    curve([hip.back, -(1.5+back_dart.length), ((-(1.5+back_dart.length))+((-(1.5+back_dart.length))/2))/2], [hip.back-side_seam_balance, 0]) # 1
+    curve([hip.back, -(1.5+back_dart.length), ((-(1.5+back_dart.length))+((-(1.5+back_dart.length))/2))/2], [hip.back+side_seam_balance, 0], rotate=True) # 2
 
-            temporary_file = BytesIO()
-            plt.savefig(temporary_file, format='pdf', dpi=int(request.form['dpi']), bbox_inches='tight', pad_inches=0)
-            base64_string = b64encode(temporary_file.getvalue())
-            return render_template('skirt_sloper.html', base64_string=base64_string.decode())
-        else:
-            return 'reCAPTCHA validation failed.'
-    return render_template('skirt_sloper.html')
+    plt.subplots_adjust(top=1, bottom=0, right=1, left=0, hspace=0, wspace=0)
+    plt.margins(0, 0)
+    plt.yticks(np.arange(-(length.full+1.5)*cm, 0, 1.0))
+    plt.xticks(np.arange(0, (hip.total+1)*cm, 1.0))
+
+    temporary_file = BytesIO()
+    plt.savefig(temporary_file, format='pdf', dpi=int(request.form['dpi']), bbox_inches='tight', pad_inches=0)
+    base64_string = b64encode(temporary_file.getvalue())
+    return render_template('skirt_sloper.html', name=project['name'],
+                                                category=project['category'],
+                                                description=project['description'],
+                                                github=project['github'],
+                                                demo=project['demo'],
+                                                path=project['path'],
+                                                base64_string=base64_string.decode())
