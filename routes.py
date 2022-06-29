@@ -8,7 +8,7 @@ from database import *
 from skirt_sloper import *
 from midi_to_relative_scale import *
 from image_to_ascii import *
-from python import *
+from python_compiler import *
 from redirects import *
 from save_file import *
 from captcha import *
