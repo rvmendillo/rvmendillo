@@ -24,6 +24,10 @@ def home():
 def download_resume():
     return redirect("http://www.rvmendillo.com/static/files/Resume.pdf", code=302)
 
+@app.route('/projects', methods=['GET'])
+def go_to_projects():
+    return redirect(url_for('home' + '#projects'), code=302)
+
 @app.route('/image_to_ascii', methods=['GET', 'POST'])
 def image_to_ascii():
     if request.method == 'POST':
