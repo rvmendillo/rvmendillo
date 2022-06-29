@@ -22,7 +22,7 @@ def search_all(table):
 client = configure_database('admin', 'pass', 'rvmendillo', 'rvmendillo')
 database = client['rvmendillo']
 users = database['users']
-projects = database['projects']
+projects = database['projects'].sort('name')
 
 # Routes
 @app.route('/users/new/<username>/<password>', methods=['GET'])
