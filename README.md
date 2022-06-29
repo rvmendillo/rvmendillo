@@ -14,9 +14,11 @@ LinkedIn: [https://linkedin.com/in/rvmendillo][linkedin-url]
 
 Website: [https://rvmendillo.com][website-url]
 
-Email: admin@rvmendillo.com
+Email: [admin@rvmendillo.com][email-url]
 
-Phone: +63 923 471 1021
+Phone: [+63 923 471 1021][phone-url]
 
 [linkedin-url]: https://linkedin.com/in/rvmendillo
 [website-url]: http://rvmendillo.com
+[email-url]: http://rvmendillo.com/email
+[phone-url]: http://rvmendillo.com/call
