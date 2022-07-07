@@ -9,7 +9,7 @@ import requests
 def image_to_ascii():
     project = loads(request.args['project'])
     image_path = loads(request.args['image_path'])
-    image_to_ascii_converter = ImageToASCII(image_path)
+    image_to_ascii_converter = ImageToASCII(image_path, source='url')
     inverted_colored_ascii_image = image_to_ascii_converter.generate_colored_ascii_image(300)
     base64_string = image_to_ascii_converter.convert_image_to_base64(inverted_colored_ascii_image)
     remove(image_path)

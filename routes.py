@@ -42,7 +42,9 @@ def view_project_info(name=None):
             return 'reCAPTCHA validation failed.'
         elif name == 'image_to_ascii':
             if verify_captcha():
-                image_path = save_file_and_get_path(request.files['image_file'])
+                if request.files['image_file']:
+                    image_path = save_file_and_get_path(request.files['image_file'])
+                image_path = request.form['image_url']
                 return redirect(url_for(name, project=dumps(project), image_path=dumps(image_path)), code=302)
             return 'reCAPTCHA validation failed.'
         elif name == 'python_compiler':
