@@ -3,12 +3,14 @@
     <div class="row center_y">
         <div class="column">
             <h1>Chatroom</h1>
-            <div id="chat_history"></div>
+            <div id="chat_history" style="height: 300px; overflow: auto;"></div>
+            <br />
             <label for="chat_username">Username</label>
             <input id="chat_username" name="chat_username" />
             <br />
             <label for="chat_message">Message</label>
             <input id="chat_message" name="chat_message" />
+            <br />
             <br />
             <button onclick="send_message();" class="button">Send Message</button>
             <script src="../static/scripts/realtime_chat.js"></script>
