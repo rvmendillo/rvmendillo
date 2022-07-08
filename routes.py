@@ -12,6 +12,7 @@ from python_compiler import *
 from redirects import *
 from save_file import *
 from captcha import *
+from realtime_chat import *
 
 # Routes
 @app.route('/', methods=['GET'])

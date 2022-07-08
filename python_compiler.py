@@ -2,7 +2,6 @@ from app import app
 from flask import render_template, request
 from os import remove
 from json import loads
-import requests
 import subprocess
 
 @app.route('/python_compiler', methods=['GET', 'POST'])

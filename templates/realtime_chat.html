@@ -1,0 +1,18 @@
+{% filter indent(width=8) %}
+<section class="padding second_background">
+    <div class="row center_y">
+        <div class="column">
+            <h1>Chatroom</h1>
+            <div id="chat_history"></div>
+            <label for="chat_username">Username</label>
+            <input id="chat_username" name="chat_username" />
+            <br />
+            <label for="chat_message">Message</label>
+            <input id="chat_message" name="chat_message" />
+            <br />
+            <button onclick="send_message();" class="button">Send Message</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endfilter %}

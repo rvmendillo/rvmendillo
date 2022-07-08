@@ -3,7 +3,6 @@ from flask import render_template, request
 from os import remove
 from rvmendillo_image_to_ascii import ImageToASCII
 from json import loads
-import requests
 
 @app.route('/image_to_ascii', methods=['GET', 'POST'])
 def image_to_ascii():

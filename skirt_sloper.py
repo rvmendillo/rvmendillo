@@ -4,7 +4,6 @@ from flask import render_template, request
 from io import BytesIO
 from base64 import b64encode
 from json import loads
-import requests
 import matplotlib.pyplot as plt
 import numpy as np
 
