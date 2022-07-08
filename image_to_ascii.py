@@ -12,7 +12,7 @@ def image_to_ascii():
     image_to_ascii_converter = ImageToASCII(image_path, source='url')
     inverted_colored_ascii_image = image_to_ascii_converter.generate_colored_ascii_image(300)
     base64_string = image_to_ascii_converter.convert_image_to_base64(inverted_colored_ascii_image)
-    remove(image_path)
+    #remove(image_path)
     return render_template('project.html', name=project['name'],
                                            category=project['category'],
                                            description=project['description'],
