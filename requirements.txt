@@ -1,8 +1,11 @@
 flask
 gunicorn
 pymongo[srv]
-rvmendillo-image-to-ascii==1.6.1
+rvmendillo-image-to-ascii==1.6.2
 requests
 matplotlib
 numpy
 music21
+Flask-SocketIO
+eventlet
+gevent-websocket
