@@ -7,15 +7,41 @@ from json import loads
 @app.route('/image_to_ascii', methods=['GET', 'POST'])
 def image_to_ascii():
     project = loads(request.args['project'])
+    input_type = loads(request.args['input_type'])
     image_path = loads(request.args['image_path'])
-    image_to_ascii_converter = ImageToASCII(image_path, source='url')
-    inverted_colored_ascii_image = image_to_ascii_converter.generate_colored_ascii_image(300)
-    base64_string = image_to_ascii_converter.convert_image_to_base64(inverted_colored_ascii_image)
-    #remove(image_path)
-    return render_template('project.html', name=project['name'],
-                                           category=project['category'],
-                                           description=project['description'],
-                                           github=project['github'],
-                                           demo=project['demo'],
-                                           path=project['path'],
-                                           base64_string=base64_string.decode())
+    target_width = loads(request.args['target_width'])
+    color_inversion = loads(request.args['color_inversion'])
+    output_type = loads(request.args['output_type'])
+    if input_type == 'File':
+        image_to_ascii_converter = ImageToASCII(image_path, source='local')
+    else:
+        image_to_ascii_converter = ImageToASCII(image_path, source='url')
+    if output_type == 'Image':
+        if color_inversion == 'True':
+            ascii_output = image_to_ascii_converter.generate_colored_ascii_image(target_width, inverted=True)
+        else:
+            ascii_output = image_to_ascii_converter.generate_colored_ascii_image(target_width, inverted=False)
+        base64_string = image_to_ascii_converter.convert_image_to_base64(ascii_output)
+    else:
+        if color_inversion == 'True':
+            ascii_output = image_to_ascii_converter.generate_ascii_text(target_width, inverted=True)
+        else:
+            ascii_output = image_to_ascii_converter.generate_ascii_text(target_width, inverted=False)
+    if input_type == 'File':
+        remove(image_path)
+    if output_type == 'Image':
+        return render_template('project.html', name=project['name'],
+                                               category=project['category'],
+                                               description=project['description'],
+                                               github=project['github'],
+                                               demo=project['demo'],
+                                               path=project['path'],
+                                               base64_string=base64_string.decode())
+    else:
+        return render_template('project.html', name=project['name'],
+                                               category=project['category'],
+                                               description=project['description'],
+                                               github=project['github'],
+                                               demo=project['demo'],
+                                               path=project['path'],
+                                               ascii_output=ascii_output)

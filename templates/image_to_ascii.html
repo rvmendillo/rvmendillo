@@ -4,8 +4,36 @@
         <div class="column">
             <h1>Transform Your Image</h1>
             <form action="/project/image_to_ascii" method="post" enctype="multipart/form-data">
+                <p>Select Input Type:</p>
+                <input type="radio" id="url" name="input_type" value="URL" />
+                <label for="url">URL</label>
+                <br />
+                <input type="radio" id="file" name="input_type" value="File" selected />
+                <label for="file">File</label>
+                <br />
+                <label for="image_url">Image URL</label>
                 <input id="image_url" name="image_url" />
-                <input type="file" id="image_file" name="image_file" accept=".jpg, .png, .bmp" />
+                <br />
+                <label for="image_file">Image File</label>
+                <input type="file" id="image_file" name="image_file" accept=".jpg" />
+                <br />
+                <label for="target_width">Target Width in Pixels</label>
+                <input type="number" id="target_width" name="target_width" value="300" />
+                <br />
+                <p>Color Inversion:</p>
+                <input type="radio" id="true" name="color_inversion" value="True" />
+                <label for="true">True</label>
+                <br />
+                <input type="radio" id="false" name="color_inversion" value="False" selected />
+                <label for="false">False</label>
+                <br />
+                <p>Select Output Type:</p>
+                <input type="radio" id="text" name="output_type" value="Text" />
+                <label for="text">Text</label>
+                <br />
+                <input type="radio" id="image" name="output_type" value="Image" selected />
+                <label for="image">Image</label>
+                <br />
                 <div class="g-recaptcha" data-sitekey="6Lfq6-QdAAAAACk4wX-YuRhedQk23IYm1ZaodOPE"></div>
                 <br />
                 <button type="submit">Asciify</button>
@@ -13,7 +41,9 @@
             {% include 'facebook_integration.html' %}
             {% include 'adsense_integration.html' %}
             {% if base64_string %}
-            <img src='data:image/png;base64,{{base64_string}}' />
+            <img src='data:image/png;base64,{{base64_string}}' width='100%' />
+            {% elif ascii_output %}
+            <textarea>{{ascii_output}}</textarea>
             {% endif %}
         </div>
     </div>

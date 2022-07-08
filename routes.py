@@ -43,10 +43,15 @@ def view_project_info(name=None):
             return 'reCAPTCHA validation failed.'
         elif name == 'image_to_ascii':
             if verify_captcha():
-                if request.files['image_file']:
+                input_type = request.form['input_type']
+                if input_type == 'File':
                     image_path = save_file_and_get_path(request.files['image_file'])
-                image_path = request.form['image_url']
-                return redirect(url_for(name, project=dumps(project), image_path=dumps(image_path)), code=302)
+                else:
+                    image_path = request.form['image_url']
+                target_width = int(request.form['target_width'])
+                color_inversion = request.form['color_inversion']
+                output_type = request.form['output_type']
+                return redirect(url_for(name, project=dumps(project), input_type=dumps(input_type), image_path=dumps(image_path), target_width=dumps(target_width), color_inversion=dumps(color_inversion), output_type=dumps(output_type)), code=302)
             return 'reCAPTCHA validation failed.'
         elif name == 'python_compiler':
             if verify_captcha():
