@@ -1,7 +1,8 @@
 from app import app
-from flask import render_template, request
+from flask import render_template, request, jsonify
 from os import remove
 from json import loads
+from save_file import *
 import subprocess
 
 @app.route('/python_compiler', methods=['GET', 'POST'])
@@ -21,3 +22,12 @@ def python_compiler():
                                            path=project['path'],
                                            output=output,
                                            error=error)
+
+@app.route('/api/python_compiler', methods=['GET', 'POST'])
+def python_compiler_api():
+    code_path = save_text_and_get_path(request.json['python_code'], 'python.py')
+    command = f'python {code_path}'
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    output, error = process.communicate()
+    remove(code_path)
+    return jsonify(output=output)
