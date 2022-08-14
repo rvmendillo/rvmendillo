@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request
+from flask import render_template, request, jsonify
 from os import remove
 from json import loads
 from save_file import *
@@ -30,4 +30,6 @@ def python_compiler_api():
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     output, error = process.communicate()
     remove(code_path)
-    return output
+    response = jsonify(output=output.decode('utf-8'))
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
