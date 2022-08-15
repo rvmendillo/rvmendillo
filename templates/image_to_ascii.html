@@ -4,38 +4,45 @@
         <div class="column">
             <h1>Transform Your Image</h1>
             <form action="/project/image_to_ascii" method="post" enctype="multipart/form-data">
-                <p>Select Input Type:</p>
-                <input type="radio" id="url" name="input_type" value="URL" />
-                <label for="url">URL</label>
+                <div class="row multicolumn">
+                    <div class="column">
+                        <h2>Select Input Type:</h2>
+                        <input type="radio" id="url" name="input_type" value="URL" />
+                        <label for="url"><h3>URL</h3></label>
+                        <br />
+                        <input type="radio" id="file" name="input_type" value="File" checked />
+                        <label for="file"><h3>File</h3></label>
+                        <br />
+                        <label for="image_url"><h2>Image URL</h2></label>
+                        <input id="image_url" name="image_url" />
+                        <br />
+                        <label for="image_file"><h2>Image File</h2></label>
+                        <input type="file" id="image_file" name="image_file" accept=".jpg" />
+                    </div>
+                    <div class="column">
+                        <label for="target_width"><h2>Target Width in Pixels</h2></label>
+                        <input type="number" id="target_width" name="target_width" value="300" />
+                        <br />
+                        <label for="charset"><h2>Character Set (highest to lowest density)</h2></label>
+                        <input id="charset" name="charset" value="#Wo- " />
+                    </div>
+                    <div class="column">
+                        <h2>Color Inversion:</h2>
+                        <input type="radio" id="true" name="color_inversion" value="True" checked />
+                        <label for="true"><h3>True</h3></label>
+                        <br />
+                        <input type="radio" id="false" name="color_inversion" value="False" />
+                        <label for="false"><h3>False</h3></label>
+                        <br />
+                        <h2>Select Output Type:</h2>
+                        <input type="radio" id="text" name="output_type" value="Text" />
+                        <label for="text"><h3>Text</h3></label>
+                        <br />
+                        <input type="radio" id="image" name="output_type" value="Image" checked />
+                        <label for="image"><h3>Image</h3></label>
+                    </div>
+                </div>
                 <br />
-                <input type="radio" id="file" name="input_type" value="File" checked />
-                <label for="file">File</label>
-                <br />
-                <label for="image_url">Image URL</label>
-                <input id="image_url" name="image_url" />
-                <br />
-                <label for="image_file">Image File</label>
-                <input type="file" id="image_file" name="image_file" accept=".jpg" />
-                <br />
-                <label for="target_width">Target Width in Pixels</label>
-                <input type="number" id="target_width" name="target_width" value="300" />
-                <br />
-                <label for="charset">Character Set (highest to lowest intensity)</label>
-                <input id="charset" name="charset" value="#Wo- " />
-                <br />
-                <p>Color Inversion:</p>
-                <input type="radio" id="true" name="color_inversion" value="True" checked />
-                <label for="true">True</label>
-                <br />
-                <input type="radio" id="false" name="color_inversion" value="False" />
-                <label for="false">False</label>
-                <br />
-                <p>Select Output Type:</p>
-                <input type="radio" id="text" name="output_type" value="Text" />
-                <label for="text">Text</label>
-                <br />
-                <input type="radio" id="image" name="output_type" value="Image" checked />
-                <label for="image">Image</label>
                 <br />
                 <div class="g-recaptcha" data-sitekey="6Lfq6-QdAAAAACk4wX-YuRhedQk23IYm1ZaodOPE"></div>
                 <br />
