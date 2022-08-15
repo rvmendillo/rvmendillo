@@ -224,7 +224,9 @@ input[type="file"] {
 	}
 
 	#logo {
-		width: 100%;
+		width: 75%;
+		float: none;
+		margin: 0 auto;
 		margin-top: 2rem;
 	}
 
@@ -242,6 +244,10 @@ input[type="file"] {
 	.button:hover {
 		box-shadow: inset -75rem 0 0 0 white;
 	}
+
+	.multicolumn .column {
+		margin-bottom: 1rem;
+	}
 }
 
 @media only screen and (max-width: 1024px) {
@@ -255,9 +261,5 @@ input[type="file"] {
 
 	.padding {
 		padding: 0% 5%;
-	}
-
-	.multicolumn .column {
-		margin-bottom: 1rem;
 	}
 }
