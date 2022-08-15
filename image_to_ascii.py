@@ -13,7 +13,7 @@ def image_to_ascii():
     charset = loads(request.args['charset'])
     color_inversion = loads(request.args['color_inversion'])
     output_type = loads(request.args['output_type'])
-    font_path = loads(request.args['font_path'])
+    font_path = '/app/Consolas.TTF'
     if input_type == 'File':
         image_to_ascii_converter = ImageToASCII(image_path, source='local', font_path=font_path, charset=list(charset))
     else:
