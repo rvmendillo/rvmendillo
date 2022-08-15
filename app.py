@@ -3,7 +3,7 @@ from flask_socketio import SocketIO
 
 app = Flask(__name__)
 app.jinja_env.trim_blocks = True
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins='*')
 
 import routes
 
