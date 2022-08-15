@@ -180,18 +180,22 @@ h4 {
 	padding: 0% 10%;
 }
 
-label h2, label h3 {
+form h2, form h3 {
 	display: inline;
 }
 
-label h2 {
+form h2 {
 	font-size: 1rem;
 }
 
-label h3 {
+form h3 {
 	position: relative;
-	bottom: 0.2rem;
-	font-size: 0.75rem;
+	bottom: 0.15rem;
+	font-size: 1rem;
+}
+
+input[type="file"] {
+	display: none;
 }
 
 .text_field {
