@@ -53,18 +53,21 @@
                 <br />
                 <button type="submit" class="button">Asciify</button>
             </form>
-            {% if base64_string or ascii_output %}
-                <div id="output">
-                {% if base64_string %}
+            {% if base64_string %}
+            <div id="output">
                 <img src='data:image/png;base64,{{base64_string}}' width='100%' />
-                {% elif ascii_output %}
+            </div>
+            <script>
+                go_to_output();
+            </script>
+            {% elif ascii_output %}
+            <div id="output">
                 <textarea>{{ascii_output}}</textarea>
-                {% endif %}
-                </div>
-                <script>
-                    go_to_output();
-                </script>
-            {% endif %}
+            </div>
+            <script>
+                go_to_output();
+            </script>
+            {% endif %}    
         </div>
     </div>
 </section>
