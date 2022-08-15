@@ -39,10 +39,8 @@
                 <br />
                 <div class="g-recaptcha" data-sitekey="6Lfq6-QdAAAAACk4wX-YuRhedQk23IYm1ZaodOPE"></div>
                 <br />
-                <button type="submit">Asciify</button>
+                <button type="submit" class="button">Asciify</button>
             </form>
-            {% include 'facebook_integration.html' %}
-            {% include 'adsense_integration.html' %}
             {% if base64_string %}
             <img src='data:image/png;base64,{{base64_string}}' width='100%' />
             {% elif ascii_output %}

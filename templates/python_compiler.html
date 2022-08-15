@@ -9,8 +9,6 @@
                 <br />
                 <button type="submit" class="button">Run Code</button>
             </form>
-            {% include 'facebook_integration.html' %}
-            {% include 'adsense_integration.html' %}
             {% if output %}
             <textarea readonly="readonly">{{output}}</textarea>
             {% elif error %}
