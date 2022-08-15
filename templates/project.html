@@ -6,11 +6,7 @@
         {% include 'scripts.html' %}
         <title>{{name}} | Rey Victor Mendillo | Computer Scientist</title>
     </head>
-    {% if output %}
-        <body onload="go_to_output();">
-    {% else %}
-        <body>
-    {% endif %}  
+    <body>
         {% include 'project_info.html' %}
     </body>
 </html>
