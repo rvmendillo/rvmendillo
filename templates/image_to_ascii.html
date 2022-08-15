@@ -21,7 +21,6 @@
                         <label for="image_file"><h2>Image File</h2></label>
                         <input type="file" id="image_file" name="image_file" accept=".jpg" onchange="document.getElementById('image_file_display').value = this.files[0].name;" />
                         <input placeholder="No file chosen" class="text_field" id="image_file_display" name="image_file_display" onclick="image_file.click();" readonly />
-                        <br />
                     </div>
                     <div class="column">
                         <label for="target_width"><h2>Target Width in Pixels</h2></label>
@@ -48,8 +47,6 @@
                         <label for="image"><h3>Image</h3></label>
                     </div>
                 </div>
-                <br />
-                <br />
                 <div class="g-recaptcha" data-sitekey="6Lfq6-QdAAAAACk4wX-YuRhedQk23IYm1ZaodOPE"></div>
                 <br />
                 <button type="submit" class="button">Asciify</button>

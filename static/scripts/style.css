@@ -256,4 +256,8 @@ input[type="file"] {
 	.padding {
 		padding: 0% 5%;
 	}
+
+	.multicolumn .column {
+		margin-bottom: 1rem;
+	}
 }
