@@ -105,7 +105,7 @@ h2#subtitle {
 	animation: fade_in 1s ease 2s forwards;
 }
 
-section h3 {
+section.second_background h3 {
 	color: slategray;
 }
 
