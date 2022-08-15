@@ -15,9 +15,9 @@ def image_to_ascii():
     output_type = loads(request.args['output_type'])
     font_path = loads(request.args['font_path'])
     if input_type == 'File':
-        image_to_ascii_converter = ImageToASCII(image_path, source='local', font_path=font_bytes, charset=list(charset))
+        image_to_ascii_converter = ImageToASCII(image_path, source='local', font_path=font_path, charset=list(charset))
     else:
-        image_to_ascii_converter = ImageToASCII(image_path, source='url', font_path=font_bytes, charset=list(charset))
+        image_to_ascii_converter = ImageToASCII(image_path, source='url', font_path=font_path, charset=list(charset))
     if output_type == 'Image':
         if color_inversion == 'True':
             ascii_output = image_to_ascii_converter.generate_colored_ascii_image(target_width, inverted=True)
