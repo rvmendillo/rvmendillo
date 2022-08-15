@@ -181,17 +181,13 @@ h4 {
 }
 
 form h2, form h3 {
-	display: inline;
-}
-
-form h2 {
 	font-size: 1rem;
 }
 
 form h3 {
 	position: relative;
 	bottom: 0.15rem;
-	font-size: 1rem;
+	display: inline;
 }
 
 input[type="file"] {
