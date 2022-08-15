@@ -2,7 +2,7 @@
 <script>
     window.history.replaceState(null, document.title, "/project/{{path}}")
 </script>
-<header class="padding">
+<section class="padding first_background">
     <div class="row center_y">
         <div class="column">
             <h1 id="name">{{name}}</h1>
@@ -12,6 +12,6 @@
             <a class="button" href="{{demo}}">Live Demo</a>
         </div>
     </div>
-</header>
+</section>
 {% include path + '.html' %}
 {% endfilter %}
