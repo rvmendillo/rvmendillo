@@ -3,7 +3,6 @@ from flask import render_template, request
 from os import remove
 from rvmendillo_image_to_ascii import ImageToASCII
 from json import loads
-from io import BytesIO
 
 @app.route('/image_to_ascii', methods=['GET', 'POST'])
 def image_to_ascii():
@@ -15,8 +14,6 @@ def image_to_ascii():
     color_inversion = loads(request.args['color_inversion'])
     output_type = loads(request.args['output_type'])
     font_path = loads(request.args['font_path'])
-    with open(font_path, 'rb') as font:
-        font_bytes = BytesIO(font.read())
     if input_type == 'File':
         image_to_ascii_converter = ImageToASCII(image_path, source='local', font_path=font_bytes, charset=list(charset))
     else:
