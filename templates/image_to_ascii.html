@@ -53,15 +53,20 @@
                 <br />
                 <button type="submit" class="button">Asciify</button>
             </form>
-            {% if output %}
-            <div id="output">
-                {% if output_type == 'Image' %}
-                <img src='data:image/png;base64,{{output}}' width='100%' />
-                {% else %}
-                <textarea>{{output}}</textarea>
-                {% endif %}
-            </div>
+        </div>
+    </div>
+</section>
+{% if output %}
+<section class="padding first_background" id="output">
+    <div class="row center_y">
+        <div class="column">
+            <h1>Output</h1>
+            {% if output_type == 'Image' %}
+            <img src='data:image/png;base64,{{output}}' width='100%' />
+            {% else %}
+            <textarea>{{output}}</textarea>
             {% endif %}
+        {% endif %}
         </div>
     </div>
 </section>
