@@ -184,9 +184,14 @@ label h2, label h3 {
 	display: inline;
 }
 
+label h2 {
+	font-size: 1rem;
+}
+
 label h3 {
 	position: relative;
 	bottom: 0.2rem;
+	font-size: 0.75rem;
 }
 
 .text_field {
@@ -195,6 +200,7 @@ label h3 {
 	border: 0.1rem solid silver;
 	border-radius: 0;
 	padding: 3% 0% 3% 3%;
+	width: 100%;
 }
 
 @media only screen and (max-width: 768px) {
