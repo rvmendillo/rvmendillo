@@ -37,7 +37,8 @@ def image_to_ascii():
                                                github=project['github'],
                                                demo=project['demo'],
                                                path=project['path'],
-                                               base64_string=base64_string.decode())
+                                               output_type=output_type,
+                                               output=base64_string.decode())
     else:
         return render_template('project.html', name=project['name'],
                                                category=project['category'],
@@ -45,4 +46,5 @@ def image_to_ascii():
                                                github=project['github'],
                                                demo=project['demo'],
                                                path=project['path'],
-                                               ascii_output=ascii_output)
+                                               output_type=output_type,
+                                               output=ascii_output)
