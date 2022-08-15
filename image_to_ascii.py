@@ -13,11 +13,10 @@ def image_to_ascii():
     charset = loads(request.args['charset'])
     color_inversion = loads(request.args['color_inversion'])
     output_type = loads(request.args['output_type'])
-    font_path = '/app/Consolas.TTF'
     if input_type == 'File':
-        image_to_ascii_converter = ImageToASCII(image_path, source='local', font_path=font_path, charset=list(charset))
+        image_to_ascii_converter = ImageToASCII(image_path, source='local', charset=list(charset))
     else:
-        image_to_ascii_converter = ImageToASCII(image_path, source='url', font_path=font_path, charset=list(charset))
+        image_to_ascii_converter = ImageToASCII(image_path, source='url', charset=list(charset))
     if output_type == 'Image':
         if color_inversion == 'True':
             ascii_output = image_to_ascii_converter.generate_colored_ascii_image(target_width, inverted=True)

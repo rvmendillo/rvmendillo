@@ -7,20 +7,24 @@
                 <div class="row multicolumn">
                     <div class="column">
                         <h2>Input Type</h2>
-                        <input type="radio" id="url" name="input_type" value="URL" />
+                        <input type="radio" id="url" name="input_type" value="URL" onclick="toggle_input_type();" />
                         <label for="url"><h3>URL</h3></label>
                         <br />
-                        <input type="radio" id="file" name="input_type" value="File" checked />
+                        <input type="radio" id="file" name="input_type" value="File" onclick="toggle_input_type();" checked />
                         <label for="file"><h3>File</h3></label>
                         <br />
                         <br />
-                        <label for="image_url"><h2>Image URL</h2></label>
-                        <input id="image_url" name="image_url" class="text_field" />
+                        <div id="url_section" style="display: none;">
+                            <label for="image_url"><h2>Image URL</h2></label>
+                            <input id="image_url" name="image_url" class="text_field" />
+                        </div>
                         <br />
                         <br />
-                        <label for="image_file"><h2>Image File</h2></label>
-                        <input type="file" id="image_file" name="image_file" accept=".jpg" onchange="document.getElementById('image_file_display').value = this.files[0].name;" />
-                        <input placeholder="No file chosen" class="text_field" id="image_file_display" name="image_file_display" onclick="image_file.click();" readonly />
+                        <div id="file_section">
+                            <label for="image_file"><h2>Image File</h2></label>
+                            <input type="file" id="image_file" name="image_file" accept=".jpg" onchange="document.getElementById('image_file_display').value = this.files[0].name;" />
+                            <input placeholder="No file chosen" class="text_field" id="image_file_display" name="image_file_display" onclick="image_file.click();" readonly />
+                        </div>
                     </div>
                     <div class="column">
                         <label for="target_width"><h2>Target Width in Pixels</h2></label>
