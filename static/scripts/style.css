@@ -184,6 +184,11 @@ label h2, label h3 {
 	display: inline;
 }
 
+label h3 {
+	position: relative;
+	bottom: 0.25rem;
+}
+
 .text_field {
 	outline: none;
 	font-family: 'Montserrat Hairline', Helvetica;
