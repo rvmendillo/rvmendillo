@@ -52,7 +52,8 @@ def view_project_info(name=None):
                 charset = request.form['charset']
                 color_inversion = request.form['color_inversion']
                 output_type = request.form['output_type']
-                return redirect(url_for(name, project=dumps(project), input_type=dumps(input_type), image_path=dumps(image_path), target_width=dumps(target_width), charset=dumps(charset), color_inversion=dumps(color_inversion), output_type=dumps(output_type)), code=302)
+                font_path = 'http://rvmendillo.com/static/fonts/Consolas.TTF'
+                return redirect(url_for(name, project=dumps(project), input_type=dumps(input_type), image_path=dumps(image_path), target_width=dumps(target_width), charset=dumps(charset), color_inversion=dumps(color_inversion), output_type=dumps(output_type), font_path=dumps(font_path)), code=302)
             return 'reCAPTCHA validation failed.'
         elif name == 'python_compiler':
             if verify_captcha():
