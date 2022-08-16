@@ -49,7 +49,7 @@ header, section {
 	background: white;
 }
 
-.first_background.dark_mode {
+.dark_mode .first_background {
 	background: #1a213c;
 }
 
@@ -57,7 +57,7 @@ header, section {
 	background: whitesmoke;
 }
 
-.second_background.dark_mode {
+.dark_mode .second_background {
 	background: #e3e8ff;
 }
 
@@ -103,7 +103,7 @@ h1#name {
 	animation: fade_in 1s ease 1s forwards;
 }
 
-h1#name.dark_mode {
+.dark_mode h1#name {
 	color: mediumturquoise;
 }
 
@@ -122,11 +122,11 @@ h2#subtitle {
 	animation: fade_in 1s ease 2s forwards;
 }
 
-h2#subtitle.dark_mode {
+.dark_mode h2#subtitle {
 	color: #e3e8ff;
 }
 
-.second_background.dark_mode h2 {
+.dark_mode .second_background h2 {
 	color: #1a213c;
 }
 
@@ -143,7 +143,7 @@ h3#description {
 	animation: fade_in 1s ease 3s forwards;
 }
 
-h3#description.dark_mode {
+.dark_mode h3#description {
 	color: white;
 }
 
@@ -160,7 +160,7 @@ h4 {
 	animation: zoom_in 3s ease 5s forwards;
 }
 
-#logo.dark_mode {
+.dark_mode #logo {
 	border: 0.1rem solid mediumturquoise;
 	border-radius: 50%;
 }
@@ -192,7 +192,7 @@ h4 {
 	animation: zoom_in 1s ease 4s forwards;
 }
 
-.first_background.dark_mode .button, header.dark_mode .button {
+.dark_mode .first_background .button, .dark_mode header .button {
 	background: #1a213c;
 	border: 0.1rem solid mediumturquoise;
 	color: mediumturquoise;
@@ -203,7 +203,7 @@ h4 {
 	border: 0.1rem solid teal;
 }
 
-.second_background.dark_mode .button {
+.dark_mode .second_background .button {
 	color: #e3e8ff;
 }
 
@@ -217,7 +217,7 @@ h4 {
 	cursor: pointer;
 }
 
-.second_background.dark_mode .button:hover {
+.dark_mode .second_background .button:hover {
 	box-shadow: inset -35rem 0 0 0 #e3e8ff;
 	cursor: pointer;
 }
@@ -226,7 +226,7 @@ h4 {
 	color: midnightblue;
 }
 
-.first_background.dark_mode .button:hover, header.dark_mode .button:hover {
+.dark_mode .first_background .button:hover, .dark_mode header .button:hover {
 	color: #1a213c;
 }
 
