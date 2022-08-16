@@ -46,6 +46,6 @@ def image_to_ascii():
                                                github=project['github'],
                                                demo=project['demo'],
                                                path=project['path'],
-                                               target_width=target_width
+                                               target_width=target_width,
                                                output_type=output_type,
                                                output=ascii_output)
