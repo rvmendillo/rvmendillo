@@ -43,6 +43,7 @@ def image_to_ascii():
     else:
         ascii_output = ascii_output.replace(' ', '\u00A0')
         target_height = len(ascii_output.replace('\n', '').replace('\u00A0', ' ')) / target_width
+        target_width -= floor(target_width * 0.122)
         return render_template('project.html', name=project['name'],
                                                category=project['category'],
                                                description=project['description'],
