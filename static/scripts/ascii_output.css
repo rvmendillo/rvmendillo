@@ -7,4 +7,6 @@
     outline: none;
     border: 0.1rem solid silver;
 	border-radius: 0;
+    box-shadow: none;
+    overflow: hidden;
 }
