@@ -9,6 +9,7 @@
 	top: 2rem;
 	right: 1rem;
 	cursor: pointer;
+	z-index: 999;
 }
 
 .dark_mode #toggle_dark_icon {
@@ -190,7 +191,6 @@ h4 {
 	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
-	box-shadow: inset 0 0 0 0 white;
 	transition: ease-out 0.4s;
 	margin-right: 0.75rem;
 	font-family: 'Montserrat Hairline', Helvetica;
@@ -202,48 +202,50 @@ h4 {
 	border: 0.1rem solid midnightblue;
 	transform: scale(0);
 	animation: zoom_in 1s ease 4s forwards;
+	box-shadow: inset 0 0 0 0 white;
 }
 
 .dark_mode .first_background .button, .dark_mode header .button {
 	background: #1a213c;
 	border: 0.1rem solid mediumturquoise;
 	color: mediumturquoise;
+	box-shadow: inset 0 0 0 0 mediumturquoise;
 }
 
 .second_background .button {
 	background: teal;
 	border: 0.1rem solid teal;
+	box-shadow: inset 0 0 0 0 whitesmoke;
 }
 
 .dark_mode .second_background .button {
 	color: #e3e8ff;
+	box-shadow: inset 0 0 0 0 #e3e8ff;
 }
 
-.button:hover {
+.first_background .button:hover, header .button:hover {
 	box-shadow: inset -35rem 0 0 0 white;
 	cursor: pointer;
 }
 
-.dark_mode .button:hover {
+.dark_mode .first_background .button:hover, .dark_mode header .button:hover {
 	box-shadow: inset -35rem 0 0 0 mediumturquoise;
+	color: #1a213c;
+	cursor: pointer;
+}
+
+.second_background .button:hover {
+	box-shadow: inset -35rem 0 0 0 whitesmoke;
+	color: teal;
 	cursor: pointer;
 }
 
 .dark_mode .second_background .button:hover {
 	box-shadow: inset -35rem 0 0 0 #e3e8ff;
-	cursor: pointer;
 }
 
 .first_background .button:hover, header .button:hover {
 	color: midnightblue;
-}
-
-.dark_mode .first_background .button:hover, .dark_mode header .button:hover {
-	color: #1a213c;
-}
-
-.second_background .button:hover {
-	color: teal;
 }
 
 .padding {
@@ -312,12 +314,20 @@ input[type="file"] {
 		padding: 0% 5%;
 	}
 
-	.button:hover {
+	.first_background .button:hover, header .button:hover {
 		box-shadow: inset -75rem 0 0 0 white;
 	}
 
-	.dark_mode .button:hover {
+	.dark_mode .first_background .button:hover, .dark_mode header .button:hover {
 		box-shadow: inset -75rem 0 0 0 mediumturquoise;
+	}
+
+	.second_background .button:hover {
+		box-shadow: inset -75rem 0 0 0 whitesmoke;
+	}
+
+	.dark_mode .second_background .button:hover {
+		box-shadow: inset -75rem 0 0 0 #e3e8ff;
 	}
 
 	.multicolumn .column {
