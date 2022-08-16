@@ -3,6 +3,18 @@
 	color: white;
 }
 
+#toggle_dark_icon {
+	color: midnightblue;
+	position: fixed;
+	top: 2rem;
+	right: 1rem;
+	cursor: pointer;
+}
+
+.dark_mode #toggle_dark_icon {
+	color: mediumturquoise;
+}
+
 @font-face {
 	font-family: 'Montserrat Light';
 	src: url("../fonts/Montserrat-Light.woff");
@@ -103,7 +115,7 @@ h1#name {
 	animation: fade_in 1s ease 1s forwards;
 }
 
-.dark_mode h1#name {
+.dark_mode h1#name, .dark_mode .first_background h1 {
 	color: mediumturquoise;
 }
 
