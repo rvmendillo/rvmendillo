@@ -6,7 +6,11 @@
         {% include 'scripts.html' %}
         <title>{{name}} | Rey Victor Mendillo | Computer Scientist</title>
     </head>
-    <body>
+    {% if output %}
+        <body onload="go_to_output();" onhashchange="window.history.replaceState(null, document.title, '/project/{{path}}');">
+    {% else %}
+        <body>
+    {% endif %}  
         {% include 'project_info.html' %}
     </body>
 </html>

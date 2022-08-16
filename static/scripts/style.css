@@ -196,7 +196,8 @@ input[type="file"] {
 
 .text_field {
 	outline: none;
-	font-family: 'Montserrat Hairline', Helvetica;
+	font-family: 'Montserrat Light', Helvetica;
+	font-weight: bold;
 	border: 0.1rem solid silver;
 	border-radius: 0;
 	padding: 3% 0% 3% 3%;
