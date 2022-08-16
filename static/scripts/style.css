@@ -49,8 +49,16 @@ header, section {
 	background: white;
 }
 
+.first_background.dark_mode {
+	background: #1a213c;
+}
+
 .second_background {
 	background: whitesmoke;
+}
+
+.second_background.dark_mode {
+	background: #e3e8ff;
 }
 
 .row {
@@ -95,6 +103,10 @@ h1#name {
 	animation: fade_in 1s ease 1s forwards;
 }
 
+h1#name.dark_mode {
+	color: mediumturquoise;
+}
+
 section .row:not([class="row center_y"]) h1 {
 	margin-top: 2rem;
 	margin-bottom: 0rem;
@@ -110,7 +122,15 @@ h2#subtitle {
 	animation: fade_in 1s ease 2s forwards;
 }
 
-section.second_background h3 {
+h2#subtitle.dark_mode {
+	color: #e3e8ff;
+}
+
+.second_background.dark_mode h2 {
+	color: #1a213c;
+}
+
+.second_background h3 {
 	color: slategray;
 }
 
@@ -121,6 +141,10 @@ h3#description {
 	opacity: 0;
 	text-align: justify;
 	animation: fade_in 1s ease 3s forwards;
+}
+
+h3#description.dark_mode {
+	color: white;
 }
 
 h4 {
@@ -134,6 +158,11 @@ h4 {
 	height: auto;
 	transform: scale(0);
 	animation: zoom_in 3s ease 5s forwards;
+}
+
+#logo.dark_mode {
+	border: 0.1rem solid mediumturquoise;
+	border-radius: 50%;
 }
 
 #logo::after {
@@ -163,9 +192,19 @@ h4 {
 	animation: zoom_in 1s ease 4s forwards;
 }
 
+.first_background.dark_mode .button, header.dark_mode .button {
+	background: #1a213c;
+	border: 0.1rem solid mediumturquoise;
+	color: mediumturquoise;
+}
+
 .second_background .button {
 	background: teal;
 	border: 0.1rem solid teal;
+}
+
+.second_background.dark_mode .button {
+	color: #e3e8ff;
 }
 
 .button:hover {
@@ -173,8 +212,22 @@ h4 {
 	cursor: pointer;
 }
 
+.dark_mode .button:hover {
+	box-shadow: inset -35rem 0 0 0 mediumturquoise;
+	cursor: pointer;
+}
+
+.second_background.dark_mode .button:hover {
+	box-shadow: inset -35rem 0 0 0 #e3e8ff;
+	cursor: pointer;
+}
+
 .first_background .button:hover, header .button:hover {
 	color: midnightblue;
+}
+
+.first_background.dark_mode .button:hover, header.dark_mode .button:hover {
+	color: #1a213c;
 }
 
 .second_background .button:hover {
@@ -249,6 +302,10 @@ input[type="file"] {
 
 	.button:hover {
 		box-shadow: inset -75rem 0 0 0 white;
+	}
+
+	.dark_mode .button:hover {
+		box-shadow: inset -75rem 0 0 0 mediumturquoise;
 	}
 
 	.multicolumn .column {
