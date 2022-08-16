@@ -1,4 +1,4 @@
-#ascii_output {
+#ascii_output, #ascii_output:focus {
     font-family: Consolas;
     letter-spacing: -0.06rem;
     line-height: 0.507rem;
