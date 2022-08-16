@@ -3,6 +3,7 @@ from flask import render_template, request
 from os import remove
 from rvmendillo_image_to_ascii import ImageToASCII
 from json import loads
+from math import floor
 
 @app.route('/image_to_ascii', methods=['GET', 'POST'])
 def image_to_ascii():
@@ -42,6 +43,7 @@ def image_to_ascii():
     else:
         ascii_output = ascii_output.replace('\n', '\r\n').replace(' ', '\u00A0')
         target_height = len(ascii_output.replace('\r\n', '').replace('\u00A0', ' ')) / target_width
+        target_width = floor(target_width * 0.122)
         return render_template('project.html', name=project['name'],
                                                category=project['category'],
                                                description=project['description'],
