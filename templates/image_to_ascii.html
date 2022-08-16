@@ -64,10 +64,7 @@
             {% if output_type == 'Image' %}
             <img src='data:image/png;base64,{{output}}' id='ascii_image' width='100%' />
             {% else %}
-            <textarea id="ascii_output" cols="{{target_width}}">{{output}}</textarea>
-            <script>
-                document.getElementById("ascii_output").rows = document.getElementById("ascii_image").naturalHeight / 10;
-            </script>
+            <textarea id="ascii_output" cols="{{target_width}}" rows="{{target_height}}" spellcheck="false" readonly>{{output}}</textarea>
             {% endif %}
         </div>
     </div>

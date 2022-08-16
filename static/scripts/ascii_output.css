@@ -3,4 +3,8 @@
     letter-spacing: -0.06rem;
     line-height: 0.507rem;
     font-size: 15px;
+    resize: none;
+    outline: none;
+    border: 0.1rem solid silver;
+	border-radius: 0;
 }

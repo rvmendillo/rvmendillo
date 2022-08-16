@@ -40,6 +40,7 @@ def image_to_ascii():
                                                output_type=output_type,
                                                output=base64_string.decode())
     else:
+        target_height = len(ascii_output.replace('\n', '')) / target_width
         return render_template('project.html', name=project['name'],
                                                category=project['category'],
                                                description=project['description'],
@@ -47,5 +48,6 @@ def image_to_ascii():
                                                demo=project['demo'],
                                                path=project['path'],
                                                target_width=target_width,
+                                               target_height=target_height,
                                                output_type=output_type,
                                                output=ascii_output)
