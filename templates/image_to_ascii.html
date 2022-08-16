@@ -62,9 +62,12 @@
         <div class="column">
             <h1>Output</h1>
             {% if output_type == 'Image' %}
-            <img src='data:image/png;base64,{{output}}' width='100%' />
+            <img src='data:image/png;base64,{{output}}' id='ascii_image' width='100%' />
             {% else %}
-            <textarea>{{output}}</textarea>
+            <textarea id="ascii_output" cols="{{target_width}}">{{output}}</textarea>
+            <script>
+                document.getElementById("ascii_output").rows = document.getElementById("ascii_image").naturalHeight / 10;
+            </script>
             {% endif %}
         </div>
     </div>
