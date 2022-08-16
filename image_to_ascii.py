@@ -40,8 +40,8 @@ def image_to_ascii():
                                                output_type=output_type,
                                                output=base64_string.decode())
     else:
-        ascii_output = ascii_output.replace('\n', '\r\n')
-        target_height = len(ascii_output.replace('\r\n', '')) / target_width
+        ascii_output = ascii_output.replace('\n', '\r\n').replace(' ', '\u00A')
+        target_height = len(ascii_output.replace('\r\n', '').replace('\u00A', ' ')) / target_width
         return render_template('project.html', name=project['name'],
                                                category=project['category'],
                                                description=project['description'],
