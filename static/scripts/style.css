@@ -1,10 +1,6 @@
-::selection {
-	background: mediumturquoise;
-	color: white;
-}
-
 :root {
-	--heading_font: 'Montserrat Hairline';
+	--selection_background_color: #00cccc;
+	--selection_text_color: white;
 	--content_font: 'Montserrat Light';
 	--smooth_transition: ease-out 0.4s;
 	--toggle_icon_color: #101f58;
@@ -28,6 +24,7 @@
 }
 
 .dark_mode {
+	--selection_text_color: #1a213c;
 	--toggle_icon_color: #00cccc;
 	--first_background_color: #1a213c;
 	--second_background_color: #20294a;
@@ -48,6 +45,11 @@
 	--second_background_button_hover_text_color: #00cccc;
 }
 
+::selection {
+	background: var(--selection_background_color);
+	color: var(--selection_text_color);
+}
+
 #toggle_dark_icon {
 	color: var(--toggle_icon_color);
 	position: fixed;
@@ -63,7 +65,7 @@
 }
 
 @font-face {
-	font-family: var(--heading_font);
+	font-family: 'Montserrat Hairline';
 	src: url("../fonts/Montserrat-Hairline.woff");
 }
 
@@ -268,7 +270,7 @@ input[type="file"] {
 
 .text_field {
 	outline: none;
-	font-family: 'Montserrat Light', Helvetica;
+	font-family: var(--content_font), Helvetica;
 	font-weight: bold;
 	border: 0.1rem solid silver;
 	border-radius: 0;
