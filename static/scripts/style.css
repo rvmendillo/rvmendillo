@@ -171,11 +171,12 @@ h4 {
 	height: auto;
 	transform: scale(0);
 	animation: zoom_in 3s ease 5s forwards;
+	border: 0.1rem solid white;
+	border-radius: 50%;
 }
 
 .dark_mode #logo {
 	border: 0.1rem solid mediumturquoise;
-	border-radius: 50%;
 }
 
 #logo::after {
