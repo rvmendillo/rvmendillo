@@ -7,7 +7,7 @@
 	--heading_font: 'Montserrat Hairline';
 	--content_font: 'Montserrat Light';
 	--smooth_transition: ease-out 0.4s;
-	--toggle_icon_color: #1e90ff;
+	--toggle_icon_color: #101f58;
 	--first_background_color: white;
 	--second_background_color: whitesmoke;
 	--heading_color: teal;
@@ -19,6 +19,12 @@
 	--first_background_button_border_color: #101f58;
 	--first_background_button_hover_color: white;
 	--first_background_button_text_color: white;
+	--first_background_button_hover_text_color: #101f58;
+	--second_background_button_color: teal;
+	--second_background_button_border_color: teal;
+	--second_background_button_hover_color: white;
+	--second_background_button_text_color: white;
+	--second_background_button_hover_text_color: teal;
 }
 
 .dark_mode {
@@ -34,6 +40,12 @@
 	--first_background_button_border_color: #00cccc;
 	--first_background_button_hover_color: #00cccc;
 	--first_background_button_text_color: #00cccc;
+	--first_background_button_hover_text_color: #1a213c;
+	--second_background_button_color: #00cccc;
+	--second_background_button_border_color: #00cccc;
+	--second_background_button_hover_color: #1a213c;
+	--second_background_button_text_color: #1a213c;
+	--second_background_button_hover_text_color: #00cccc;
 }
 
 #toggle_dark_icon {
@@ -127,7 +139,7 @@ h1, h2, h3 {
 }
 
 h1 {
-	font-family: var(--heading_font), Helvetica;
+	font-family: 'Montserrat Hairline', Helvetica;
 	font-size: 3.75rem;
 	font-weight: 150;
 	text-transform: uppercase;
@@ -210,47 +222,30 @@ h4 {
 
 .first_background .button, header .button {
 	background: var(--first_background_button_color);
-	border: 0.1rem solid var(--first_background_border_color);
+	border: 0.1rem solid var(--first_background_button_border_color);
 	transform: scale(0);
 	animation: zoom_in 1s ease 4s forwards;
-	box-shadow: inset 0 0 0 0 var(--first_background_hover_color);
+	box-shadow: inset 0 0 0 0 var(--first_background_button_hover_color);
 	color: var(--first_background_button_text_color);
 }
 
-.second_background .button {
-	background: teal;
-	border: 0.1rem solid teal;
-	box-shadow: inset 0 0 0 0 white;
-}
-
-.dark_mode .second_background .button {
-	color: white;
-	box-shadow: inset 0 0 0 0 white;
-}
-
 .first_background .button:hover, header .button:hover {
-	box-shadow: inset -35rem 0 0 0 white;
+	box-shadow: inset -35rem 0 0 0 var(--first_background_button_hover_color);
 	cursor: pointer;
+	color: var(--first_background_button_hover_text_color);
 }
 
-.dark_mode .first_background .button:hover, .dark_mode header .button:hover {
-	box-shadow: inset -35rem 0 0 0 mediumturquoise;
-	color: #1a213c;
-	cursor: pointer;
+.second_background .button {
+	background: var(--second_background_button_color);
+	border: 0.1rem solid var(--second_background_button_border_color);
+	box-shadow: inset 0 0 0 0 var(--second_background_button_hover_color);
+	color: var(--second_background_button_text_color);
 }
 
 .second_background .button:hover {
-	box-shadow: inset -35rem 0 0 0 white;
-	color: teal;
+	box-shadow: inset -35rem 0 0 0 var(--second_background_button_hover_color);
+	color: var(--second_background_button_hover_text_color);
 	cursor: pointer;
-}
-
-.dark_mode .second_background .button:hover {
-	box-shadow: inset -35rem 0 0 0 white;
-}
-
-.first_background .button:hover, header .button:hover {
-	color: #101f58;
 }
 
 .padding {
@@ -320,19 +315,11 @@ input[type="file"] {
 	}
 
 	.first_background .button:hover, header .button:hover {
-		box-shadow: inset -75rem 0 0 0 white;
-	}
-
-	.dark_mode .first_background .button:hover, .dark_mode header .button:hover {
-		box-shadow: inset -75rem 0 0 0 mediumturquoise;
+		box-shadow: inset -75rem 0 0 0 var(--first_background_button_hover_color);
 	}
 
 	.second_background .button:hover {
-		box-shadow: inset -75rem 0 0 0 white;
-	}
-
-	.dark_mode .second_background .button:hover {
-		box-shadow: inset -75rem 0 0 0 white;
+		box-shadow: inset -75rem 0 0 0 var(--second_background_button_hover_color);
 	}
 
 	.multicolumn .column {
