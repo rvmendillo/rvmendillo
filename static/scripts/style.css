@@ -4,7 +4,7 @@
 }
 
 #toggle_dark_icon {
-	color: #111153;
+	color: #0e1b4e;
 	position: fixed;
 	top: 2rem;
 	right: 1rem;
@@ -198,8 +198,8 @@ h4 {
 }
 
 .first_background .button, header .button {
-	background: #111153;
-	border: 0.1rem solid #111153;
+	background: #0e1b4e;
+	border: 0.1rem solid #0e1b4e;
 	transform: scale(0);
 	animation: zoom_in 1s ease 4s forwards;
 	box-shadow: inset 0 0 0 0 white;
@@ -245,7 +245,7 @@ h4 {
 }
 
 .first_background .button:hover, header .button:hover {
-	color: #111153;
+	color: #0e1b4e;
 }
 
 .padding {
