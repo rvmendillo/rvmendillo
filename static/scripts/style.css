@@ -52,6 +52,10 @@ html, body {
 	scroll-behavior: smooth;
 }
 
+html * {
+	transition: ease-out 0.4s;
+}
+
 header, section {
 	display: flex;
 	flex-direction: column;
@@ -68,10 +72,6 @@ header, section {
 
 .second_background {
 	background: whitesmoke;
-}
-
-.dark_mode .second_background {
-	background: #e3e8ff;
 }
 
 .row {
@@ -99,7 +99,6 @@ header, section {
 
 h1, h2, h3 {
 	margin: 0;
-	transition: ease-out 0.4s;
 }
 
 h1 {
@@ -140,10 +139,6 @@ h2#subtitle {
 	color: #e3e8ff;
 }
 
-.dark_mode .second_background h2 {
-	color: #1a213c;
-}
-
 .second_background h3 {
 	color: slategray;
 }
@@ -163,7 +158,6 @@ h3#description {
 
 h4 {
 	text-align: justify;
-	transition: ease-out 0.4s;
 }
 
 #logo {
@@ -175,7 +169,6 @@ h4 {
 	animation: zoom_in 3s ease 5s forwards;
 	border: 0.1rem solid white;
 	border-radius: 50%;
-	transition: ease-out 0.4s;
 }
 
 .dark_mode #logo {
@@ -195,7 +188,6 @@ h4 {
 	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
-	transition: ease-out 0.4s;
 	margin-right: 0.75rem;
 	font-family: 'Montserrat Hairline', Helvetica;
 	font-size: 1rem;
@@ -219,12 +211,12 @@ h4 {
 .second_background .button {
 	background: teal;
 	border: 0.1rem solid teal;
-	box-shadow: inset 0 0 0 0 whitesmoke;
+	box-shadow: inset 0 0 0 0 white;
 }
 
 .dark_mode .second_background .button {
 	color: #e3e8ff;
-	box-shadow: inset 0 0 0 0 #e3e8ff;
+	box-shadow: inset 0 0 0 0 white;
 }
 
 .first_background .button:hover, header .button:hover {
@@ -239,13 +231,13 @@ h4 {
 }
 
 .second_background .button:hover {
-	box-shadow: inset -35rem 0 0 0 whitesmoke;
+	box-shadow: inset -35rem 0 0 0 white;
 	color: teal;
 	cursor: pointer;
 }
 
 .dark_mode .second_background .button:hover {
-	box-shadow: inset -35rem 0 0 0 #e3e8ff;
+	box-shadow: inset -35rem 0 0 0 white;
 }
 
 .first_background .button:hover, header .button:hover {
@@ -327,11 +319,11 @@ input[type="file"] {
 	}
 
 	.second_background .button:hover {
-		box-shadow: inset -75rem 0 0 0 whitesmoke;
+		box-shadow: inset -75rem 0 0 0 white;
 	}
 
 	.dark_mode .second_background .button:hover {
-		box-shadow: inset -75rem 0 0 0 #e3e8ff;
+		box-shadow: inset -75rem 0 0 0 white;
 	}
 
 	.multicolumn .column {
