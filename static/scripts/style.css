@@ -99,6 +99,7 @@ header, section {
 
 h1, h2, h3 {
 	margin: 0;
+	transition: ease-out 0.4s;
 }
 
 h1 {
@@ -162,6 +163,7 @@ h3#description {
 
 h4 {
 	text-align: justify;
+	transition: ease-out 0.4s;
 }
 
 #logo {
@@ -173,6 +175,7 @@ h4 {
 	animation: zoom_in 3s ease 5s forwards;
 	border: 0.1rem solid white;
 	border-radius: 50%;
+	transition: ease-out 0.4s;
 }
 
 .dark_mode #logo {
