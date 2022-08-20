@@ -1,8 +1,11 @@
 from flask import Flask
 from flask_socketio import SocketIO
+from flask_compress import Compress
 
 app = Flask(__name__)
 app.jinja_env.trim_blocks = True
+compress = Compress()
+compress.init_app(app)
 socketio = SocketIO(app)
 
 import routes

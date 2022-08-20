@@ -9,3 +9,4 @@ music21
 Flask-SocketIO
 eventlet==0.30.2
 gevent-websocket
+Flask-Compress
