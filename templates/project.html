@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        {% include 'metadata.html' %}
-        {% include 'stylesheets.html' %}
-        {% include 'scripts.html' %}
-        <title>{{name}} | Rey Victor Mendillo | Computer Scientist</title>
-    </head>
-    {% if output %}
-        <body onload="go_to_output();" onhashchange="window.history.replaceState(null, document.title, '/project/{{path}}');">
-    {% else %}
-        <body>
-    {% endif %}  
-        {% include 'project_info.html' %}
-        {% include 'infolinks_integration.html' %}
-    </body>
-</html>
+{% extends 'base.html' %}
+{% block title %}{{name}} | Rey Victor Mendillo | Computer Scientist{% endblock %}
+{% block body %}
+{% if output %}
+    <body onload="go_to_output();" onhashchange="window.history.replaceState(null, document.title, '/project/{{path}}');">
+{% else %}
+    <body>
+{% endif %}  
+    {% include 'project_info.html' %}
+    {% include 'infolinks_integration.html' %}
+</body>
+{% endblock %}

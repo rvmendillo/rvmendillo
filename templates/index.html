@@ -1,23 +1,13 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        {% include 'metadata.html' %}
-        {% include 'stylesheets.html' %}
-        {% include 'scripts.html' %}
-        <title>Rey Victor Mendillo | Computer Scientist</title>
-    </head>
-    {% if forced_link %}
-        <body onload="go_to_projects();">
-    {% else %}
-        <body>
-    {% endif %}    
-        {% include 'header.html' %}
-        {% include 'projects.html' %}
-        {% include 'contact.html' %}
-        {% include 'infolinks_integration.html' %}
-    </body>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
-</html>
+{% extends 'base.html' %}
+{% block body %}
+{% if forced_link %}
+    <body onload="go_to_projects();">
+{% else %}
+    <body>
+{% endif %}    
+    {% include 'header.html' %}
+    {% include 'projects.html' %}
+    {% include 'contact.html' %}
+    {% include 'infolinks_integration.html' %}
+</body>
+{% endblock %}
