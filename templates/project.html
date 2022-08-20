@@ -1,11 +1,4 @@
 {% extends 'base.html' %}
-{% block custom_stylesheets %}
-{% if path == 'midi_to_relative_scale' %}
-<link rel="stylesheet" href="../static/scripts/midi_player_style.css" />
-{% elif path == 'image_to_ascii' %}
-<link rel="stylesheet" href="../static/scripts/ascii_output.css" />
-{% endif %}
-{% endblock %}
 {% block title %}{{name}} | Rey Victor Mendillo | Computer Scientist{% endblock %}
 {% block body %}
 {% if output %}

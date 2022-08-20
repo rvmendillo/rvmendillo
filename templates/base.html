@@ -2,8 +2,11 @@
 <html>
     <head>
         {% include 'metadata.html' %}
+        {% block custom_metadata %}{% endblock %}
         {% include 'stylesheets.html' %}
+        {% block custom_stylesheets %}{% endblock %}
         {% include 'scripts.html' %}
+        {% block custom_scripts %}{% endblock %}
         <title>{% block title %}Rey Victor Mendillo | Computer Scientist{% endblock %}</title>
     </head>
     {% block body %}
