@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block custom_scripts %}
+    <script src="../static/scripts/go_to_projects.js"></script>
+{% endblock %}
 {% block body %}
 {% if forced_link %}
     <body onload="go_to_projects();">

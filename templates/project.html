@@ -1,10 +1,22 @@
 {% extends 'base.html' %}
 {% block custom_stylesheets %}
-{% if path == 'midi_to_relative_scale' %}
-<link rel="stylesheet" href="../static/scripts/midi_player_style.css" />
-{% elif path == 'image_to_ascii' %}
-<link rel="stylesheet" href="../static/scripts/ascii_output.css" />
-{% endif %}
+    {% if path == 'midi_to_relative_scale' %}
+        <link rel="stylesheet" href="../static/scripts/midi_player_style.css" />
+    {% elif path == 'image_to_ascii' %}
+        <link rel="stylesheet" href="../static/scripts/ascii_output.css" />
+    {% endif %}
+{% endblock %}
+{% block custom_scripts %}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="../static/scripts/go_to_output.js"></script>
+    {% if path == 'midi_to_relative_scale' %}
+        <script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js"></script>
+        <script src="https://cifkao.github.io/html-midi-player/assets/js/index.js"></script>
+    {% elif path == 'realtime_chat' %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.js"></script>
+    {% elif path == 'image_to_ascii' %}
+        <script src="../static/scripts/toggle_input_type.js"></script>
+    {% endif %}
 {% endblock %}
 {% block title %}{{name}} | {{super()}}{% endblock %}
 {% block body %}
