@@ -1,4 +1,11 @@
 {% extends 'base.html' %}
+{% block custom_metadata %}
+    <meta name="title" content="{{name}} | Rey Victor Mendillo | Computer Scientist" />
+    <meta name="description" content="{{description}}" />
+    <meta property="og:title" content="{{name}} | Rey Victor Mendillo | Computer Scientist" />
+    <meta property="og:description" content="{{description}}" />
+    <link rel="canonical" href="https://rvmendillo.com/project/{{path}}" />
+{% endblock %}
 {% block custom_stylesheets %}
     {% if path == 'midi_to_relative_scale' %}
         <link rel="stylesheet" href="../static/scripts/midi_player_style.css" />
