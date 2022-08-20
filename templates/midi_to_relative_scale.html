@@ -10,7 +10,10 @@
                 <midi-player src="../static/files/A Lovely Dream.mid" sound-font="" visualizer="#mainVisualizer" id="mainPlayer"></midi-player>
             {% endif %}
             <form action="/project/midi_to_relative_scale" method="post" enctype="multipart/form-data">
-                <input type="file" id="midi_file" name="midi_file" accept=".mid, .midi" />
+                <label for="midi_file"><h2>MIDI File</h2></label>
+                <input type="file" id="midi_file" name="midi_file" accept=".mid, .midi" onchange="document.getElementById('midi_file_display').value = this.files[0].name;" />
+                <input placeholder="No file chosen" class="text_field" id="midi_file_display" name="midi_file_display" onclick="midi_file.click();" readonly />
+                <div class="g-recaptcha" data-sitekey="6Lfq6-QdAAAAACk4wX-YuRhedQk23IYm1ZaodOPE"></div>
                 <br />
                 <button type="submit" class="button">Upload MIDI File</button>
             </form>
