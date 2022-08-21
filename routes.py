@@ -39,9 +39,10 @@ def view_project_info(name=None):
                 midi_path = save_file_and_get_path(request.files['midi_file'])
                 return redirect(url_for(name, project=dumps(project), midi_path=dumps(midi_path)), code=302)
             return 'reCAPTCHA validation failed.'
-        elif name == 'skirt_sloper':
+        elif name == 'mbti_personality_prediction':
             if verify_captcha():
-                return redirect(url_for(name, project=dumps(project)), code=302)
+                paragraph_to_predict = request.form['paragraph_to_predict']
+                return redirect(url_for(name, project=dumps(project), paragraph_to_predict=dumps(paragraph_to_predict)), code=302)
             return 'reCAPTCHA validation failed.'
         elif name == 'image_to_ascii':
             if verify_captcha():

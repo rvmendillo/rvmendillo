@@ -1,0 +1,26 @@
+{% filter indent(width=8) %}
+<section class="padding second_background">
+    <div class="row center_y">
+        <div class="column">
+            <h1>Predict Your Personality Type</h1>
+            <form action="/project/mbti_personality_prediction" method="post" enctype="multipart/form-data">
+                <label for="paragraph_to_predict"><h2>Paragraph</h2></label>
+                <textarea id="paragraph_to_predict" name="paragraph_to_predict" class="text_field"></textarea>
+                <div class="g-recaptcha" data-sitekey="6Lfq6-QdAAAAACk4wX-YuRhedQk23IYm1ZaodOPE"></div>
+                <br />
+                <button type="submit" class="button">Asciify</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% if output %}
+<section class="padding first_background" id="output">
+    <div class="row center_y">
+        <div class="column">
+            <h1>Output</h1>
+            <h2>Your MBTI personality type is {{output}}.</h2>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endfilter %}

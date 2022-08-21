@@ -292,6 +292,16 @@ input[type="file"] {
 	width: 100%;
 }
 
+textarea {
+    border: 0.1rem solid silver;
+    height: 300px;
+    width: 100%;
+    resize: none;
+    outline: none;
+	font-family: 'Montserrat Light', Helvetica;
+	padding: 1rem;
+}
+
 @media only screen and (max-width: 768px) {
 	html, body {
 		font-size: 0.75rem;
