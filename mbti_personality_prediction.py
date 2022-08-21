@@ -5,6 +5,7 @@ from mbti_personality_prediction import MBTIPersonalityPrediction
 
 @app.route('/mbti_personality_prediction', methods=['GET', 'POST'])
 def mbti_personality_prediction():
+    project = loads(request.args['project'])
     paragraph_to_predict = loads(request.args['paragraph_to_predict'])
     predictor = MBTIPersonalityPrediction()
     mbti_type = predictor.predict_personality(paragraph_to_predict)
