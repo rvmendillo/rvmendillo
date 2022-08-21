@@ -13,6 +13,7 @@ from redirects import *
 from save_file import *
 from captcha import *
 from realtime_chat import *
+from mbti_personality_prediction import *
 
 # Routes
 @app.route('/', methods=['GET'])
@@ -42,7 +43,7 @@ def view_project_info(name=None):
         elif name == 'mbti_personality_prediction':
             if verify_captcha():
                 paragraph_to_predict = request.form['paragraph_to_predict']
-                return redirect(url_for('mbti_personality_predictor', project=dumps(project), paragraph_to_predict=dumps(paragraph_to_predict)), code=302)
+                return redirect(url_for(name, project=dumps(project), paragraph_to_predict=dumps(paragraph_to_predict)), code=302)
             return 'reCAPTCHA validation failed.'
         elif name == 'image_to_ascii':
             if verify_captcha():
