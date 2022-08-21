@@ -14,13 +14,13 @@
             </form>
             {% if output %}
                 <script>
-                    document.getElementById("python_code").innerHTML = atob({{python_code}});
-                    document.getElementById("python_output").innerHTML = atob({{output}});
+                    document.getElementById("python_code").innerHTML = atob("{{python_code}}");
+                    document.getElementById("python_output").innerHTML = atob("{{output}}");
                 </script>
             {% elif error %}
                 <script>
-                    document.getElementById("python_code").innerHTML = atob({{python_code}});
-                    document.getElementById("python_output").innerHTML = atob({{error}});
+                    document.getElementById("python_code").innerHTML = atob("{{python_code}}");
+                    document.getElementById("python_output").innerHTML = atob("{{error}}");
                 </script>
             {% endif %}
         </div>
