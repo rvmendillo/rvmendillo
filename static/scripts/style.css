@@ -339,6 +339,10 @@ input[type="file"] {
 	.multicolumn .column {
 		margin-bottom: 1rem;
 	}
+
+	.text_field {
+		width: 100%;
+	}
 }
 
 @media only screen and (max-width: 1024px) {
