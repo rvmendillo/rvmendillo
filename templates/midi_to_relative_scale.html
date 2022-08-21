@@ -4,8 +4,8 @@
         <div class="column">
             <h1>MIDI Player</h1>
             <midi-visualizer type="waterfall" id="mainVisualizer" src="../static/files/A Lovely Dream.mid"></midi-visualizer>
-            {% if base64_string %}
-                <midi-player src="data:audio/midi;base64,{{base64_string}}" sound-font="" visualizer="#mainVisualizer" id="mainPlayer"></midi-player>
+            {% if output %}
+                <midi-player src="data:audio/midi;base64,{{output}}" sound-font="" visualizer="#mainVisualizer" id="mainPlayer"></midi-player>
             {% else %}
                 <midi-player src="../static/files/A Lovely Dream.mid" sound-font="" visualizer="#mainVisualizer" id="mainPlayer"></midi-player>
             {% endif %}

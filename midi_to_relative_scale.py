@@ -29,4 +29,4 @@ def midi_to_relative_scale():
                                            github=project['github'],
                                            demo=project['demo'],
                                            path=project['path'],
-                                           base64_string=base64_string.decode())
+                                           output=base64_string.decode())
