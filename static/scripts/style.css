@@ -1,7 +1,6 @@
 :root {
 	--selection_background_color: #00cccc;
 	--selection_text_color: white;
-	--content_font: 'Montserrat Light';
 	--smooth_transition: ease-out 0.4s;
 	--toggle_icon_color: #101f58;
 	--first_background_color: white;
@@ -64,7 +63,7 @@
 }
 
 @font-face {
-	font-family: var(--content_font);
+	font-family: 'Montserrat Light';
 	src: url("../fonts/Montserrat-Light.woff");
 }
 
@@ -94,7 +93,7 @@
 html, body {
 	height: 100%;
 	margin: 0;
-	font-family: var(--content_font), Helvetica;
+	font-family: 'Montserrat Light', Helvetica;
 	font-weight: 150;
 	scroll-behavior: smooth;
 }
@@ -226,7 +225,7 @@ h4 {
 	text-decoration: none;
 	text-transform: uppercase;
 	margin-right: 0.75rem;
-	font-family: var(--content_font), Helvetica;
+	font-family: 'Montserrat Light', Helvetica;
 	font-size: 1rem;
 }
 
@@ -278,7 +277,7 @@ input[type="file"] {
 
 .text_field {
 	outline: none;
-	font-family: var(--content_font), Helvetica;
+	font-family: 'Montserrat Light', Helvetica;
 	font-weight: bold;
 	border: 0.1rem solid silver;
 	border-radius: 0;
