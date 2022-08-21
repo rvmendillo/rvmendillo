@@ -5,23 +5,24 @@
             <h1>Code Playground</h1>
             <form action="/project/python_compiler" method="post">
                 <div class="row multicolumn">
-                    <textarea class="column" id="python_code" name="python_code" contenteditable="true">
-                        {%- if python_code -%}
-                        {{python_code}}
-                        {%- endif -%}
-                    </textarea>
-                    <div class="column" id="python_output">
-                        {%- if output -%}
-                        {{output}}
-                        {%- elif error -%}
-                        {{error}}
-                        {%- endif -%}
-                    </div>
+                    <textarea class="column" id="python_code" name="python_code" contenteditable="true"></textarea>
+                    <div class="column" id="python_output"></div>
                 </div>
                 <div class="g-recaptcha" data-sitekey="6Lfq6-QdAAAAACk4wX-YuRhedQk23IYm1ZaodOPE"></div>
                 <br />
                 <button type="submit" class="button">Run Code</button>
             </form>
+            {% if output %}
+                <script>
+                    document.getElementById("python_code").innerHTML = `{{python_code}}`;
+                    document.getElementById("python_output").innerHTML = `{{output}}`;
+                </script>
+            {% elif error %}
+                <script>
+                    document.getElementById("python_code").innerHTML = `{{python_code}}`;
+                    document.getElementById("python_output").innerHTML = `{{error}}`;
+                </script>
+            {% endif %}
         </div>
     </div>
 </section>

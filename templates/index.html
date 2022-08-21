@@ -11,9 +11,9 @@
 {% endblock %}
 {% block body %}
 {% if forced_link %}
-    <body onload="automate_animation(); go_to_projects();">
+    <body onload="check_dark_mode(); automate_animation(); go_to_projects();">
 {% else %}
-    <body onload="automate_animation();">
+    <body onload="check_dark_mode(); automate_animation();">
 {% endif %}    
     {% include 'header.html' %}
     {% include 'projects.html' %}

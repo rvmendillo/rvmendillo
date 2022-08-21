@@ -1,7 +1,9 @@
-if (localStorage.dark_mode == null)
-	localStorage.dark_mode = "false";
-else if (localStorage.dark_mode == "true")
-    document.body.classList.add('dark_mode');
+function check_dark_mode() {
+    if (localStorage.dark_mode == null)
+        localStorage.dark_mode = "false";
+    else if (localStorage.dark_mode == "true")
+        document.body.classList.add('dark_mode');
+}
 
 function toggle_dark_mode() {
     document.body.classList.toggle('dark_mode');

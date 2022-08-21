@@ -30,9 +30,9 @@
 {% block title %}{{name}} | {{super()}}{% endblock %}
 {% block body %}
 {% if output %}
-    <body onload="automate_animation(); go_to_output();" onhashchange="window.history.replaceState(null, document.title, '/project/{{path}}');">
+    <body onload="check_dark_mode(); automate_animation(); go_to_output();" onhashchange="window.history.replaceState(null, document.title, '/project/{{path}}');">
 {% else %}
-    <body onload="automate_animation();">
+    <body onload="check_dark_mode(); automate_animation();">
 {% endif %}  
     {% include 'project_info.html' %}
     {% include 'infolinks_integration.html' %}
