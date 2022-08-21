@@ -11,3 +11,4 @@ eventlet==0.30.2
 gevent-websocket
 Flask-Compress
 mbti-personality-prediction
+scikit-learn
