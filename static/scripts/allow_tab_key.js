@@ -5,6 +5,6 @@ function allow_tab_key(event) {
         var selection_start = textarea.selectionStart;
         var selection_end = textarea.selectionEnd;
         textarea.value = textarea.value.substring(0, selection_start) + "\t" + textarea.value.substring(selection_end);
-        selection_start = selection_end = selection_start + 1;
+        textarea.selectionStart = textarea.selectionEnd = selection_start + 1;
     }
 }
