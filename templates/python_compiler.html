@@ -22,6 +22,11 @@
                     document.getElementById("python_code").innerHTML = atob("{{python_code}}");
                     document.getElementById("python_output").innerHTML = atob("{{error}}");
                 </script>
+            {% else %}
+                <script>
+                    document.getElementById("python_code").innerHTML = atob("aW1wb3J0IHJlcXVlc3RzCgpweXRob25fY29kZSA9ICIiIgoKZGVmIGYoeCk6CiAgICBpZiB4ID09IDA6CiAgICAgICAgcmV0dXJuIDEKICAgIHJldHVybiB4ICogZih4LTEpCgpmYWN0b3JpYWxfb3V0cHV0cyA9IFtmIntffSEgPSB7ZihmKF8pKX0iIGZvciBfIGluIHJhbmdlKDQpXQoKZm9yIF8gaW4gZmFjdG9yaWFsX291dHB1dHM6CiAgICBwcmludChfKQoKIiIiCgpqc29uID0geydweXRob25fY29kZSc6IHB5dGhvbl9jb2RlfQpyZXNwb25zZSA9IHJlcXVlc3RzLnBvc3QoImh0dHBzOi8vcnZtZW5kaWxsby5jb20vYXBpL3B5dGhvbl9jb21waWxlciIsIGpzb249anNvbikKcHJpbnQocmVzcG9uc2UuanNvbigpWydvdXRwdXQnXSk=");
+                    document.getElementById("python_output").innerHTML = atob("MCEgPSAxCjEhID0gMQoyISA9IDIKMyEgPSA3MjAK");
+                </script>
             {% endif %}
         </div>
     </div>
