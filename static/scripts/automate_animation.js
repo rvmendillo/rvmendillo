@@ -6,6 +6,10 @@ function automate_animation() {
     var column_list = document.querySelectorAll("section:not(:first-of-type) .row:not([class='row center_y']) .column");
     for (var i = 0; i < column_list.length; i++)
         column_list[i].setAttribute("data-aos", "zoom-in");
+    
+    var column_list = document.querySelectorAll("section[id='projects'] .row:not([class='row center_y']) .column");
+    for (var i = 0; i < column_list.length; i++)
+        column_list[i].setAttribute("data-aos", "zoom-in");
 
     var a_list = document.querySelectorAll("section:not(:first-of-type):not([id='projects']) .row .column .button");
     for (var i = 0; i < a_list.length; i++)
