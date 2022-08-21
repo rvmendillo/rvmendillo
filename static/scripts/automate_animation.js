@@ -10,4 +10,6 @@ function automate_animation() {
     var a_list = document.querySelectorAll("section .row .column a");
     for (var i = 0; i < a_list.length; i++)
         a_list[i].setAttribute("data-aos", "zoom-in");
+
+    AOS.init();
 }
