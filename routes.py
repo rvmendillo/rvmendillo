@@ -58,8 +58,9 @@ def view_project_info(name=None):
             return 'reCAPTCHA validation failed.'
         elif name == 'python_compiler':
             if verify_captcha():
-                code_path = save_text_and_get_path(request.form['python_code'], 'python.py')
-                return redirect(url_for(name, project=dumps(project), code_path=dumps(code_path)), code=302)
+                python_code = request.form['python_code']
+                code_path = save_text_and_get_path(python_code, 'python.py')
+                return redirect(url_for(name, project=dumps(project), code_path=dumps(code_path), python_code=dumps(python_code)), code=302)
             return 'reCAPTCHA validation failed.'
 
     return render_template('project.html', name=project['name'],

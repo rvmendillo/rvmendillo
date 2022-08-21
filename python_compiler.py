@@ -8,8 +8,8 @@ import subprocess
 @app.route('/python_compiler', methods=['GET', 'POST'])
 def python_compiler():
     project = loads(request.args['project'])
+    python_code = loads(request.args['python_code'])
     code_path = loads(request.args['code_path'])
-
     command = f'python {code_path}'
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     output, error = process.communicate()
@@ -20,8 +20,9 @@ def python_compiler():
                                            github=project['github'],
                                            demo=project['demo'],
                                            path=project['path'],
-                                           output=output,
-                                           error=error)
+                                           python_code=python_code,
+                                           output=output.decode('utf-8'),
+                                           error=error.decode('utf-8'))
 
 @app.route('/api/python_compiler', methods=['GET', 'POST'])
 def python_compiler_api():
