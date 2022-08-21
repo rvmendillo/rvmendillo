@@ -12,7 +12,7 @@ def python_compiler():
     code_path = loads(request.args['code_path'])
     command = f'python {code_path}'
     
-    with open(code_path, 'r') as python_file:
+    with open(code_path, 'rb') as python_file:
         python_code = python_file.read()
 
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
@@ -24,7 +24,7 @@ def python_compiler():
                                            github=project['github'],
                                            demo=project['demo'],
                                            path=project['path'],
-                                           python_code=b64encode(python_code),
+                                           python_code=b64encode(python_code).decode(),
                                            output=b64encode(output.decode('utf-8')),
                                            error=b64encode(error.decode('utf-8')))
 
