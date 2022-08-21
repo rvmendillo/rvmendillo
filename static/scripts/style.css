@@ -22,6 +22,7 @@
 	--second_background_button_hover_text_color: teal;
 	--text_field_background_color: white;
 	--text_field_text_color: black;
+	--text_field_border_color: silver;
 }
 
 .dark_mode {
@@ -46,6 +47,7 @@
 	--second_background_button_hover_text_color: #00cccc;
 	--text_field_background_color: #d2d7eb;
 	--text_field_text_color: #1a213c;
+	--text_field_border_color: #b0b9c1;
 }
 
 ::selection {
@@ -279,7 +281,7 @@ input[type="file"] {
 	outline: none;
 	font-family: 'Montserrat Light', Helvetica;
 	font-weight: bold;
-	border: 0.1rem solid silver;
+	border: 0.1rem solid var(--text_field_border_color);
 	border-radius: 0;
 	padding: 1rem;
 	color: var(--text_field_text_color);
