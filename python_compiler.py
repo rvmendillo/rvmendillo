@@ -30,7 +30,7 @@ def python_compiler():
 
 @app.route('/api/python_compiler', methods=['GET', 'POST'])
 def python_compiler_api():
-    code_path = save_text_and_get_path(request.json['python_code'], 'python.py')
+    code_path = save_text_and_get_path(request.json['python_code'], 'python_api.py')
     command = f'python {code_path}'
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     output, error = process.communicate()
