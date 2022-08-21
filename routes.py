@@ -13,7 +13,7 @@ from redirects import *
 from save_file import *
 from captcha import *
 from realtime_chat import *
-from mbti_personality_prediction import *
+from mbti_personality_predictor import *
 
 # Routes
 @app.route('/', methods=['GET'])
