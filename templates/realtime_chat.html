@@ -3,13 +3,13 @@
     <div class="row center_y">
         <div class="column">
             <h1>Chatroom</h1>
-            <div id="chat_history" style="height: 300px; overflow: auto;"></div>
+            <div id="chat_history" style="max-height: 300px; overflow: auto;"></div>
             <br />
             <label for="chat_username">Username</label>
-            <input id="chat_username" name="chat_username" />
+            <input id="chat_username" name="chat_username" class="text_field" />
             <br />
             <label for="chat_message">Message</label>
-            <input id="chat_message" name="chat_message" />
+            <input id="chat_message" name="chat_message" class="text_field" />
             <br />
             <br />
             <button onclick="send_message();" class="button">Send Message</button>
