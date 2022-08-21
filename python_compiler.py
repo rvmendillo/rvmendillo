@@ -24,9 +24,9 @@ def python_compiler():
                                            github=project['github'],
                                            demo=project['demo'],
                                            path=project['path'],
-                                           python_code=b64encode(python_code).decode(),
-                                           output=b64encode(output.decode('utf-8')).decode(),
-                                           error=b64encode(error.decode('utf-8')).decode())
+                                           python_code=b64encode(python_code),
+                                           output=b64encode(output.decode('utf-8')),
+                                           error=b64encode(error.decode('utf-8')))
 
 @app.route('/api/python_compiler', methods=['GET', 'POST'])
 def python_compiler_api():
