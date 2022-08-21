@@ -1,6 +1,7 @@
 # Import Libraries
 from app import app
 import pymongo
+import os
 
 # Functions
 def configure_database(username, password, project, cluster):
@@ -19,7 +20,7 @@ def search_all(table):
     return entries
 
 # Global
-client = configure_database('admin', 'pass', 'rvmendillo', 'rvmendillo')
+client = configure_database(os.environ['DB_USERNAME'], os.environ['DB_PASS'], os.environ['DB_PROJECT'], os.environ['DB_CLUSTER'])
 database = client['rvmendillo']
 users = database['users']
 projects = database['projects']
