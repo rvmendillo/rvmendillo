@@ -25,6 +25,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.js"></script>
     {% elif path == 'image_to_ascii' %}
         <script src="../static/scripts/toggle_input_type.js"></script>
+    {% elif path == 'python_compiler' %}
+        <script src="../static/scripts/allow_tab_key.js"></script>
     {% endif %}
 {% endblock %}
 {% block title %}{{name}} | {{super()}}{% endblock %}
