@@ -281,10 +281,13 @@ input[type="file"] {
 	font-weight: bold;
 	border: 0.1rem solid silver;
 	border-radius: 0;
-	padding: 1.25rem 2rem;
-	width: 100%;
+	padding: 1rem;
 	color: var(--text_field_text_color);
 	background: var(--text_field_background_color);
+}
+
+.multicolumn .text_field {
+	width: 100%;
 }
 
 @media only screen and (max-width: 768px) {
