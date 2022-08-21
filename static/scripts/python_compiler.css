@@ -1,15 +1,11 @@
 #python_code, #python_output {
     border: 0.1rem solid silver;
     height: 300px;
-}
-
-#python_code {
     width: 100%;
     resize: none;
-    font-family: Consolas;
     outline: none;
 }
 
-#python_output {
-    background:white;
+#python_code {
+    font-family: Consolas;
 }
