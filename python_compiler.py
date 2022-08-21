@@ -3,6 +3,7 @@ from flask import render_template, request, jsonify
 from os import remove
 from json import loads
 from save_file import *
+from base64 import b64encode
 import subprocess
 
 @app.route('/python_compiler', methods=['GET', 'POST'])
@@ -23,9 +24,9 @@ def python_compiler():
                                            github=project['github'],
                                            demo=project['demo'],
                                            path=project['path'],
-                                           python_code=python_code,
-                                           output=output.decode('utf-8'),
-                                           error=error.decode('utf-8'))
+                                           python_code=b64encode(python_code).decode(),
+                                           output=b64encode(output.decode('utf-8')).decode(),
+                                           error=b64encode(error.decode('utf-8')).decode())
 
 @app.route('/api/python_compiler', methods=['GET', 'POST'])
 def python_compiler_api():
