@@ -7,7 +7,7 @@ function automate_animation() {
     for (var i = 0; i < column_list.length; i++)
         column_list[i].setAttribute("data-aos", "zoom-in");
 
-    var a_list = document.querySelectorAll("section:not(:first-child):not([id='projects']) .row .column a");
+    var a_list = document.querySelectorAll("section:not(:first-child):not([id='projects']) .row .column .button");
     for (var i = 0; i < a_list.length; i++)
         a_list[i].setAttribute("data-aos", "zoom-in");
 

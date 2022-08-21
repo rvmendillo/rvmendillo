@@ -281,7 +281,7 @@ input[type="file"] {
 	font-weight: bold;
 	border: 0.1rem solid silver;
 	border-radius: 0;
-	padding: 3% 0% 3% 3%;
+	padding: 1.25rem 2rem;
 	width: 100%;
 	color: var(--text_field_text_color);
 	background: var(--text_field_background_color);
