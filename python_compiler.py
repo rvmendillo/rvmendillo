@@ -8,9 +8,12 @@ import subprocess
 @app.route('/python_compiler', methods=['GET', 'POST'])
 def python_compiler():
     project = loads(request.args['project'])
-    python_code = loads(request.args['python_code'])
     code_path = loads(request.args['code_path'])
     command = f'python {code_path}'
+    
+    with open(code_path, 'r') as python_file:
+        python_code = python_file.read()
+
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     output, error = process.communicate()
     remove(code_path)
