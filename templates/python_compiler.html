@@ -6,15 +6,17 @@
             <form action="/project/python_compiler" method="post">
                 <div class="row multicolumn">
                     <textarea class="column" id="python_code" name="python_code" contenteditable="true">
-                    {% if python_code %}
-                    {{python_code}}
-                    {% endif %}
+                        {% if python_code %}
+                        {{python_code}}
+                        {% endif %}
                     </textarea>
-                    {% if output %}
-                    <div class="column" id="python_output">{{output}}</div>
-                    {% elif error %}
-                    <div class="column" id="python_output">{{error}}</div>
-                    {% endif %}
+                    <div class="column" id="python_output">
+                        {% if output %}
+                        {{output}}
+                        {% elif error %}
+                        {{error}}
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="g-recaptcha" data-sitekey="6Lfq6-QdAAAAACk4wX-YuRhedQk23IYm1ZaodOPE"></div>
                 <br />
