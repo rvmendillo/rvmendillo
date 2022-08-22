@@ -296,11 +296,11 @@ input[type="file"] {
 }
 
 textarea {
-    border: 0.1rem solid silver;
-    height: 300px;
-    width: 100%;
-    resize: none;
-    outline: none;
+	border: 0.1rem solid silver;
+	height: 300px;
+	width: 100%;
+	resize: none;
+	outline: none;
 	font-family: 'Montserrat Light', Helvetica;
 	padding: 1rem;
 }
