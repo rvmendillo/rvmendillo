@@ -4,6 +4,7 @@
     width: 100%;
     resize: none;
     outline: none;
+    white-space: nowrap;
 }
 
 #python_code {
