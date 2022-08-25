@@ -6,13 +6,13 @@
             <div id="chat_history"></div>
             <br />
             <label for="chat_username"><h2>Username</h2></label>
-            <input id="chat_username" name="chat_username" class="text_field" />
+            <input id="chat_username" name="chat_username" class="text_field" onkeydown="allow_enter_key(event, 'send_button');" />
             <br />
             <label for="chat_message"><h2>Message</h2></label>
-            <input id="chat_message" name="chat_message" class="text_field" />
+            <input id="chat_message" name="chat_message" class="text_field" onkeydown="allow_enter_key(event, 'send_button');" />
             <br />
             <br />
-            <button onclick="send_message();" class="button">Send Message</button>
+            <button id="send_button" onclick="send_message();" class="button">Send Message</button>
             <script src="../static/scripts/realtime_chat.js"></script>
         </div>
     </div>
