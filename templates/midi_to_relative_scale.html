@@ -5,7 +5,7 @@
             <h1>MIDI Player</h1>
             <midi-visualizer type="waterfall" id="mainVisualizer" src="../static/files/A Lovely Dream.mid"></midi-visualizer>
             {% if output %}
-                <midi-player src="data:audio/midi;base64,{{output}}" sound-font="" visualizer="#mainVisualizer" id="mainPlayer"></midi-player>
+                <midi-player src="data:audio/midi;base64,{{original_file}}" sound-font="" visualizer="#mainVisualizer" id="mainPlayer"></midi-player>
             {% else %}
                 <midi-player src="../static/files/A Lovely Dream.mid" sound-font="" visualizer="#mainVisualizer" id="mainPlayer"></midi-player>
             {% endif %}
@@ -20,6 +20,19 @@
                 <br />
                 <button type="submit" class="button">Upload MIDI File</button>
             </form>
+        </div>
+    </div>
+</section>
+<section class="padding first_background" id="output">
+    <div class="row center_y">
+        <div class="column">
+            <h1>Output</h1>
+            <midi-visualizer type="waterfall" id="outputVisualizer" src="../static/files/Nightmare.mid"></midi-visualizer>
+            {% if output %}
+                <midi-player src="data:audio/midi;base64,{{output}}" sound-font="" visualizer="#outputVisualizer" id="outputPlayer"></midi-player>
+            {% else %}
+                <midi-player src="../static/files/Nightmare.mid" sound-font="" visualizer="#outputVisualizer" id="outputPlayer"></midi-player>
+            {% endif %}
         </div>
     </div>
 </section>

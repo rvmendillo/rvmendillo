@@ -18,15 +18,19 @@ def to_relative_scale(midi_path):
 def midi_to_relative_scale():
     project = loads(request.args['project'])
     midi_path = loads(request.args['midi_path'])
+    with open(midi_path, 'rb') as midi_file:
+        original_file = midi_file.read()
+    original_base64_string = b64encode(original_file)
     to_relative_scale(midi_path)
     with open('static/files/output.mid', 'rb') as midi_file:
         temporary_file = midi_file.read()
     remove(midi_path)
-    base64_string = b64encode(temporary_file)
+    output_base64_string = b64encode(temporary_file)
     return render_template('project.html', name=project['name'],
                                            category=project['category'],
                                            description=project['description'],
                                            github=project['github'],
                                            demo=project['demo'],
                                            path=project['path'],
+                                           original_file=original_base64_string.decode(),
                                            output=base64_string.decode())
