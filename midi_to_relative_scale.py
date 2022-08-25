@@ -33,4 +33,4 @@ def midi_to_relative_scale():
                                            demo=project['demo'],
                                            path=project['path'],
                                            original_file=original_base64_string.decode(),
-                                           output=base64_string.decode())
+                                           output=output_base64_string.decode())
