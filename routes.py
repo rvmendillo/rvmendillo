@@ -68,12 +68,7 @@ def view_project_info(name=None):
         elif name == 'knapsack_problem':
             if verify_captcha():
                 weight_limit = request.form['weight_limit']
-                item_1 = request.form.getlist('item_1')
-                item_2 = request.form.getlist('item_2')
-                item_3 = request.form.getlist('item_3')
-                item_4 = request.form.getlist('item_4')
-                item_5 = request.form.getlist('item_5')
-                items = [eval('item_' + str(i+1)) for i in range(5)]
+                items = [[request.form['item_' + str(x+1) + '_' + str(y+1)] for y in range(3)] for x in range(5)]
                 print(weight_limit)
                 print(items)
                 return redirect(url_for(name, project=dumps(project), weight_limit=dumps(weight_limit), items=dumps(items)), code=302)
