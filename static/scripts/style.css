@@ -234,7 +234,7 @@ h4 {
 	margin-right: 0.75rem;
 	font-family: 'Montserrat Light', Helvetica;
 	font-size: 1rem;
-	transition: background-color ease-out 0.4s;
+	transition: box-shadow ease-out 0.4s;
 }
 
 .first_background .button, header .button {
