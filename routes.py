@@ -64,6 +64,14 @@ def view_project_info(name=None):
                 code_path = save_text_and_get_path(python_code, 'python.py')
                 return redirect(url_for(name, project=dumps(project), code_path=dumps(code_path)), code=302)
             return 'reCAPTCHA validation failed.'
+        elif name == 'knapsack_problem':
+            if verify_captcha():
+                weight_limit = request.form['weight_limit']
+                items = request.form.getlist('items')
+                print(weight_limit)
+                print(items)
+                return redirect(url_for(name, project=dumps(project), weight_limit=dumps(weight_limit), items=dumps(items)), code=302)
+            return 'reCAPTCHA validation failed.'
 
     return render_template('project.html', name=project['name'],
                                            category=project['category'],
