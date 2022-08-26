@@ -14,6 +14,7 @@ from save_file import *
 from captcha import *
 from realtime_chat import *
 from mbti_personality_predictor import *
+from knapsack_problem import *
 
 # Routes
 @app.route('/', methods=['GET'])
