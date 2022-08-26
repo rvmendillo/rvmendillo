@@ -66,7 +66,7 @@ genome_to_items = lambda genome, items: [item.name for i, item in enumerate(item
 def knapsack_problem():
     project = loads(request.args['project'])
     items = [Item(item[0], int(item[1]), int(item[2])) for item in loads(request.args['items'])]
-    weight_limit = loads(request.args['weight_limit'])
+    weight_limit = int(loads(request.args['weight_limit']))
 
     start = datetime.datetime.now()
     population, generations = run_evolution(generate_population(5, len(items)),
