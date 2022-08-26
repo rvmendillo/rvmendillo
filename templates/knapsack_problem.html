@@ -4,13 +4,58 @@
         <div class="column">
             <h1>Find the Optimal Combination</h1>
             <form action="/project/knapsack_problem" method="post" enctype="multipart/form-data">
-                <label for="item_1_name"><h2>Item</h2></label>
-                <input id="item_1_name" name="item[0][]" class="text_field" />
-                <label for="item_1_value"><h2>Value</h2></label>
-                <input id="item_1_value" name="item[0][]" class="text_field" />
-                <label for="item_1_weight"><h2>Weight</h2></label>
-                <input id="item_1_weight" name="item[0][]" class="text_field" />
-                <br />
+                <div class="row multicolumn">
+                    <div class="column">
+                        <label for="item_1_name"><h2>Item 1</h2></label>
+                        <input id="item_1_name" name="items[0][]" class="text_field" required />
+                        <br />
+                        <label for="item_1_value"><h2>Value</h2></label>
+                        <input id="item_1_value" name="items[0][]" class="text_field" required />
+                        <br />
+                        <label for="item_1_weight"><h2>Weight</h2></label>
+                        <input id="item_1_weight" name="items[0][]" class="text_field" required />
+                    </div>
+                    <div class="column">
+                        <label for="item_2_name"><h2>Item 2</h2></label>
+                        <input id="item_2_name" name="items[1][]" class="text_field" required />
+                        <br />
+                        <label for="item_2_value"><h2>Value</h2></label>
+                        <input id="item_2_value" name="items[1][]" class="text_field" required />
+                        <br />
+                        <label for="item_2_weight"><h2>Weight</h2></label>
+                        <input id="item_2_weight" name="items[1][]" class="text_field" required />
+                    </div>
+                    <div class="column">
+                        <label for="item_3_name"><h2>Item 3</h2></label>
+                        <input id="item_3_name" name="items[2][]" class="text_field" required />
+                        <br />
+                        <label for="item_3_value"><h2>Value</h2></label>
+                        <input id="item_3_value" name="items[2][]" class="text_field" required />
+                        <br />
+                        <label for="item_3_weight"><h2>Weight</h2></label>
+                        <input id="item_3_weight" name="items[2][]" class="text_field" required />
+                    </div>
+                    <div class="column">
+                        <label for="item_4_name"><h2>Item 4</h2></label>
+                        <input id="item_4_name" name="items[3][]" class="text_field" required />
+                        <br />
+                        <label for="item_4_value"><h2>Value</h2></label>
+                        <input id="item_4_value" name="items[3][]" class="text_field" required />
+                        <br />
+                        <label for="item_4_weight"><h2>Weight</h2></label>
+                        <input id="item_4_weight" name="items[3][]" class="text_field" required />
+                    </div>
+                    <div class="column">
+                        <label for="item_5_name"><h2>Item 5</h2></label>
+                        <input id="item_5_name" name="items[4][]" class="text_field" required />
+                        <br />
+                        <label for="item_5_value"><h2>Value</h2></label>
+                        <input id="item_5_value" name="items[4][]" class="text_field" required />
+                        <br />
+                        <label for="item_5_weight"><h2>Weight</h2></label>
+                        <input id="item_5_weight" name="items[4][]" class="text_field" required />
+                    </div>
+                </div>
                 <div class="g-recaptcha" data-sitekey="6Lfq6-QdAAAAACk4wX-YuRhedQk23IYm1ZaodOPE"></div>
                 <br />
                 <button type="submit" class="button">Run Evolution</button>
