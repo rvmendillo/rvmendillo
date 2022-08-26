@@ -1,0 +1,31 @@
+{% filter indent(width=8) %}
+<section class="padding second_background">
+    <div class="row center_y">
+        <div class="column">
+            <h1>Find the Optimal Combination</h1>
+            <form action="/project/knapsack_problem" method="post" enctype="multipart/form-data">
+                <label for="item_1_name"><h2>Item</h2></label>
+                <input id="item_1_name" name="item[0][]" class="text_field" />
+                <label for="item_1_value"><h2>Value</h2></label>
+                <input id="item_1_value" name="item[0][]" class="text_field" />
+                <label for="item_1_weight"><h2>Weight</h2></label>
+                <input id="item_1_weight" name="item[0][]" class="text_field" />
+                <br />
+                <div class="g-recaptcha" data-sitekey="6Lfq6-QdAAAAACk4wX-YuRhedQk23IYm1ZaodOPE"></div>
+                <br />
+                <button type="submit" class="button">Run Evolution</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% if output %}
+<section class="padding first_background" id="output">
+    <div class="row center_y">
+        <div class="column">
+            <h1>Output</h1>
+            <h2>The optimal combination is {{output}}.</h2>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endfilter %}
