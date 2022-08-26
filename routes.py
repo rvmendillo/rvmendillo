@@ -69,8 +69,6 @@ def view_project_info(name=None):
             if verify_captcha():
                 weight_limit = request.form['weight_limit']
                 items = [[request.form['item_' + str(x+1) + '_' + str(y+1)] for y in range(3)] for x in range(5)]
-                print(weight_limit)
-                print(items)
                 return redirect(url_for(name, project=dumps(project), weight_limit=dumps(weight_limit), items=dumps(items)), code=302)
             return 'reCAPTCHA validation failed.'
 

@@ -65,7 +65,7 @@ genome_to_items = lambda genome, items: [item.name for i, item in enumerate(item
 @app.route('/knapsack_problem', methods=['GET', 'POST'])
 def knapsack_problem():
     project = loads(request.args['project'])
-    items = loads(request.args['items'])
+    items = [Item(item[0], int(item[1]), int(item[2])) for item in loads(request.args['items'])]
     weight_limit = loads(request.args['weight_limit'])
 
     start = datetime.datetime.now()
@@ -76,6 +76,7 @@ def knapsack_problem():
     end = datetime.datetime.now()
     evolution_time = end - start
     optimal_combination = genome_to_items(population[0], items)
+    total_weight = sum([test_item.time for item in optimal_combination for test_item in items if item == test_item.name])
 
     return render_template('project.html', name=project['name'],
                                            category=project['category'],
@@ -85,4 +86,6 @@ def knapsack_problem():
                                            path=project['path'],
                                            generations=generations,
                                            evolution_time=evolution_time,
+                                           total_weight=total_weight,
+                                           items=items,
                                            output=optimal_combination)
