@@ -24,6 +24,7 @@
 	--text_field_background_color: white;
 	--text_field_text_color: black;
 	--text_field_border_color: silver;
+	--bullet_color: teal;
 }
 
 .dark_mode {
@@ -50,6 +51,7 @@
 	--text_field_background_color: white;
 	--text_field_text_color: #1a213c;
 	--text_field_border_color: #b0b9c1;
+	--bullet_color: #00cccc;
 }
 
 ::selection {
@@ -232,6 +234,7 @@ h4 {
 	margin-right: 0.75rem;
 	font-family: 'Montserrat Light', Helvetica;
 	font-size: 1rem;
+	transition: background-color ease-out 0.4s;
 }
 
 .first_background .button, header .button {
@@ -303,6 +306,15 @@ textarea {
 	outline: none;
 	font-family: 'Montserrat Light', Helvetica;
 	padding: 1rem;
+}
+
+ul {
+	list-style-type: square;
+	color: var(--bullet_color);
+}
+
+ul li * {
+	color: var(--body_text_color);
 }
 
 @media only screen and (max-width: 768px) {
