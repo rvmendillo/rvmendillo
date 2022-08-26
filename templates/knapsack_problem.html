@@ -8,68 +8,133 @@
                 <input value="15" type="number" id="weight_limit" name="weight_limit" class="text_field" required />
                 <br />
                 <br />
-                <div class="row multicolumn">
-                    <div class="column">
-                        <label for="item_1_name"><h2>Item 1</h2></label>
-                        <input value="Gather Data" id="item_1_name" name="item_1_1" class="text_field" required />
-                        <br />
-                        <br />
-                        <label for="item_1_value"><h2>Value</h2></label>
-                        <input value="5" type="number" id="item_1_value" name="item_1_2" class="text_field" required />
-                        <br />
-                        <br />
-                        <label for="item_1_weight"><h2>Weight</h2></label>
-                        <input value="3" type="number" id="item_1_weight" name="item_1_3" class="text_field" required />
+                {% if output %}
+                    <div class="row multicolumn">
+                        <div class="column">
+                            <label for="item_1_name"><h2>Item 1</h2></label>
+                            <input value="{{items[0][0]}}" id="item_1_name" name="item_1_1" class="text_field" required />
+                            <br />
+                            <br />
+                            <label for="item_1_value"><h2>Value</h2></label>
+                            <input value="{{items[0][1]}}" type="number" id="item_1_value" name="item_1_2" class="text_field" required />
+                            <br />
+                            <br />
+                            <label for="item_1_weight"><h2>Weight</h2></label>
+                            <input value="{{items[0][2]}}" type="number" id="item_1_weight" name="item_1_3" class="text_field" required />
+                        </div>
+                        <div class="column">
+                            <label for="item_2_name"><h2>Item 2</h2></label>
+                            <input value="{{items[1][0]}}" id="item_2_name" name="item_2_1" class="text_field" required />
+                            <br />
+                            <br />
+                            <label for="item_2_value"><h2>Value</h2></label>
+                            <input value="{{items[1][1]}}" type="number" id="item_2_value" name="item_2_2" class="text_field" required />
+                            <br />
+                            <br />
+                            <label for="item_2_weight"><h2>Weight</h2></label>
+                            <input value="{{items[1][2]}}" type="number" id="item_2_weight" name="item_2_3" class="text_field" required />
+                        </div>
+                        <div class="column">
+                            <label for="item_3_name"><h2>Item 3</h2></label>
+                            <input value="{{items[2][0]}}" id="item_3_name" name="item_3_1" class="text_field" required />
+                            <br />
+                            <br />
+                            <label for="item_3_value"><h2>Value</h2></label>
+                            <input value="{{items[2][1]}}" type="number" id="item_3_value" name="item_3_2" class="text_field" required />
+                            <br />
+                            <br />
+                            <label for="item_3_weight"><h2>Weight</h2></label>
+                            <input value="{{items[2][2]}}" type="number" id="item_3_weight" name="item_3_3" class="text_field" required />
+                        </div>
+                        <div class="column">
+                            <label for="item_4_name"><h2>Item 4</h2></label>
+                            <input value="{{items[3][0]}}" id="item_4_name" name="item_4_1" class="text_field" required />
+                            <br />
+                            <br />
+                            <label for="item_4_value"><h2>Value</h2></label>
+                            <input value="{{items[3][1]}}" type="number" id="item_4_value" name="item_4_2" class="text_field" required />
+                            <br />
+                            <br />
+                            <label for="item_4_weight"><h2>Weight</h2></label>
+                            <input value="{{items[3][2]}}" type="number" id="item_4_weight" name="item_4_3" class="text_field" required />
+                        </div>
+                        <div class="column">
+                            <label for="item_5_name"><h2>Item 5</h2></label>
+                            <input value="{{items[4][0]}}" id="item_5_name" name="item_5_1" class="text_field" required />
+                            <br />
+                            <br />
+                            <label for="item_5_value"><h2>Value</h2></label>
+                            <input value="{{items[4][1]}}" type="number" id="item_5_value" name="item_5_2" class="text_field" required />
+                            <br />
+                            <br />
+                            <label for="item_5_weight"><h2>Weight</h2></label>
+                            <input value="{{items[4][2]}}" type="number" id="item_5_weight" name="item_5_3" class="text_field" required />
+                        </div>
                     </div>
-                    <div class="column">
-                        <label for="item_2_name"><h2>Item 2</h2></label>
-                        <input value="Develop Software" id="item_2_name" name="item_2_1" class="text_field" required />
-                        <br />
-                        <br />
-                        <label for="item_2_value"><h2>Value</h2></label>
-                        <input value="2" type="number" id="item_2_value" name="item_2_2" class="text_field" required />
-                        <br />
-                        <br />
-                        <label for="item_2_weight"><h2>Weight</h2></label>
-                        <input value="15" type="number" id="item_2_weight" name="item_2_3" class="text_field" required />
+                {% else %}
+                    <div class="row multicolumn">
+                        <div class="column">
+                            <label for="item_1_name"><h2>Item 1</h2></label>
+                            <input value="Gather Data" id="item_1_name" name="item_1_1" class="text_field" required />
+                            <br />
+                            <br />
+                            <label for="item_1_value"><h2>Value</h2></label>
+                            <input value="5" type="number" id="item_1_value" name="item_1_2" class="text_field" required />
+                            <br />
+                            <br />
+                            <label for="item_1_weight"><h2>Weight</h2></label>
+                            <input value="3" type="number" id="item_1_weight" name="item_1_3" class="text_field" required />
+                        </div>
+                        <div class="column">
+                            <label for="item_2_name"><h2>Item 2</h2></label>
+                            <input value="Develop Software" id="item_2_name" name="item_2_1" class="text_field" required />
+                            <br />
+                            <br />
+                            <label for="item_2_value"><h2>Value</h2></label>
+                            <input value="2" type="number" id="item_2_value" name="item_2_2" class="text_field" required />
+                            <br />
+                            <br />
+                            <label for="item_2_weight"><h2>Weight</h2></label>
+                            <input value="15" type="number" id="item_2_weight" name="item_2_3" class="text_field" required />
+                        </div>
+                        <div class="column">
+                            <label for="item_3_name"><h2>Item 3</h2></label>
+                            <input value="Prepare Documentation" id="item_3_name" name="item_3_1" class="text_field" required />
+                            <br />
+                            <br />
+                            <label for="item_3_value"><h2>Value</h2></label>
+                            <input value="1" type="number" id="item_3_value" name="item_3_2" class="text_field" required />
+                            <br />
+                            <br />
+                            <label for="item_3_weight"><h2>Weight</h2></label>
+                            <input value="1" type="number" id="item_3_weight" name="item_3_3" class="text_field" required />
+                        </div>
+                        <div class="column">
+                            <label for="item_4_name"><h2>Item 4</h2></label>
+                            <input value="Define User Requirements" id="item_4_name" name="item_4_1" class="text_field" required />
+                            <br />
+                            <br />
+                            <label for="item_4_value"><h2>Value</h2></label>
+                            <input value="3" type="number" id="item_4_value" name="item_4_2" class="text_field" required />
+                            <br />
+                            <br />
+                            <label for="item_4_weight"><h2>Weight</h2></label>
+                            <input value="5" type="number" id="item_4_weight" name="item_4_3" class="text_field" required />
+                        </div>
+                        <div class="column">
+                            <label for="item_5_name"><h2>Item 5</h2></label>
+                            <input value="Interview Users" id="item_5_name" name="item_5_1" class="text_field" required />
+                            <br />
+                            <br />
+                            <label for="item_5_value"><h2>Value</h2></label>
+                            <input value="4" type="number" id="item_5_value" name="item_5_2" class="text_field" required />
+                            <br />
+                            <br />
+                            <label for="item_5_weight"><h2>Weight</h2></label>
+                            <input value="5" type="number" id="item_5_weight" name="item_5_3" class="text_field" required />
+                        </div>
                     </div>
-                    <div class="column">
-                        <label for="item_3_name"><h2>Item 3</h2></label>
-                        <input value="Prepare Documentation" id="item_3_name" name="item_3_1" class="text_field" required />
-                        <br />
-                        <br />
-                        <label for="item_3_value"><h2>Value</h2></label>
-                        <input value="1" type="number" id="item_3_value" name="item_3_2" class="text_field" required />
-                        <br />
-                        <br />
-                        <label for="item_3_weight"><h2>Weight</h2></label>
-                        <input value="1" type="number" id="item_3_weight" name="item_3_3" class="text_field" required />
-                    </div>
-                    <div class="column">
-                        <label for="item_4_name"><h2>Item 4</h2></label>
-                        <input value="Define User Requirements" id="item_4_name" name="item_4_1" class="text_field" required />
-                        <br />
-                        <br />
-                        <label for="item_4_value"><h2>Value</h2></label>
-                        <input value="3" type="number" id="item_4_value" name="item_4_2" class="text_field" required />
-                        <br />
-                        <br />
-                        <label for="item_4_weight"><h2>Weight</h2></label>
-                        <input value="5" type="number" id="item_4_weight" name="item_4_3" class="text_field" required />
-                    </div>
-                    <div class="column">
-                        <label for="item_5_name"><h2>Item 5</h2></label>
-                        <input value="Interview Users" id="item_5_name" name="item_5_1" class="text_field" required />
-                        <br />
-                        <br />
-                        <label for="item_5_value"><h2>Value</h2></label>
-                        <input value="4" type="number" id="item_5_value" name="item_5_2" class="text_field" required />
-                        <br />
-                        <br />
-                        <label for="item_5_weight"><h2>Weight</h2></label>
-                        <input value="5" type="number" id="item_5_weight" name="item_5_3" class="text_field" required />
-                    </div>
-                </div>
+                {% endif %}
                 <div class="g-recaptcha" data-sitekey="6Lfq6-QdAAAAACk4wX-YuRhedQk23IYm1ZaodOPE"></div>
                 <br />
                 <button type="submit" class="button">Run Evolution</button>
@@ -82,7 +147,15 @@
     <div class="row center_y">
         <div class="column">
             <h1>Output</h1>
-            <h2>The optimal combination is {{output}}.</h2>
+            <h2>The optimal combination is:</h2>
+            <ul>
+                {% for item in output %}
+                    <li><h3>{{item}}</h3></li>
+                {% endfor %}
+            </ul>
+            <h2>Number of Generations: {{generations}}</h2>
+            <h2>Evolution Time: {{evolution_time}}</h2>
+            <h2>Total Weight: {{total_weight}}</h2>
         </div>
     </div>
 </section>
