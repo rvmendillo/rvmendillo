@@ -67,9 +67,12 @@ def view_project_info(name=None):
             return 'reCAPTCHA validation failed.'
         elif name == 'knapsack_problem':
             if verify_captcha():
+                population = request.form['population']
                 weight_limit = request.form['weight_limit']
+                fitness_limit = request.form['fitness_limit']
+                generation_limit = request.form['generation_limit']
                 items = [[request.form['item_' + str(x+1) + '_' + str(y+1)] for y in range(3)] for x in range(5)]
-                return redirect(url_for(name, project=dumps(project), weight_limit=dumps(weight_limit), items=dumps(items)), code=302)
+                return redirect(url_for(name, project=dumps(project), population=dumps(population), weight_limit=dumps(weight_limit), fitness_limit=dumps(fitness_limit), generation_limit=dumps(generation_limit), items=dumps(items)), code=302)
             return 'reCAPTCHA validation failed.'
 
     return render_template('project.html', name=project['name'],

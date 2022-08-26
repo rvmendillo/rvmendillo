@@ -66,13 +66,16 @@ genome_to_items = lambda genome, items: [item.name for i, item in enumerate(item
 def knapsack_problem():
     project = loads(request.args['project'])
     items = [Item(item[0], int(item[1]), int(item[2])) for item in loads(request.args['items'])]
+    population_limit = int(loads(request.args['population']))
     weight_limit = int(loads(request.args['weight_limit']))
+    fitness_limit = int(loads(request.args['fitness_limit']))
+    generation_limit = int(loads(request.args['generation_limit']))
 
     start = datetime.datetime.now()
-    population, generations = run_evolution(generate_population(5, len(items)),
+    population, generations = run_evolution(generate_population(population_limit, len(items)),
                                             fitness=partial(fitness, items=items, time_limit=weight_limit),
-                                            fitness_limit=5000,
-                                            generation_limit=10000)
+                                            fitness_limit=fitness_limit,
+                                            generation_limit=generation_limit)
     end = datetime.datetime.now()
     evolution_time = end - start
     optimal_combination = genome_to_items(population[0], items)
@@ -84,7 +87,11 @@ def knapsack_problem():
                                            github=project['github'],
                                            demo=project['demo'],
                                            path=project['path'],
-                                           generations=generations,
+                                           population=population_limit,
+                                           weight_limit=weight_limit,
+                                           fitness_limit=fitness_limit,
+                                           generation_limit=generation_limit,
+                                           generations=generations+1,
                                            evolution_time=evolution_time,
                                            total_weight=total_weight,
                                            items=items,
