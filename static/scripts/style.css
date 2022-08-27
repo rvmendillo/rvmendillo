@@ -298,7 +298,7 @@ input[type="file"] {
 	width: 100%;
 }
 
-textarea {
+textarea:not([id="ascii_output"]) {
 	border: 0.1rem solid silver;
 	height: 300px;
 	width: 100%;
