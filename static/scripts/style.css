@@ -68,6 +68,10 @@
 	z-index: 999;
 }
 
+.dark_mode #toggle_dark_icon {
+	transform: scaleX(-1);
+}
+
 @font-face {
 	font-family: 'Montserrat Light';
 	src: url("../fonts/Montserrat-Light.woff");
