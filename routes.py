@@ -2,6 +2,7 @@
 from app import app
 from flask import render_template, request, redirect, url_for
 from json import dumps
+from secrets import token_hex
 
 # Projects
 from database import *
@@ -62,7 +63,7 @@ def view_project_info(name=None):
         elif name == 'python_compiler':
             if verify_captcha():
                 python_code = request.form['python_code']
-                code_path = save_text_and_get_path(python_code, 'python.py')
+                code_path = save_text_and_get_path(python_code, token_hex() + '.py')
                 return redirect(url_for(name, project=dumps(project), code_path=dumps(code_path)), code=302)
             return 'reCAPTCHA validation failed.'
         elif name == 'knapsack_problem':

@@ -5,6 +5,7 @@ from json import loads
 from save_file import *
 from base64 import b64encode
 import subprocess
+from secrets import token_hex
 
 @app.route('/python_compiler', methods=['GET', 'POST'])
 def python_compiler():
@@ -30,7 +31,7 @@ def python_compiler():
 
 @app.route('/api/python_compiler', methods=['GET', 'POST'])
 def python_compiler_api():
-    code_path = save_text_and_get_path(request.json['python_code'], 'python_api.py')
+    code_path = save_text_and_get_path(request.json['python_code'], token_hex() + '.py')
     command = f'python {code_path}'
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     output, error = process.communicate()
