@@ -3,21 +3,18 @@
     <div class="row center_y">
         <div class="column">
             <h1>Code Playground</h1>
-            <form action="/project/python_compiler" method="post">
-                <div class="row multicolumn">
-                    <div class="column">
-                        <label for="python_code"><h2>Editor</h2></label>
-                        <textarea id="python_code" name="python_code" contenteditable="true" onkeydown="allow_tab_key(event, this.id);" spellcheck="false"></textarea>
-                    </div>
-                    <div class="column">
-                        <label for="python_output"><h2>Output</h2></label>
-                        <textarea id="python_output" name="python_output" spellcheck="false" readonly></textarea>
-                    </div>
+            <div class="row multicolumn">
+                <div class="column">
+                    <label for="python_code"><h2>Editor</h2></label>
+                    <textarea id="python_code" name="python_code" contenteditable="true" onkeydown="allow_tab_key(event, this.id);" spellcheck="false"></textarea>
                 </div>
-                <div class="g-recaptcha" data-sitekey="6Lfq6-QdAAAAACk4wX-YuRhedQk23IYm1ZaodOPE"></div>
-                <br />
-                <button type="submit" class="button" data-aos-anchor-placement="bottom-bottom">Run Code</button>
-            </form>
+                <div class="column">
+                    <label for="python_output"><h2>Output</h2></label>
+                    <textarea id="python_output" name="python_output" spellcheck="false" readonly></textarea>
+                </div>
+            </div>
+            <br />
+            <button type="submit" onclick="run_code();" class="button" data-aos-anchor-placement="bottom-bottom">Run Code</button>
             {% if output %}
                 <script>
                     document.getElementById("python_code").innerHTML = atob("{{python_code}}");
