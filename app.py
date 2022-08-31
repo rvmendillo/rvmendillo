@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 app.jinja_env.trim_blocks = True
-CORS(app)
+CORS(app, supports_credentials=True)
 compress = Compress()
 compress.init_app(app)
 socketio = SocketIO(app)
