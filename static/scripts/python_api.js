@@ -1,6 +1,6 @@
 function run_code() {
     document.getElementById("python_output").innerHTML = "Compiling...";
-    var data = JSON.stringify({"python_code": document.getElementById("python_code").innerHTML});
+    var data = JSON.stringify({"python_code": JSON.stringify(document.getElementById("python_code").innerHTML)});
     var xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function() {
