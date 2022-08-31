@@ -12,3 +12,4 @@ gevent-websocket
 Flask-Compress
 mbti-personality-prediction
 scikit-learn
+flask-cors
