@@ -38,43 +38,33 @@ def view_project_info(name=None):
 
     if request.method == 'POST':
         if name == 'midi_to_relative_scale':
-            if verify_captcha():
-                midi_path = save_file_and_get_path(request.files['midi_file'])
-                return redirect(url_for(name, project=dumps(project), midi_path=dumps(midi_path)), code=302)
-            return 'reCAPTCHA validation failed.'
+            midi_path = save_file_and_get_path(request.files['midi_file'])
+            return verify_captcha(redirect)(url_for(name, project=dumps(project), midi_path=dumps(midi_path)), code=302)
         elif name == 'mbti_personality_predictor':
-            if verify_captcha():
-                paragraph_to_predict = request.form['paragraph_to_predict']
-                return redirect(url_for(name, project=dumps(project), paragraph_to_predict=dumps(paragraph_to_predict)), code=302)
-            return 'reCAPTCHA validation failed.'
+            paragraph_to_predict = request.form['paragraph_to_predict']
+            return verify_captcha(redirect)(url_for(name, project=dumps(project), paragraph_to_predict=dumps(paragraph_to_predict)), code=302)
         elif name == 'image_to_ascii':
-            if verify_captcha():
-                input_type = request.form['input_type']
-                if input_type == 'File':
-                    image_path = save_file_and_get_path(request.files['image_file'])
-                else:
-                    image_path = request.form['image_url']
-                target_width = int(request.form['target_width'])
-                charset = request.form['charset']
-                color_inversion = request.form['color_inversion']
-                output_type = request.form['output_type']
-                return redirect(url_for(name, project=dumps(project), input_type=dumps(input_type), image_path=dumps(image_path), target_width=dumps(target_width), charset=dumps(charset), color_inversion=dumps(color_inversion), output_type=dumps(output_type)), code=302)
-            return 'reCAPTCHA validation failed.'
+            input_type = request.form['input_type']
+            if input_type == 'File':
+                image_path = save_file_and_get_path(request.files['image_file'])
+            else:
+                image_path = request.form['image_url']
+            target_width = int(request.form['target_width'])
+            charset = request.form['charset']
+            color_inversion = request.form['color_inversion']
+            output_type = request.form['output_type']
+            return verify_captcha(redirect)(url_for(name, project=dumps(project), input_type=dumps(input_type), image_path=dumps(image_path), target_width=dumps(target_width), charset=dumps(charset), color_inversion=dumps(color_inversion), output_type=dumps(output_type)), code=302)
         elif name == 'python_compiler':
-            if verify_captcha():
-                python_code = request.form['python_code']
-                code_path = save_text_and_get_path(python_code, token_hex() + '.py')
-                return redirect(url_for(name, project=dumps(project), code_path=dumps(code_path)), code=302)
-            return 'reCAPTCHA validation failed.'
+            python_code = request.form['python_code']
+            code_path = save_text_and_get_path(python_code, token_hex() + '.py')
+            return verify_captcha(redirect)(url_for(name, project=dumps(project), code_path=dumps(code_path)), code=302)
         elif name == 'knapsack_problem':
-            if verify_captcha():
-                population = request.form['population']
-                weight_limit = request.form['weight_limit']
-                fitness_limit = request.form['fitness_limit']
-                generation_limit = request.form['generation_limit']
-                items = [[request.form['item_' + str(x+1) + '_' + str(y+1)] for y in range(3)] for x in range(5)]
-                return redirect(url_for(name, project=dumps(project), population=dumps(population), weight_limit=dumps(weight_limit), fitness_limit=dumps(fitness_limit), generation_limit=dumps(generation_limit), items=dumps(items)), code=302)
-            return 'reCAPTCHA validation failed.'
+            population = request.form['population']
+            weight_limit = request.form['weight_limit']
+            fitness_limit = request.form['fitness_limit']
+            generation_limit = request.form['generation_limit']
+            items = [[request.form['item_' + str(x+1) + '_' + str(y+1)] for y in range(3)] for x in range(5)]
+            return verify_captcha(redirect)(url_for(name, project=dumps(project), population=dumps(population), weight_limit=dumps(weight_limit), fitness_limit=dumps(fitness_limit), generation_limit=dumps(generation_limit), items=dumps(items)), code=302)
 
     return render_template('project.html', name=project['name'],
                                            category=project['category'],
