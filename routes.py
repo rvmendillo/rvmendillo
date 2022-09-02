@@ -39,7 +39,7 @@ def view_project_info(name=None):
     if request.method == 'POST':
         if name == 'midi_to_relative_scale':
             midi_path = save_file_and_get_path(request.files['midi_file'])
-            return verify_captcha(redirect)(url_for(name, project=dumps(project), midi_path=dumps(midi_path)), code=302)
+            return redirect(url_for(name, project=dumps(project), midi_path=dumps(midi_path)), code=302)
         elif name == 'mbti_personality_predictor':
             paragraph_to_predict = request.form['paragraph_to_predict']
             return verify_captcha(redirect)(url_for(name, project=dumps(project), paragraph_to_predict=dumps(paragraph_to_predict)), code=302)
@@ -53,11 +53,13 @@ def view_project_info(name=None):
             charset = request.form['charset']
             color_inversion = request.form['color_inversion']
             output_type = request.form['output_type']
+            if input_type == 'File':
+                return redirect(url_for(name, project=dumps(project), input_type=dumps(input_type), image_path=dumps(image_path), target_width=dumps(target_width), charset=dumps(charset), color_inversion=dumps(color_inversion), output_type=dumps(output_type)), code=302)
             return verify_captcha(redirect)(url_for(name, project=dumps(project), input_type=dumps(input_type), image_path=dumps(image_path), target_width=dumps(target_width), charset=dumps(charset), color_inversion=dumps(color_inversion), output_type=dumps(output_type)), code=302)
         elif name == 'python_compiler':
             python_code = request.form['python_code']
             code_path = save_text_and_get_path(python_code, token_hex() + '.py')
-            return verify_captcha(redirect)(url_for(name, project=dumps(project), code_path=dumps(code_path)), code=302)
+            return redirect(url_for(name, project=dumps(project), code_path=dumps(code_path)), code=302)
         elif name == 'knapsack_problem':
             population = request.form['population']
             weight_limit = request.form['weight_limit']
