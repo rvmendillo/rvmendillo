@@ -37,8 +37,8 @@ def python_compiler_api():
     output, error = process.communicate()
     remove(code_path)
     response = jsonify(output=output.decode('utf-8'))
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    response.headers.add('Access-Control-Allow-Headers', '*')
+    #response.headers.add('Access-Control-Allow-Origin', '*')
+    #response.headers.add('Access-Control-Allow-Headers', '*')
     #response.headers.add('Access-Control-Allow-Methods', '*')
     #response.headers.add('Access-Control-Allow-Credentials', 'true')
     return response
