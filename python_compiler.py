@@ -29,7 +29,7 @@ def python_compiler():
                                            output=b64encode(output.decode().encode('ascii')).decode(),
                                            error=b64encode(error.decode().encode('ascii')).decode())
 
-@app.route('/api/python_compiler', methods=['GET', 'POST'])
+@app.route('/api/python_compiler', methods=['POST'])
 def python_compiler_api():
     code_path = save_text_and_get_path(request.json['python_code'], token_hex() + '.py')
     command = f'python {code_path}'
