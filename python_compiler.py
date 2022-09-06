@@ -4,8 +4,8 @@ from os import remove
 from json import loads, dumps
 from save_file import *
 from base64 import b64encode
-import subprocess
 from secrets import token_hex
+import subprocess
 
 @app.route('/python_compiler', methods=['GET', 'POST'])
 def python_compiler():
@@ -33,6 +33,7 @@ def python_compiler():
 def python_compiler_api():
     response = jsonify(output='Access API via POST request.')
     if request.method == 'POST':
+        pass
         #code_path = save_text_and_get_path(request.json['python_code'], token_hex() + '.py')
         #command = f'python {code_path}'
         #process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
