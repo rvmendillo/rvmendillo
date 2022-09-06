@@ -33,12 +33,12 @@ def python_compiler():
 def python_compiler_api():
     response = jsonify(output='Access API via POST request.')
     if request.method == 'POST':
-        code_path = save_text_and_get_path(request.json['python_code'], token_hex() + '.py')
-        command = f'python {code_path}'
-        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
-        output, error = process.communicate()
-        remove(code_path)
-        response = jsonify(output=output.decode('utf-8'))
+        #code_path = save_text_and_get_path(request.json['python_code'], token_hex() + '.py')
+        #command = f'python {code_path}'
+        #process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
+        #output, error = process.communicate()
+        #remove(code_path)
+        #response = jsonify(output=output.decode('utf-8'))
         #response.headers.add('Access-Control-Allow-Origin', '*')
         #response.headers.add('Access-Control-Allow-Headers', '*')
         #response.headers.add('Access-Control-Allow-Methods', '*')
