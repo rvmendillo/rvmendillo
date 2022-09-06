@@ -31,6 +31,7 @@ def python_compiler():
 
 @app.route('/api/python_compiler', methods=['GET', 'POST'])
 def python_compiler_api():
+    response = jsonify(output='Access API via POST request.')
     if request.method == 'POST':
         code_path = save_text_and_get_path(request.json['python_code'], token_hex() + '.py')
         command = f'python {code_path}'
@@ -42,5 +43,4 @@ def python_compiler_api():
         #response.headers.add('Access-Control-Allow-Headers', '*')
         #response.headers.add('Access-Control-Allow-Methods', '*')
         #response.headers.add('Access-Control-Allow-Credentials', 'true')
-    response = jsonify(output='Access API via POST request.')
     return response
