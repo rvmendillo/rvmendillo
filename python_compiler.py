@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, request, jsonify
 from os import remove
-from json import loads
+from json import loads, dumps
 from save_file import *
 from base64 import b64encode
 import subprocess
@@ -36,7 +36,7 @@ def python_compiler_api():
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     output, error = process.communicate()
     remove(code_path)
-    response = jsonify(output=output.decode('utf-8'))
+    response = dumps(output.decode('utf-8'))
     #response.headers.add('Access-Control-Allow-Origin', '*')
     #response.headers.add('Access-Control-Allow-Headers', '*')
     #response.headers.add('Access-Control-Allow-Methods', '*')
