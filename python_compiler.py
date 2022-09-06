@@ -33,9 +33,9 @@ def python_compiler():
 def python_compiler_api():
     response = jsonify(output='Access API via POST request.')
     if request.method == 'POST':
-        code_path = save_text_and_get_path(json.loads(request.data)['python_code'], token_hex() + '.py')
+        return jsonify(output=request.json['python_code'])
+        code_path = save_text_and_get_path(request.json['python_code'], token_hex() + '.py')
         command = f'python {code_path}'
-        return jsonify(output='Access API via POST request.')
         #process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
         #output, error = process.communicate()
         #remove(code_path)
