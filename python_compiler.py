@@ -29,16 +29,18 @@ def python_compiler():
                                            output=b64encode(output.decode().encode('ascii')).decode(),
                                            error=b64encode(error.decode().encode('ascii')).decode())
 
-@app.route('/api/python_compiler', methods=['POST'])
+@app.route('/api/python_compiler', methods=['GET', 'POST'])
 def python_compiler_api():
-    code_path = save_text_and_get_path(request.json['python_code'], token_hex() + '.py')
-    command = f'python {code_path}'
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-    output, error = process.communicate()
-    remove(code_path)
-    response = jsonify(output=output.decode('utf-8'))
-    #response.headers.add('Access-Control-Allow-Origin', '*')
-    #response.headers.add('Access-Control-Allow-Headers', '*')
-    #response.headers.add('Access-Control-Allow-Methods', '*')
-    #response.headers.add('Access-Control-Allow-Credentials', 'true')
+    if request.method == 'POST':
+        code_path = save_text_and_get_path(request.json['python_code'], token_hex() + '.py')
+        command = f'python {code_path}'
+        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        output, error = process.communicate()
+        remove(code_path)
+        response = jsonify(output=output.decode('utf-8'))
+        #response.headers.add('Access-Control-Allow-Origin', '*')
+        #response.headers.add('Access-Control-Allow-Headers', '*')
+        #response.headers.add('Access-Control-Allow-Methods', '*')
+        #response.headers.add('Access-Control-Allow-Credentials', 'true')
+    response = jsonify(output='Access API via POST request.')
     return response
