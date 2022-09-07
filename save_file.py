@@ -1,4 +1,4 @@
-from captcha import *
+#from captcha import *
 
 #@verify_captcha
 def save_file_and_get_path(file, filename=None):
