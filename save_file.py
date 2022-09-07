@@ -1,6 +1,6 @@
 from captcha import *
 
-@verify_captcha
+#@verify_captcha
 def save_file_and_get_path(file, filename=None):
     if not filename:
         filename = file.filename
@@ -8,7 +8,7 @@ def save_file_and_get_path(file, filename=None):
     file.save(file_path)
     return file_path
 
-@verify_captcha
+#@verify_captcha
 def save_text_and_get_path(text, filename):
     text_path = 'static/scripts/' + filename
     with open(text_path, 'w') as text_file:

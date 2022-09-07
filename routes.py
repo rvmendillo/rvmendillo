@@ -38,7 +38,7 @@ def view_project_info(name=None):
 
     if request.method == 'POST':
         if name == 'midi_to_relative_scale':
-            midi_path = save_file_and_get_path(request.files['midi_file'])
+            midi_path = verify_captcha(save_file_and_get_path)(request.files['midi_file'])
             return redirect(url_for(name, project=dumps(project), midi_path=dumps(midi_path)), code=302)
         elif name == 'mbti_personality_predictor':
             paragraph_to_predict = request.form['paragraph_to_predict']
@@ -46,7 +46,7 @@ def view_project_info(name=None):
         elif name == 'image_to_ascii':
             input_type = request.form['input_type']
             if input_type == 'File':
-                image_path = save_file_and_get_path(request.files['image_file'])
+                image_path = verify_captcha(save_file_and_get_path)(request.files['image_file'])
             else:
                 image_path = request.form['image_url']
             target_width = int(request.form['target_width'])
@@ -58,7 +58,7 @@ def view_project_info(name=None):
             return verify_captcha(redirect)(url_for(name, project=dumps(project), input_type=dumps(input_type), image_path=dumps(image_path), target_width=dumps(target_width), charset=dumps(charset), color_inversion=dumps(color_inversion), output_type=dumps(output_type)), code=302)
         elif name == 'python_compiler':
             python_code = request.form['python_code']
-            code_path = save_text_and_get_path(python_code, token_hex() + '.py')
+            code_path = verify_captcha(save_text_and_get_path)(python_code, token_hex() + '.py')
             return redirect(url_for(name, project=dumps(project), code_path=dumps(code_path)), code=302)
         elif name == 'knapsack_problem':
             population = request.form['population']
