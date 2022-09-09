@@ -19,7 +19,7 @@ def github():
 
 @app.route('/email', methods=['GET'])
 def email():
-    return redirect("mailto:admin@rvmendillo.com", code=302)
+    return redirect("mailto:contact@rvmendillo.com", code=302)
 
 @app.route('/call', methods=['GET'])
 def call():
