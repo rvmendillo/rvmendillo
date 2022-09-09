@@ -38,7 +38,10 @@ def python_compiler_api():
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         output, error = process.communicate()
         remove(code_path)
-        response = jsonify(output=output.decode('utf-8'))
+        if output:
+            response = jsonify(output=output.decode('utf-8'))
+        else:
+            response = jsonify(output=error.decode('utf-8'))
         #response.headers.add('Access-Control-Allow-Origin', '*')
         #response.headers.add('Access-Control-Allow-Headers', '*')
         #response.headers.add('Access-Control-Allow-Methods', '*')
