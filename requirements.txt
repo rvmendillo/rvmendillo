@@ -7,7 +7,7 @@ matplotlib
 numpy
 music21
 Flask-SocketIO
-eventlet==0.30.2
+eventlet==0.40.3
 gevent-websocket
 Flask-Compress
 mbti-personality-prediction
