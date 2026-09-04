@@ -1,0 +1,57 @@
+name: Build iPhone IPA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, 'codex/ios-ipa']
+    paths: ['ios/**', '.github/workflows/build-ios-ipa.yml']
+permissions:
+  contents: read
+concurrency:
+  group: ios-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate project
+        run: |
+          brew install xcodegen
+          mkdir -p ios/ReyLab/Resources
+          cp static/files/*.mid ios/ReyLab/Resources/
+          cp static/files/*.pdf ios/ReyLab/Resources/
+          cd ios
+          xcodegen generate
+      - name: Build device IPA
+        run: |
+          set -o pipefail
+          xcodebuild -project ios/ReyLab.xcodeproj -scheme ReyLab -configuration Release -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath build CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO build | tee device-build.log
+          mkdir -p package/Payload
+          cp -R build/Build/Products/Release-iphoneos/ReyLab.app package/Payload/
+          cd package
+          ditto -c -k --keepParent Payload Rey-Lab-unsigned.ipa
+      - name: Test on iPhone simulator
+        run: |
+          set -o pipefail
+          DEVICE=$(xcrun simctl list devices available -j | python3 -c 'import sys,json; d=json.load(sys.stdin); print(next(x["udid"] for a in d["devices"].values() for x in a if "iPhone" in x["name"]))')
+          xcodebuild -project ios/ReyLab.xcodeproj -scheme ReyLab -configuration Debug -destination "id=$DEVICE" -derivedDataPath sim-build -parallel-testing-enabled NO CODE_SIGNING_ALLOWED=NO test | tee simulator-test.log
+          xcrun simctl bootstatus "$DEVICE" -b
+          xcrun simctl install "$DEVICE" sim-build/Build/Products/Debug-iphonesimulator/ReyLab.app
+          xcrun simctl launch "$DEVICE" com.rvmendillo.reylab
+          sleep 3
+          xcrun simctl io "$DEVICE" screenshot simulator.png
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Rey-Lab-unsigned-IPA
+          path: package/*.ipa
+          if-no-files-found: error
+          retention-days: 90
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: iOS-build-validation
+          path: |
+            *build.log
+            *test.log
+            simulator.png
