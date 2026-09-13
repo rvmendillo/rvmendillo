@@ -1,7 +1,7 @@
 name: Build NEXUS IPA
 on:
   push:
-    branches: ["feature/personal-nexus-ios"]
+    branches: ["feature/personal-nexus-ios-build"]
     paths:
       - "nexus_project.tar.gz.b64"
       - ".github/workflows/build-nexus.yml"
@@ -15,11 +15,22 @@ jobs:
       - name: Restore NEXUS source
         run: |
           python3 - <<'PY'
-          import base64, pathlib
+          import base64, pathlib, xml.etree.ElementTree as ET
           src = pathlib.Path('nexus_project.tar.gz.b64').read_text().strip()
           pathlib.Path('nexus_project.tar.gz').write_bytes(base64.b64decode(src))
           PY
           tar -xzf nexus_project.tar.gz
+          python3 - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          p = Path('PersonalNexus/Resources/LaunchScreen.storyboard')
+          s = p.read_text()
+          s = s.replace('<userDefinedRuntimeAttributes><userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius"><real key="value" value="28"/></userDefinedRuntimeAttribute></userDefinedRuntimeAttributes>', '')
+          p.write_text(s)
+          ET.parse(p)
+          assert 'userDefinedRuntime' not in s
+          print('Launch screen sanitized for iOS launch-screen rules')
+          PY
       - name: Install build tools
         run: |
           brew install xcodegen
