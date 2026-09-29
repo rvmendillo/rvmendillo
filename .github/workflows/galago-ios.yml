@@ -8,7 +8,7 @@ permissions:
   contents: read
 concurrency:
   group: galago-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   build:
     runs-on: macos-15
@@ -36,7 +36,16 @@ jobs:
           zip -qr GalaGo-unsigned.ipa Payload
           rm -rf Payload
           shasum -a 256 GalaGo-unsigned.ipa > SHA256.txt
+      - name: Upload installable app package
+        uses: actions/upload-artifact@v4
+        with:
+          name: GalaGo-IPA
+          path: |
+            dist/GalaGo-unsigned.ipa
+            dist/SHA256.txt
+          retention-days: 30
       - name: Build and launch in iPhone simulator
+        timeout-minutes: 7
         run: |
           set -o pipefail
           xcodebuild -project GalaGo/GalaGo.xcodeproj -scheme GalaGo -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build/simulator CODE_SIGNING_ALLOWED=NO ONLY_ACTIVE_ARCH=YES ARCHS="$(uname -m)" build 2>&1 | tee build-simulator.log
