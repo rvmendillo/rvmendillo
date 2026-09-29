@@ -12,8 +12,8 @@ struct CapturesView:View {
     var body:some View {
         List {
             Section {
-                Text("Raw prices need a complete quote").font(.headline)
-                Text("A captured number may be per person, per night, a starting fare or a discount. Tap it to review and add the complete trip totals. Only confirmed full quotes appear in Compare.").font(.caption).foregroundColor(.secondary)
+                Text("Captured prices feed your totals").font(.headline)
+                Text("Recognized rate units are multiplied automatically in Prices. Tap a capture to confirm its unit, or exclude a teaser, discount or mismatched offer.").font(.caption).foregroundColor(.secondary)
             }
             Section("\(items.count) price candidates") {
                 ForEach(items) { item in
@@ -30,6 +30,6 @@ struct CapturesView:View {
         }
         .navigationTitle("Captured prices")
         .searchable(text:$query,prompt:"Destination, provider or date")
-        .sheet(item:$picked){QuoteEditor(candidate:$0)}
+        .sheet(item:$picked){CaptureReviewView(candidate:$0)}
     }
 }

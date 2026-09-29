@@ -12,13 +12,14 @@ enum Theme {
 }
 struct RootView:View {
     @EnvironmentObject var store:AppStore
-    @State private var tab=CommandLine.arguments.contains("--demo") ? 1 : 0
+    @State private var tab=CommandLine.arguments.contains("--prices") ? 1 : CommandLine.arguments.contains("--codes") ? 3 : CommandLine.arguments.contains("--demo") ? 2 : 0
     var body:some View {
         TabView(selection:$tab) {
             DiscoverView().tag(0).tabItem{Label("Discover",systemImage:"sparkles")}
-            CompareView().tag(1).tabItem{Label("Compare",systemImage:"chart.bar.xaxis")}
-            VoucherListView().tag(2).tabItem{Label("Vouchers",systemImage:"ticket")}
-            SavedView().tag(3).tabItem{Label("Saved",systemImage:"bookmark")}
+            PricesView().tag(1).tabItem{Label("Prices",systemImage:"pesosign.circle")}
+            CompareView().tag(2).tabItem{Label("Compare",systemImage:"chart.bar.xaxis")}
+            VoucherListView().tag(3).tabItem{Label("Codes",systemImage:"ticket")}
+            SavedView().tag(4).tabItem{Label("Saved",systemImage:"bookmark")}
         }.onAppear{if CommandLine.arguments.contains("--demo"){store.demo=true}}.alert("GalaGo",isPresented:Binding(get:{store.toast != nil},set:{if !$0{store.toast=nil}})){Button("OK"){store.toast=nil}}message:{Text(store.toast ?? "")}
     }
 }
@@ -36,7 +37,7 @@ struct BrandHero:View {
             VStack(alignment:.leading,spacing:10) {
                 HStack(spacing:4){Image(systemName:"location.north.circle.fill");Text("GalaGo").font(.system(size:28,weight:.heavy,design:.rounded))}.foregroundColor(.white)
                 Text("More gala.\nLess gastos.").font(.system(size:30,weight:.bold,design:.rounded)).foregroundColor(.white)
-                Text("MANILA TO THE PHILIPPINES").font(.system(size:10,weight:.bold)).tracking(1.5).foregroundColor(.white.opacity(0.8))
+                Text("FROM MANILA, TO EVERYWHERE").font(.system(size:10,weight:.bold)).tracking(1.5).foregroundColor(.white.opacity(0.8))
             }.padding(24)
         }.frame(height:218).accessibilityElement(children:.combine)
     }
@@ -68,19 +69,19 @@ struct DiscoverView:View {
                         Text("Find your next escape").font(.title3.bold()).foregroundColor(Theme.ink)
                         Text("\(store.state.settings.firstDeparture) — \(store.state.settings.lastDeparture)").font(.subheadline)
                         Text("\(store.state.settings.adults) adult(s) · \(store.state.settings.rooms) room(s) · PHP totals").font(.caption).foregroundColor(.secondary)
-                        Picker("Destinations",selection:$selected){Text("All 38 destination airports").tag("ALL");ForEach(Destination.all){Text("\($0.name) · \($0.code)").tag($0.code)}}.tint(Theme.ink)
-                        Button {guard store.state.settings.validation==nil else{store.toast=store.state.settings.validation;return};store.makePlan(destinations:selected=="ALL" ? Destination.all.map(\.code) : [selected]);scanner=true} label:{Label("Search public pages",systemImage:"magnifyingglass").font(.headline).frame(maxWidth:.infinity).padding(.vertical,8)}.buttonStyle(.borderedProminent)
-                        Text("Scans Cebu Pacific, Agoda and Klook in saved batches. Keep the scanner open. Review price candidates before ranking.").font(.caption).foregroundColor(.secondary)
+                        Picker("Destinations",selection:$selected){Text("All \(Destination.all.count) airports").tag("ALL");Text("All \(Destination.international.count) international").tag("INTL");Text("All Philippine airports").tag("DOMESTIC");ForEach(Destination.all){Text("\($0.name) · \($0.code)").tag($0.code)}}.tint(Theme.ink)
+                        Button {guard store.state.settings.validation==nil else{store.toast=store.state.settings.validation;return};store.makePlan(destinations:selected=="ALL" ? Destination.all.map(\.code) : selected=="INTL" ? Destination.international.map(\.code) : selected=="DOMESTIC" ? Destination.domestic.map(\.code) : [selected]);scanner=true} label:{Label("Search public pages",systemImage:"magnifyingglass").font(.headline).frame(maxWidth:.infinity).padding(.vertical,8)}.buttonStyle(.borderedProminent)
+                        Text("Scans Cebu Pacific, Agoda and Klook in saved batches. Keep the scanner open. Open Prices for automatically calculated totals.").font(.caption).foregroundColor(.secondary)
                     }
                     HStack(spacing:10){ForEach(Provider.allCases){p in Pill(text:p.name)}}
                     if !store.state.jobs.isEmpty {Card{HStack{Text("Your search progress").font(.headline);Spacer();Button("Resume"){scanner=true}};let done=store.state.jobs.filter{$0.status=="done" || $0.status=="review"}.count;ProgressView(value:Double(done),total:Double(max(1,store.state.jobs.count))).tint(Theme.teal);Text("\(done) / \(store.state.jobs.count) pages checked · \(store.state.candidates.count) candidates").font(.caption);Text("Search coverage is partial until every page is checked. Candidate prices can omit taxes, use per-night rates or require a different date.").font(.caption).foregroundColor(.secondary)}}
-                    if !store.state.candidates.isEmpty {Card{Text("Recent captures for review").font(.headline);NavigationLink("View all captured prices"){CapturesView()};Text("Up to 3,000 recent candidates are kept. Save full quotes to retain prices you want to compare.").font(.caption).foregroundColor(.secondary);ForEach(Array(store.state.candidates.suffix(8).reversed())){item in Button{candidate=item}label:{HStack{VStack(alignment:.leading){Text("\(item.job.destination) · \(item.job.provider.name)").font(.subheadline.bold());Text(item.context).font(.caption).lineLimit(2).foregroundColor(.secondary)};Spacer();Text(Money.php(item.amount)).font(.subheadline.bold())}}}}}
+                    if !store.state.candidates.isEmpty {Card{Text("Recent captures for review").font(.headline);NavigationLink("View all captured prices"){CapturesView()};Text("Up to 3,000 recent candidates are kept. Recognized costs are kept separately for the Prices page.").font(.caption).foregroundColor(.secondary);ForEach(Array(store.state.candidates.suffix(8).reversed())){item in Button{candidate=item}label:{HStack{VStack(alignment:.leading){Text("\(item.job.destination) · \(item.job.provider.name)").font(.subheadline.bold());Text(item.context).font(.caption).lineLimit(2).foregroundColor(.secondary)};Spacer();Text(Money.php(item.amount)).font(.subheadline.bold())}}}}}
                     Card {
                         HStack{Text("Build a complete comparison").font(.headline);Spacer();Image(systemName:"plus.circle.fill").foregroundColor(Theme.coral)}
                         Text("Add the actual checkout totals for your party. Include taxes, required fees, baggage and transfers.").font(.subheadline).foregroundColor(.secondary)
                         Button("Add a trip quote"){manual=true}.buttonStyle(.bordered)
                     }
-                    VStack(alignment:.leading,spacing:12){Text("Explore the islands").font(.title2.bold()).foregroundColor(Theme.ink);Text("Destination catalog; flight service from MNL must be checked. Some airports may require a connection or have no available route.").font(.caption).foregroundColor(.secondary);ForEach(Destination.all.filter{query.isEmpty || $0.name.localizedCaseInsensitiveContains(query) || $0.code.localizedCaseInsensitiveContains(query)}){d in NavigationLink{DestinationView(destination:d)}label:{HStack(spacing:14){Image(systemName:d.symbol).font(.title3).frame(width:44,height:44).foregroundColor(Theme.teal).background(Theme.teal.opacity(0.08),in:RoundedRectangle(cornerRadius:14));VStack(alignment:.leading,spacing:4){Text(d.name).font(.headline).foregroundColor(Theme.ink);Text("\(d.region) · \(d.code)").font(.caption).foregroundColor(.secondary)};Spacer();Image(systemName:"chevron.right").font(.caption).foregroundColor(.secondary)}.padding(13).background(.white,in:RoundedRectangle(cornerRadius:18))}}}
+                    VStack(alignment:.leading,spacing:12){Text("Explore every escape").font(.title2.bold()).foregroundColor(Theme.ink);Text("Destination catalog; flight service from MNL must be checked. Some airports may require a connection or have no available route.").font(.caption).foregroundColor(.secondary);ForEach(Destination.all.filter{query.isEmpty || $0.name.localizedCaseInsensitiveContains(query) || $0.code.localizedCaseInsensitiveContains(query)}){d in NavigationLink{DestinationView(destination:d)}label:{HStack(spacing:14){Image(systemName:d.symbol).font(.title3).frame(width:44,height:44).foregroundColor(Theme.teal).background(Theme.teal.opacity(0.08),in:RoundedRectangle(cornerRadius:14));VStack(alignment:.leading,spacing:4){Text(d.name).font(.headline).foregroundColor(Theme.ink);Text("\(d.region) · \(d.code)").font(.caption).foregroundColor(.secondary)};Spacer();Image(systemName:"chevron.right").font(.caption).foregroundColor(.secondary)}.padding(13).background(.white,in:RoundedRectangle(cornerRadius:18))}}}
                 }.padding(18)
             }.background(Theme.paper).navigationTitle("GalaGo").navigationBarTitleDisplayMode(.inline)
             .toolbar{ToolbarItem(placement:.primaryAction){Button{settings=true}label:{Image(systemName:"slider.horizontal.3")}}}
@@ -104,8 +105,8 @@ struct CompareView:View {
             if store.demo {Label("DEMO PRICES · NOT LIVE OR BOOKABLE",systemImage:"info.circle.fill").font(.caption.bold()).foregroundColor(Theme.coral)}
             HStack{Pill(text:"SORTED BY TOTAL");Spacer();Button{settings=true}label:{Label("Filters",systemImage:"line.3.horizontal.decrease")}}
             Toggle("Show every date option",isOn:$allDates).font(.subheadline)
-            Text("\(store.destinations.count) of 38 destination airports have matching complete quotes. Cheapest among available quotes; coverage is not exhaustive.").font(.caption).foregroundColor(.secondary)
-            if store.ranked.isEmpty {Card{Image(systemName:"airplane.circle").font(.largeTitle).foregroundColor(Theme.teal);Text("Your first comparison is waiting").font(.title3.bold());Text("Capture provider prices in Discover, then add the full trip totals. Unknown or incomplete prices never become a ₱0 deal.").font(.subheadline).foregroundColor(.secondary);Button("Add a trip quote"){editor=true}.buttonStyle(.borderedProminent)}}
+            Text("\(store.destinations.count) of \(Destination.all.count) destination airports have matching complete quotes. Cheapest among available quotes; coverage is not exhaustive.").font(.caption).foregroundColor(.secondary)
+            if store.ranked.isEmpty {Card{Image(systemName:"airplane.circle").font(.largeTitle).foregroundColor(Theme.teal);Text("Your first comparison is waiting").font(.title3.bold());Text("Open Prices for automatic estimates, then review a total to save it here. Unknown or incomplete prices never become a ₱0 deal.").font(.subheadline).foregroundColor(.secondary);Button("Add a trip quote"){editor=true}.buttonStyle(.borderedProminent)}}
             ForEach(Array((allDates ? store.ranked : store.destinations).enumerated()),id:\.element.id){index,trip in NavigationLink{TripDetail(trip:trip)}label:{TripCard(trip:trip,rank:index+1)}}
             Text("Totals include your editable meal and local transport budgets. Cashback and unconfirmed voucher codes are excluded from what you pay.").font(.caption).foregroundColor(.secondary)
         }.padding(20)}.background(Theme.paper).navigationTitle("Cheapest escapes").navigationBarTitleDisplayMode(.inline).toolbar{ToolbarItem(placement:.primaryAction){Button{editor=true}label:{Image(systemName:"plus")}}}.sheet(isPresented:$editor){QuoteEditor()}.sheet(isPresented:$settings){SettingsView()}}

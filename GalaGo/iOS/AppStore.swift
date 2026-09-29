@@ -11,6 +11,7 @@ struct LocalState: Codable {
     var candidates:[PriceCandidate] = []
     var cooldowns:[String:Date] = [:]
     var promoHints:[PromoHint] = []
+    var priceInputs:[PriceCandidate]? = nil
 }
 @MainActor final class AppStore: ObservableObject {
     @Published var state = LocalState()
@@ -21,9 +22,37 @@ struct LocalState: Codable {
     static let decoder:JSONDecoder = {let d=JSONDecoder();d.dateDecodingStrategy = .iso8601;return d}()
     init() {
         if let data=try? Data(contentsOf:file) {do {state=try Self.decoder.decode(LocalState.self,from:data)} catch {toast="Saved data could not be loaded. Your file has been kept for recovery."}}
+        if state.priceInputs == nil {state.priceInputs=PriceCalculator.compact(state.candidates)}
         for i in state.jobs.indices where state.jobs[i].status == "running" {state.jobs[i].status="queued"}
     }
     func save() {do {try Self.encoder.encode(state).write(to:file,options:[.atomic,.completeFileProtection])} catch {toast="Could not save changes: \(error.localizedDescription)"}}
+    var calculated:[CalculatedTrip] { PriceCalculator.calculate(pricingInputs,vouchers:state.vouchers,settings:state.settings) }
+    var pricingInputs:[PriceCandidate] {
+        let current=Set(state.candidates.map(\.id))
+        return (state.priceInputs ?? []).filter{!current.contains($0.id)}+state.candidates
+    }
+    var codeQuotes:[TripQuote] {let ids=Set(state.quotes.map(\.id));return state.quotes+calculated.filter{$0.total != nil && !ids.contains($0.id)}.map(\.quote)}
+    var codeHints:[PromoHint] {
+        var all=Dictionary(PublishedCodes.examples.map{($0.id,$0)},uniquingKeysWith:{first,_ in first})
+        for hint in state.promoHints{all[hint.id]=hint}
+        return all.values.sorted{$0.capturedAt>$1.capturedAt}
+    }
+    func record(_ candidates:[PriceCandidate],for job:ScanJob) {
+        let old=(state.priceInputs ?? []).filter{$0.job.id != job.id}
+        state.priceInputs=old+PriceCalculator.compact(candidates)
+        state.candidates.removeAll{$0.job.id==job.id}
+        state.candidates.append(contentsOf:candidates)
+        if state.candidates.count>3000{state.candidates.removeFirst(state.candidates.count-3000)}
+        save()
+    }
+    func revise(_ candidate:PriceCandidate) {
+        if let i=state.candidates.firstIndex(where:{$0.id==candidate.id}){state.candidates[i]=candidate}
+        state.priceInputs=(state.priceInputs ?? []).filter{$0.id != candidate.id}
+        if PriceCalculator.component(candidate) != nil{state.priceInputs?.append(candidate)}
+        // A changed quantity basis invalidates any previously checked code for that snapshot.
+        for i in state.vouchers.indices {state.vouchers[i].eligibleQuoteIDs.removeAll{$0.contains(candidate.id)};if state.vouchers[i].eligibleQuoteIDs.isEmpty{state.vouchers[i].confirmed=false}}
+        save()
+    }
     var ranked:[RankedTrip] {Ranking.calculate(demo ? examples : state.quotes,vouchers:state.vouchers,settings:state.settings,demo:demo)}
     var destinations:[RankedTrip] {Ranking.cheapestPerDestination(ranked)}
     var examples:[TripQuote] {
@@ -38,7 +67,7 @@ struct LocalState: Codable {
     func makePlan(destinations:[String]) {
         let jobs=ScanPlan.jobs(settings:state.settings,destinations:destinations)
         let old=Dictionary(state.jobs.map{($0.id,$0)},uniquingKeysWith: {first,_ in first})
-        state.jobs=jobs.map {job in guard var prior=old[job.id] else{return job};if prior.status=="done" && (state.candidates.filter{$0.job.id==job.id}.map(\.capturedAt).max() ?? .distantPast) < Date().addingTimeInterval(-3600){prior.status="queued";prior.attempts=0};return prior}
+        state.jobs=jobs.map {job in guard var prior=old[job.id] else{return job};if prior.status=="done" && (pricingInputs.filter{$0.job.id==job.id}.map(\.capturedAt).max() ?? .distantPast) < Date().addingTimeInterval(-3600){prior.status="queued";prior.attempts=0};return prior}
         save()
     }
     func importQuotes(_ url:URL) {

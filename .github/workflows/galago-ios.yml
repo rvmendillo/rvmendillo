@@ -60,6 +60,14 @@ jobs:
           xcrun simctl launch "$DEVICE" com.rvmendillo.galago --demo
           sleep 3
           xcrun simctl io "$DEVICE" screenshot dist/GalaGo-compare.png
+          xcrun simctl terminate "$DEVICE" com.rvmendillo.galago
+          xcrun simctl launch "$DEVICE" com.rvmendillo.galago --demo --prices
+          sleep 3
+          xcrun simctl io "$DEVICE" screenshot dist/GalaGo-prices.png
+          xcrun simctl terminate "$DEVICE" com.rvmendillo.galago
+          xcrun simctl launch "$DEVICE" com.rvmendillo.galago --codes
+          sleep 3
+          xcrun simctl io "$DEVICE" screenshot dist/GalaGo-codes.png
       - uses: actions/upload-artifact@v4
         if: always()
         with:

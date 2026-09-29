@@ -38,7 +38,8 @@ import WebKit
         generation=UUID();let token=generation;isFinished=false;job=j;captured=[];sessionCount+=1
         status="Opening \(j.provider.name) · \(j.destination) · \(j.departure)"
         if let i=store.state.jobs.firstIndex(where:{$0.id==j.id}){store.state.jobs[i].status="running";store.state.jobs[i].attempts+=1;store.save()}
-        let url=ProviderLinks.url(j.provider,destination:j.destination,departure:j.departure,returning:j.returning,adults:j.adults,rooms:j.rooms)
+        let url=j.overrideURL.flatMap(URL.init(string:)) ?? ProviderLinks.url(j.provider,destination:j.destination,departure:j.departure,returning:j.returning,adults:j.adults,rooms:j.rooms)
+        guard ProviderLinks.allowed(url) else{finish(message:"Unsupported provider URL.",retry:false);return}
         webView.load(URLRequest(url:url,timeoutInterval:30))
         timeout?.cancel();timeout=Task {try? await Task.sleep(nanoseconds:35_000_000_000);guard !Task.isCancelled,token==self.generation,self.running else{return};self.finish(message:"Page exceeded 35 seconds; progress retained.",retry:true)}
     }
@@ -50,20 +51,18 @@ import WebKit
             guard let result=value as? [String:Any] else {self.status="No readable page yet. Wait for the page, then capture again.";return}
             if result["blocked"] as? Bool == true {self.finish(message:"Verification page detected. Open the provider normally to continue; automatic scanning is paused.",retry:false,block:true);return}
             let items=result["prices"] as? [[String:Any]] ?? []
-            let candidates=items.compactMap { item -> PriceCandidate? in guard let cents=item["amount"] as? Int,let context=item["context"] as? String else{return nil};return PriceCandidate(job:current,amount:cents,context:context,url:url.absoluteString) }
+            let candidates=items.compactMap { item -> PriceCandidate? in guard let cents=item["amount"] as? Int,let context=item["context"] as? String else{return nil};var c=PriceCandidate(job:current,amount:cents,context:context,url:url.absoluteString);c.evidence=item["evidence"] as? String;return c }
             self.captured=candidates
             let codes=result["codes"] as? [String] ?? []
+            let offers=result["offers"] as? [[String:Any]] ?? []
             for code in codes {
-                let hint=PromoHint(code:code,provider:current.provider,sourceURL:url.absoluteString,capturedAt:Date())
+                let hint=PromoHint(code:code,provider:current.provider,sourceURL:url.absoluteString,capturedAt:Date(),terms:offers.first{($0["code"] as? String)==code}?["terms"] as? String)
                 self.store.state.promoHints.removeAll{$0.id==hint.id}
                 self.store.state.promoHints.append(hint)
             }
             self.store.state.promoHints=Array(self.store.state.promoHints.suffix(200))
-            self.store.state.candidates.removeAll {$0.job.id==current.id}
-            self.store.state.candidates.append(contentsOf:candidates)
-            if self.store.state.candidates.count>3000 {self.store.state.candidates.removeFirst(self.store.state.candidates.count-3000)}
-            self.store.save()
-            self.finish(message:candidates.isEmpty ? "No PHP prices captured. Verify search fields, dates and currency on this page." : "\(candidates.count) price candidates captured. Totals need review.",retry:false)
+            if !current.voucherScan{self.store.record(candidates,for:current)}else{self.store.save()}
+            self.finish(message:current.voucherScan ? "\(codes.count) codes captured. Check Codes for offer terms." : candidates.isEmpty ? "No PHP prices captured. Verify search fields, dates and currency on this page." : "\(candidates.count) prices captured. Prices page recalculated.",retry:false)
         }
     }
     private func finish(message:String,retry:Bool,block:Bool=false,delay:TimeInterval?=nil) {
@@ -77,6 +76,12 @@ import WebKit
                 store.state.jobs[i].retryAfter=Date().addingTimeInterval(seconds)
                 store.state.cooldowns[j.provider.rawValue]=Date().addingTimeInterval(seconds)
             }
+        }
+        if retry || block {
+            webView.stopLoading()
+            let seconds=delay ?? ScanPlan.retryDelay(attempt:j.attempts+1,retryAfter:nil)
+            let existing=store.state.cooldowns[j.provider.rawValue] ?? .distantPast
+            store.state.cooldowns[j.provider.rawValue]=max(existing,Date().addingTimeInterval(seconds))
         }
         store.save()
         if automatic && !block {scheduled?.cancel();scheduled=Task{try? await Task.sleep(nanoseconds:8_000_000_000);guard !Task.isCancelled,self.running else{return};self.next()}}
@@ -122,11 +127,12 @@ struct ScannerView:View {
             VStack(spacing:0) {
                 VStack(alignment:.leading,spacing:6) {
                     Text(scanner.status).font(.subheadline.weight(.medium))
-                    if let j=scanner.job {Text("MNL ↔ \(j.destination) · \(j.departure) – \(j.returning) · \(j.adults) adult(s), \(j.rooms) room(s)").font(.caption).foregroundColor(.secondary)}
+                    if let j=scanner.job,j.voucherScan {Text("Published voucher codes · current terms required").font(.caption).foregroundColor(.secondary)}
+                    if let j=scanner.job,!j.voucherScan {Text("MNL ↔ \(j.destination) · \(j.departure) – \(j.returning) · \(j.adults) adult(s), \(j.rooms) room(s)").font(.caption).foregroundColor(.secondary)}
                     Text("Confirm the website’s fields; links may reset them. Prices here are unverified candidates.").font(.caption2).foregroundColor(.secondary)
                     HStack {
                         if initial==nil {Button(scanner.running ? "Pause" : "Resume"){if scanner.running{scanner.pause()}else{scanner.startQueue()}}.buttonStyle(.bordered)}
-                        Button("Capture prices"){scanner.capture()}.buttonStyle(.borderedProminent)
+                        Button("Capture"){scanner.capture()}.buttonStyle(.borderedProminent)
                         Button("Prices (\(scanner.captured.count))"){showPrices=true}.disabled(scanner.captured.isEmpty)
                     }.font(.caption)
                 }.padding(12).background(Theme.paper)
@@ -143,7 +149,7 @@ struct ScannerView:View {
             .onAppear{if let initial=initial{scanner.open(initial)}else{scanner.startQueue()}}
             .onDisappear{scanner.pause()}
             .onReceive(NotificationCenter.default.publisher(for:UIApplication.willResignActiveNotification)){_ in scanner.pause()}
-            .sheet(isPresented:$showPrices){NavigationStack{List(scanner.captured){candidate in Button{picked?(candidate);if picked != nil {scanner.pause();dismiss()}}label:{VStack(alignment:.leading,spacing:8){Text(Money.php(candidate.amount)).font(.title3.bold());Text(candidate.context).font(.caption).foregroundColor(.secondary);Text(picked == nil ? "Saved for review in Discover" : "Use this amount, then verify full trip total").font(.caption).foregroundColor(Theme.teal)}}.disabled(picked==nil)}.navigationTitle("Captured prices").toolbar{ToolbarItem(placement:.confirmationAction){Button("Done"){showPrices=false}}}}}
+            .sheet(isPresented:$showPrices){NavigationStack{List(scanner.captured){candidate in Button{picked?(candidate);if picked != nil {scanner.pause();dismiss()}}label:{VStack(alignment:.leading,spacing:8){Text(Money.php(candidate.amount)).font(.title3.bold());Text(candidate.context).font(.caption).foregroundColor(.secondary);Text(picked == nil ? "Saved · automatic estimates in Prices" : "Use this amount, then verify full trip total").font(.caption).foregroundColor(Theme.teal)}}.disabled(picked==nil)}.navigationTitle("Captured prices").toolbar{ToolbarItem(placement:.confirmationAction){Button("Done"){showPrices=false}}}}}
         }
     }
 }

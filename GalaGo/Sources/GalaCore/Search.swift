@@ -12,9 +12,11 @@ public struct ScanJob: Codable, Identifiable, Equatable {
     public var attempts = 0
     public var retryAfter:Date? = nil
     public var message = ""
-    public init(provider:Provider, destination:String, departure:String, returning:String, adults:Int, rooms:Int) {
-        self.provider=provider;self.destination=destination;self.departure=departure;self.returning=returning;self.adults=adults;self.rooms=rooms
-        id="\(provider.rawValue)|\(destination)|\(departure)|\(returning)|\(adults)|\(rooms)"
+    public var overrideURL: String? = nil
+    public var voucherScan: Bool { overrideURL != nil }
+    public init(provider:Provider, destination:String, departure:String, returning:String, adults:Int, rooms:Int, overrideURL:String?=nil) {
+        self.provider=provider;self.destination=destination;self.departure=departure;self.returning=returning;self.adults=adults;self.rooms=rooms;self.overrideURL=overrideURL
+        id="\(provider.rawValue)|\(destination)|\(departure)|\(returning)|\(adults)|\(rooms)" + (overrideURL.map { "|"+$0 } ?? "")
     }
 }
 public struct PriceCandidate: Codable, Identifiable, Equatable {
@@ -24,6 +26,9 @@ public struct PriceCandidate: Codable, Identifiable, Equatable {
     public let context:String
     public let url:String
     public let capturedAt:Date
+    public var basis: PriceBasis? = nil
+    public var excluded: Bool? = nil
+    public var evidence: String? = nil
     public init(job:ScanJob, amount:Int, context:String, url:String, capturedAt:Date=Date()) {self.job=job;self.amount=amount;self.context=context;self.url=url;self.capturedAt=capturedAt}
 }
 public struct PromoHint: Codable, Identifiable, Equatable {
@@ -32,6 +37,7 @@ public struct PromoHint: Codable, Identifiable, Equatable {
     public let provider:Provider
     public let sourceURL:String
     public let capturedAt:Date
+    public var terms: String? = nil
 }
 public enum ScanPlan {
     public static func jobs(settings:SearchSettings, destinations:[String]) -> [ScanJob] {
@@ -61,12 +67,19 @@ public enum ProviderLinks {
             c.queryItems=[.init(name:"isRoundTrip",value:"true"),.init(name:"o1",value:"MNL"),.init(name:"d1",value:destination),.init(name:"dd1",value:departure),.init(name:"o2",value:destination),.init(name:"d2",value:"MNL"),.init(name:"dd2",value:returning),.init(name:"ADT",value:String(adults)),.init(name:"CHD",value:"0"),.init(name:"INF",value:"0"),.init(name:"mon",value:"true")]
         case .hotel:
             c=URLComponents(string:"https://www.agoda.com/search")!
-            c.queryItems=[.init(name:"textToSearch",value:name+", Philippines"),.init(name:"checkIn",value:departure),.init(name:"checkOut",value:returning),.init(name:"adults",value:String(adults)),.init(name:"rooms",value:String(rooms)),.init(name:"children",value:"0"),.init(name:"currencyCode",value:"PHP")]
+            c.queryItems=[.init(name:"textToSearch",value:name+", "+(Destination.find(destination)?.country ?? "Philippines")),.init(name:"checkIn",value:departure),.init(name:"checkOut",value:returning),.init(name:"adults",value:String(adults)),.init(name:"rooms",value:String(rooms)),.init(name:"children",value:"0"),.init(name:"currencyCode",value:"PHP")]
         case .activity:
             c=URLComponents(string:"https://www.klook.com/en-PH/search/result/")!
             c.queryItems=[.init(name:"query",value:name),.init(name:"currency",value:"PHP")]
         }
         return c.url!
+    }
+    public static func promoURL(_ provider:Provider) -> URL {
+        switch provider {
+        case .flight:return URL(string:"https://www.cebupacificair.com/en-PH/")!
+        case .hotel:return URL(string:"https://www.agoda.com/deals")!
+        case .activity:return URL(string:"https://www.klook.com/en-PH/deals/")!
+        }
     }
     public static func allowed(_ url:URL) -> Bool {
         guard url.scheme=="https",let host=url.host?.lowercased() else{return false}
@@ -82,20 +95,24 @@ public enum CaptureScript {
       const blocked = /verify you are human|unusual traffic|access denied|too many requests|complete the captcha|robot verification/i.test(text);
       const out = []; const seen = new Set();
       const re = /(?:PHP|₱)\s*([0-9]+(?:,[0-9]{3})*(?:\.[0-9]{1,2})?)/gi;
-      let m;
-      while ((m = re.exec(text)) !== null && out.length < 60) {
+      const matches = [...text.matchAll(re)];
+      for (let i=0;i<matches.length && out.length<60;i++) {
+        const m=matches[i], stop=m.index+m[0].length;
         const cents = Math.round(Number(m[1].replace(/,/g,'')) * 100);
-        const context = text.slice(Math.max(0,m.index-70), Math.min(text.length,re.lastIndex+100)).replace(/\s+/g,' ').trim();
-        if (cents > 0 && cents <= 1000000000 && !seen.has(cents+"|"+context)) { seen.add(cents+"|"+context); out.push({amount:cents,context}); }
+        const left=i ? matches[i-1].index+matches[i-1][0].length : 0;
+        const right=i+1<matches.length ? matches[i+1].index : text.length;
+        const evidence=text.slice(Math.max(left,m.index-45),Math.min(right,stop+90)).replace(/\s+/g,' ').trim();
+        const context = text.slice(Math.max(0,m.index-70), Math.min(text.length,stop+100)).replace(/\s+/g,' ').trim();
+        if (cents > 0 && cents <= 1000000000 && !seen.has(cents+"|"+context)) { seen.add(cents+"|"+context); out.push({amount:cents,context,evidence}); }
       }
-      const codes = [];
-      const codePattern = /(?:promo(?:tion)?\s*code|coupon\s*code|use\s*code|code\s*:)\s*[:：]?\s*["'“]?([A-Z0-9][A-Z0-9_-]{3,23})/gi;
+      const codes = []; const offers = [];
+      const codePattern = /(?:promo(?:tion)?\s*code|coupon\s*code|use\s*code|code\s*:)\s*[:：]?\s*["'“]?([A-Z0-9][A-Z0-9_%-]{3,31})/gi;
       let codeMatch;
       while ((codeMatch=codePattern.exec(text)) !== null && codes.length<20) {
         const code=codeMatch[1].toUpperCase();
-        if (!['HERE','BELOW','ENTER','APPLY','YOUR','WITH','THIS','THAT','VALID','ONLY','CANNOT','ERROR','REQUIRED'].includes(code) && !codes.includes(code)) codes.push(code);
+        if (!['HERE','BELOW','ENTER','APPLY','YOUR','WITH','THIS','THAT','VALID','ONLY','CANNOT','ERROR','REQUIRED'].includes(code) && !codes.includes(code)) { codes.push(code); offers.push({code,terms:text.slice(Math.max(0,codeMatch.index-130),Math.min(text.length,codePattern.lastIndex+230)).replace(/\s+/g," ").trim()}); }
       }
-      return {blocked, prices:out, codes, title:document.title, url:location.href};
+      return {blocked, prices:out, codes, offers, title:document.title, url:location.href};
     })()
     """#
 }

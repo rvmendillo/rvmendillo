@@ -21,12 +21,15 @@ public struct SearchSettings: Codable, Equatable {
     public var channel = "web"
     public var newCustomer = false
     public var includeExpired = false
+    public var extras: ExtraBudget? = nil
+    public var budget: ExtraBudget { extras ?? ExtraBudget() }
     public init() {}
     public var validation: String? {
         guard let span = ManilaDate.days(firstDeparture, lastDeparture), span >= 0, span <= 365 else { return "Choose a departure window of up to 366 days." }
         guard (3...7).contains(minDays), (minDays...7).contains(maxDays) else { return "Trip lengths must be between 3 and 7 days." }
         guard (1...9).contains(adults), (1...9).contains(rooms), rooms <= adults else { return "Use 1–9 adults, with no more rooms than adults." }
         guard (0...10000000).contains(foodDaily), (0...10000000).contains(transportDaily) else { return "Daily budgets must be valid PHP amounts." }
+        guard [budget.transfers,budget.baggage,budget.other].allSatisfy({(0...1000000000).contains($0)}) else { return "Trip extras must be valid PHP amounts." }
         return nil
     }
     public func dates() -> [(String, String)] {
@@ -42,7 +45,7 @@ public struct Destination: Identifiable, Codable, Hashable {
     public let region: String
     public let symbol: String
     public let highlights: [String]
-    public static let all: [Destination] = [
+    public static let domestic: [Destination] = [
         .init(code:"BCD",name:"Bacolod",region:"Visayas",symbol:"fork.knife",highlights:["The Ruins","Lacson Street food walk","Silay heritage houses"]),
         .init(code:"BSO",name:"Basco",region:"Luzon",symbol:"mountain.2",highlights:["Basco lighthouse","Batan island viewpoints","Ivatan heritage walk"]),
         .init(code:"TAG",name:"Bohol",region:"Visayas",symbol:"leaf",highlights:["Chocolate Hills","Loboc River","Panglao beaches"]),
@@ -82,11 +85,44 @@ public struct Destination: Identifiable, Codable, Hashable {
         .init(code:"VRC",name:"Virac",region:"Luzon",symbol:"water.waves",highlights:["Virac town walk","Catanduanes coast","Rolling hills day trip"]),
         .init(code:"ZAM",name:"Zamboanga",region:"Mindanao",symbol:"building.columns",highlights:["Paseo del Mar","Fort Pilar","Local food trail"])
     ]
+    public var isInternational: Bool { !["Luzon", "Visayas", "Mindanao"].contains(region) }
+    public var country: String { isInternational ? region : "Philippines" }
+    public static let international: [Destination] = [
+        .init(code:"DPS",name:"Bali",region:"Indonesia",symbol:"sun.max",highlights:["Ubud art walk","Sanur waterfront","Temple day trip"]),
+        .init(code:"DMK",name:"Bangkok · Don Mueang",region:"Thailand",symbol:"building.columns",highlights:["Old Bangkok","Chao Phraya riverside","Market food walk"]),
+        .init(code:"BKK",name:"Bangkok · Suvarnabhumi",region:"Thailand",symbol:"building.columns",highlights:["Old Bangkok","Chao Phraya riverside","Market food walk"]),
+        .init(code:"BWN",name:"Bandar Seri Begawan",region:"Brunei",symbol:"building.columns",highlights:["Water village","City waterfront","Cultural museums"]),
+        .init(code:"DAD",name:"Da Nang",region:"Vietnam",symbol:"sun.max",highlights:["My Khe Beach","Hoi An day trip","Han River walk"]),
+        .init(code:"DXB",name:"Dubai",region:"United Arab Emirates",symbol:"building.2",highlights:["Al Fahidi district","Dubai Creek","Downtown walk"]),
+        .init(code:"FUK",name:"Fukuoka",region:"Japan",symbol:"fork.knife",highlights:["Ohori Park","Hakata old town","Yatai food stalls"]),
+        .init(code:"CAN",name:"Guangzhou",region:"China",symbol:"building.2",highlights:["Shamian Island","Pearl River walk","Local food markets"]),
+        .init(code:"HAN",name:"Hanoi",region:"Vietnam",symbol:"building.columns",highlights:["Old Quarter","Hoan Kiem Lake","Museum walk"]),
+        .init(code:"SGN",name:"Ho Chi Minh City",region:"Vietnam",symbol:"building.2",highlights:["Central city walk","Local food markets","Museum day"]),
+        .init(code:"HKG",name:"Hong Kong",region:"Hong Kong",symbol:"building.2",highlights:["Victoria Harbour","Kowloon food walk","Island day trip"]),
+        .init(code:"CGK",name:"Jakarta",region:"Indonesia",symbol:"building.2",highlights:["Kota Tua","National Monument area","Local food walk"]),
+        .init(code:"KHH",name:"Kaohsiung",region:"Taiwan",symbol:"sun.max",highlights:["Pier-2 Art Center","Love River","Night markets"]),
+        .init(code:"KUL",name:"Kuala Lumpur",region:"Malaysia",symbol:"building.2",highlights:["KLCC Park","Heritage district","Batu Caves"]),
+        .init(code:"MFM",name:"Macau",region:"Macau",symbol:"building.columns",highlights:["Historic center","Taipa village","Waterfront walk"]),
+        .init(code:"MEL",name:"Melbourne",region:"Australia",symbol:"cup.and.saucer",highlights:["Laneway walks","Royal Botanic Gardens","St Kilda"]),
+        .init(code:"NGO",name:"Nagoya",region:"Japan",symbol:"building.columns",highlights:["Nagoya Castle area","Osu shopping streets","Museum day"]),
+        .init(code:"KIX",name:"Osaka · Kansai",region:"Japan",symbol:"fork.knife",highlights:["Dotonbori","Osaka Castle park","Kyoto day trip"]),
+        .init(code:"RUH",name:"Riyadh",region:"Saudi Arabia",symbol:"building.2",highlights:["National Museum","Diriyah area","City food walk"]),
+        .init(code:"CTS",name:"Sapporo",region:"Japan",symbol:"snowflake",highlights:["Odori Park","Local food markets","Otaru day trip"]),
+        .init(code:"PVG",name:"Shanghai",region:"China",symbol:"building.2",highlights:["The Bund","Old city walk","Museum day"]),
+        .init(code:"SYD",name:"Sydney",region:"Australia",symbol:"sun.max",highlights:["Harbour walk","Royal Botanic Garden","Beach day"]),
+        .init(code:"ICN",name:"Seoul · Incheon",region:"South Korea",symbol:"building.columns",highlights:["Palace district","Han River parks","Local food markets"]),
+        .init(code:"SIN",name:"Singapore",region:"Singapore",symbol:"leaf",highlights:["Marina Bay","Botanic Gardens","Hawker food walk"]),
+        .init(code:"TPE",name:"Taipei",region:"Taiwan",symbol:"mountain.2",highlights:["Old city walk","Elephant Mountain","Night markets"]),
+        .init(code:"NRT",name:"Tokyo · Narita",region:"Japan",symbol:"building.2",highlights:["Asakusa","Ueno Park","Neighborhood food walk"]),
+        .init(code:"XMN",name:"Xiamen",region:"China",symbol:"sun.max",highlights:["Coastal walk","Old city lanes","Gulangyu day trip"]),
+    ]
+    public static let all = domestic + international
+    public static let catalogChecked = "2026-09-29"
     public static func find(_ code: String) -> Destination? { all.first { $0.code == code } }
 }
 
 public enum Provider: String, Codable, CaseIterable, Identifiable { case flight, hotel, activity; public var id:String { rawValue }; public var name:String { switch self { case .flight:return "Cebu Pacific";case .hotel:return "Agoda";case .activity:return "Klook" } } }
-public enum QuoteSource: String, Codable { case manual, partner, imported, demo }
+public enum QuoteSource: String, Codable { case manual, partner, imported, demo, captured }
 public struct TripQuote: Codable, Identifiable, Equatable {
     public var id = UUID().uuidString
     public var origin = "MNL"
@@ -101,6 +137,7 @@ public struct TripQuote: Codable, Identifiable, Equatable {
     public var activity = 0
     public var transfers = 0
     public var baggage = 0
+    public var otherCosts: Int? = nil
     public var hotelName = "Agoda stay"
     public var activityName = "Free time / no paid tour"
     public var mandatoryFeesIncluded = false
@@ -112,9 +149,9 @@ public struct TripQuote: Codable, Identifiable, Equatable {
     public init() {}
     public var days:Int { (ManilaDate.days(departure, returning) ?? -1) + 1 }
     public var validation:String? {
-        guard origin == "MNL", currency == "PHP", Destination.find(destination) != nil else { return "Only MNL round trips to the Philippine catalog in PHP are supported." }
+        guard origin == "MNL", currency == "PHP", Destination.find(destination) != nil else { return "Only MNL round trips to the destination catalog in PHP are supported." }
         guard (3...7).contains(days), (1...9).contains(adults), (1...adults).contains(rooms) else { return "Quote dates or party size are invalid." }
-        guard flight > 0, hotel > 0, [flight,hotel,activity,transfers,baggage].allSatisfy({ (0...1000000000).contains($0) }) else { return "Complete flight and hotel prices are needed." }
+        guard flight > 0, hotel > 0, [flight,hotel,activity,transfers,baggage,otherCosts ?? 0].allSatisfy({ (0...1000000000).contains($0) }) else { return "Complete flight and hotel prices are needed." }
         guard mandatoryFeesIncluded else { return "Confirm that mandatory taxes, fees, and transfers are included." }
         guard expiresAt >= checkedAt else { return "Quote expiry must follow its checked time." }
         return nil
@@ -164,7 +201,7 @@ public struct RankedTrip: Identifiable {
     public let food: Int
     public let localTransport: Int
     public var discount:Int { savings.reduce(0) {$0 + $1.1} }
-    public var total:Int { quote.flight + quote.hotel + quote.activity + quote.transfers + quote.baggage + food + localTransport - discount }
+    public var total:Int { quote.flight + quote.hotel + quote.activity + quote.transfers + quote.baggage + (quote.otherCosts ?? 0) + food + localTransport - discount }
     public var perPerson:Int { (total + quote.adults - 1) / quote.adults }
 }
 public enum Ranking {
