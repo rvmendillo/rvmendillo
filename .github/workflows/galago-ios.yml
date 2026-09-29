@@ -1,0 +1,61 @@
+name: GalaGo iPhone IPA
+on:
+  push:
+    branches: ['codex/galago-*']
+    paths: ['GalaGo/**', '.github/workflows/galago-ios.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: galago-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test trip totals, vouchers and search resilience
+        working-directory: GalaGo
+        run: swift test
+      - name: Generate Xcode project and branded icon
+        run: |
+          python3 GalaGo/scripts/generate_project.py
+          swift GalaGo/scripts/icon.swift GalaGo/Resources/Assets.xcassets/AppIcon.appiconset
+      - name: Build real arm64 iPhone app
+        run: |
+          set -o pipefail
+          xcodebuild -project GalaGo/GalaGo.xcodeproj -scheme GalaGo -configuration Release -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath build/device CODE_SIGNING_ALLOWED=NO build 2>&1 | tee build-device.log
+      - name: Package unsigned IPA
+        run: |
+          mkdir -p dist/Payload
+          cp -R build/device/Build/Products/Release-iphoneos/GalaGo.app dist/Payload/
+          cd dist
+          zip -qr GalaGo-unsigned.ipa Payload
+          rm -rf Payload
+          shasum -a 256 GalaGo-unsigned.ipa > SHA256.txt
+      - name: Build and launch in iPhone simulator
+        run: |
+          set -o pipefail
+          xcodebuild -project GalaGo/GalaGo.xcodeproj -scheme GalaGo -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build/simulator CODE_SIGNING_ALLOWED=NO build 2>&1 | tee build-simulator.log
+          DEVICE=$(xcrun simctl list devices available -j | python3 -c 'import json,sys; d=json.load(sys.stdin); print(next(x["udid"] for v in d["devices"].values() for x in v if "iPhone" in x["name"]))')
+          xcrun simctl boot "$DEVICE"
+          xcrun simctl bootstatus "$DEVICE" -b
+          xcrun simctl install "$DEVICE" build/simulator/Build/Products/Debug-iphonesimulator/GalaGo.app
+          xcrun simctl launch "$DEVICE" com.rvmendillo.galago
+          sleep 5
+          xcrun simctl io "$DEVICE" screenshot dist/GalaGo-discover.png
+          xcrun simctl terminate "$DEVICE" com.rvmendillo.galago
+          xcrun simctl launch "$DEVICE" com.rvmendillo.galago --demo
+          sleep 3
+          xcrun simctl io "$DEVICE" screenshot dist/GalaGo-compare.png
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: GalaGo-iPhone
+          path: |
+            dist/*
+            build-device.log
+            build-simulator.log
+          if-no-files-found: error
+          retention-days: 30

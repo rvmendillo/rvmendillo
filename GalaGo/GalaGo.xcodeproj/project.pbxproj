@@ -1,0 +1,33 @@
+// !$*UTF8*$!
+{archiveVersion = 1; classes = {}; objectVersion = 56; objects = {
+BF75FE5E97EBC7656957D977 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/GalaCore/Models.swift"; sourceTree = "<group>"; };
+E903B630CFB7E732A90F0A45 = { isa = PBXBuildFile; fileRef = BF75FE5E97EBC7656957D977; };
+D2BE72248A62D63FC6142CF5 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/GalaCore/Search.swift"; sourceTree = "<group>"; };
+77FE18EF45B78126A1B81465 = { isa = PBXBuildFile; fileRef = D2BE72248A62D63FC6142CF5; };
+B190ADAA1AB88809B2FE41AF = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "iOS/AppStore.swift"; sourceTree = "<group>"; };
+EAC2E265F425BF3AEBEDB572 = { isa = PBXBuildFile; fileRef = B190ADAA1AB88809B2FE41AF; };
+B0502A9467E6936C6ECE0C19 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "iOS/BrowserScanner.swift"; sourceTree = "<group>"; };
+3292144BB61D5A125F1A12A4 = { isa = PBXBuildFile; fileRef = B0502A9467E6936C6ECE0C19; };
+0DFB917D9961023256DCE536 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "iOS/Details.swift"; sourceTree = "<group>"; };
+1FA2628BAB2E7694AC54B3E3 = { isa = PBXBuildFile; fileRef = 0DFB917D9961023256DCE536; };
+0AEB7812084EECB745F2FA0C = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "iOS/Editors.swift"; sourceTree = "<group>"; };
+A16CB9492969CB237E547D18 = { isa = PBXBuildFile; fileRef = 0AEB7812084EECB745F2FA0C; };
+18F6701C5CAD1E9B672AE99D = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "iOS/GalaGoApp.swift"; sourceTree = "<group>"; };
+FE5040A4E7C50C84D2ED9642 = { isa = PBXBuildFile; fileRef = 18F6701C5CAD1E9B672AE99D; };
+3685E330EC5277A9DD5661C6 = { isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
+04200CFFD12D083534B07BB1 = { isa = PBXBuildFile; fileRef = 3685E330EC5277A9DD5661C6; };
+38A007151ABE87CC01A5B6E9 = { isa = PBXFileReference; explicitFileType = wrapper.application; path = GalaGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+FBDC4F23F93125BBEEAE800C = { isa = PBXGroup; children = (38A007151ABE87CC01A5B6E9); name = Products; sourceTree = "<group>"; };
+B28B7AF69320201D1CF206EB = { isa = PBXGroup; children = (BF75FE5E97EBC7656957D977,D2BE72248A62D63FC6142CF5,B190ADAA1AB88809B2FE41AF,B0502A9467E6936C6ECE0C19,0DFB917D9961023256DCE536,0AEB7812084EECB745F2FA0C,18F6701C5CAD1E9B672AE99D,3685E330EC5277A9DD5661C6,FBDC4F23F93125BBEEAE800C); sourceTree = "<group>"; };
+BCE16DD0260827ECF338C787 = { isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (E903B630CFB7E732A90F0A45,77FE18EF45B78126A1B81465,EAC2E265F425BF3AEBEDB572,3292144BB61D5A125F1A12A4,1FA2628BAB2E7694AC54B3E3,A16CB9492969CB237E547D18,FE5040A4E7C50C84D2ED9642); runOnlyForDeploymentPostprocessing = 0; };
+7561BFB015D8F536760CB671 = { isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+0189424A5A60FED329FA868E = { isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (04200CFFD12D083534B07BB1); runOnlyForDeploymentPostprocessing = 0; };
+89E1FD6268CC0F221A2BE178 = { isa = XCBuildConfiguration; name = Debug; buildSettings = {SDKROOT = "iphoneos";IPHONEOS_DEPLOYMENT_TARGET = "16.0";CLANG_ENABLE_MODULES = "YES";SWIFT_VERSION = "5.0";SWIFT_OPTIMIZATION_LEVEL = "-Onone";DEBUG_INFORMATION_FORMAT = "dwarf";}; };
+7082CC0B6FC1282FCEABD07A = { isa = XCBuildConfiguration; name = Debug; buildSettings = {PRODUCT_BUNDLE_IDENTIFIER = "com.rvmendillo.galago";PRODUCT_NAME = "GalaGo";INFOPLIST_FILE = "iOS/Info.plist";GENERATE_INFOPLIST_FILE = "NO";TARGETED_DEVICE_FAMILY = "1,2";ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon";CODE_SIGN_STYLE = "Manual";CODE_SIGNING_ALLOWED = "NO";CURRENT_PROJECT_VERSION = "1";MARKETING_VERSION = "1.0";SWIFT_EMIT_LOC_STRINGS = "NO";}; };
+E6DE6C99132752C914FEF632 = { isa = XCBuildConfiguration; name = Release; buildSettings = {SDKROOT = "iphoneos";IPHONEOS_DEPLOYMENT_TARGET = "16.0";CLANG_ENABLE_MODULES = "YES";SWIFT_VERSION = "5.0";SWIFT_OPTIMIZATION_LEVEL = "-O";DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";}; };
+639A7CA24D39909E713B47F7 = { isa = XCBuildConfiguration; name = Release; buildSettings = {PRODUCT_BUNDLE_IDENTIFIER = "com.rvmendillo.galago";PRODUCT_NAME = "GalaGo";INFOPLIST_FILE = "iOS/Info.plist";GENERATE_INFOPLIST_FILE = "NO";TARGETED_DEVICE_FAMILY = "1,2";ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon";CODE_SIGN_STYLE = "Manual";CODE_SIGNING_ALLOWED = "NO";CURRENT_PROJECT_VERSION = "1";MARKETING_VERSION = "1.0";SWIFT_EMIT_LOC_STRINGS = "NO";}; };
+862894B703A6DEDF96A9DD6C = { isa = XCConfigurationList; buildConfigurations = (89E1FD6268CC0F221A2BE178,E6DE6C99132752C914FEF632); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+C57128001CE614BF8549D6BB = { isa = XCConfigurationList; buildConfigurations = (7082CC0B6FC1282FCEABD07A,639A7CA24D39909E713B47F7); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+0E8A3AD980EC179856012B7E = { isa = PBXNativeTarget; buildConfigurationList = C57128001CE614BF8549D6BB; buildPhases = (BCE16DD0260827ECF338C787,7561BFB015D8F536760CB671,0189424A5A60FED329FA868E); buildRules = (); dependencies = (); name = GalaGo; productName = GalaGo; productReference = 38A007151ABE87CC01A5B6E9; productType = "com.apple.product-type.application"; };
+98F54143AB4E86B28C3AFEE0 = { isa = PBXProject; attributes = { LastUpgradeCheck = 1600; }; buildConfigurationList = 862894B703A6DEDF96A9DD6C; compatibilityVersion = "Xcode 14.0"; developmentRegion = en; hasScannedForEncodings = 0; knownRegions = (en,Base); mainGroup = B28B7AF69320201D1CF206EB; productRefGroup = FBDC4F23F93125BBEEAE800C; projectDirPath = ""; projectRoot = ""; targets = (0E8A3AD980EC179856012B7E); };
+}; rootObject = 98F54143AB4E86B28C3AFEE0; }
