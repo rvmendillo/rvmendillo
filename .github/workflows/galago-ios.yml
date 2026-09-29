@@ -8,7 +8,7 @@ permissions:
   contents: read
 concurrency:
   group: galago-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   build:
     runs-on: macos-15
@@ -39,7 +39,7 @@ jobs:
       - name: Build and launch in iPhone simulator
         run: |
           set -o pipefail
-          xcodebuild -project GalaGo/GalaGo.xcodeproj -scheme GalaGo -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build/simulator CODE_SIGNING_ALLOWED=NO build 2>&1 | tee build-simulator.log
+          xcodebuild -project GalaGo/GalaGo.xcodeproj -scheme GalaGo -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build/simulator CODE_SIGNING_ALLOWED=NO ONLY_ACTIVE_ARCH=YES ARCHS="$(uname -m)" build 2>&1 | tee build-simulator.log
           DEVICE=$(xcrun simctl list devices available -j | python3 -c 'import json,sys; d=json.load(sys.stdin); print(next(x["udid"] for v in d["devices"].values() for x in v if "iPhone" in x["name"]))')
           xcrun simctl boot "$DEVICE"
           xcrun simctl bootstatus "$DEVICE" -b

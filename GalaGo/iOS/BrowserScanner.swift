@@ -133,8 +133,14 @@ struct ScannerView:View {
                 ProviderWebView(scanner:scanner)
             }
             .navigationTitle(scanner.job?.provider.name ?? "Public-page scanner").navigationBarTitleDisplayMode(.inline)
-            .toolbar{ToolbarItem(placement:.cancellationAction){Button("Done"){scanner.pause();dismiss()}}}
-            .onAppear{if let initial=initial{scanner.open(initial)}}
+            .toolbar{
+                ToolbarItem(placement:.cancellationAction){Button("Done"){scanner.pause();dismiss()}}
+                ToolbarItem(placement:.primaryAction){HStack{
+                    Button{scanner.webView.goBack()}label:{Image(systemName:"chevron.left")}.accessibilityLabel("Previous provider page")
+                    if let url=scanner.webView.url,ProviderLinks.allowed(url){Link(destination:url){Image(systemName:"safari")}.accessibilityLabel("Open provider in Safari")}
+                }}
+            }
+            .onAppear{if let initial=initial{scanner.open(initial)}else{scanner.startQueue()}}
             .onDisappear{scanner.pause()}
             .onReceive(NotificationCenter.default.publisher(for:UIApplication.willResignActiveNotification)){_ in scanner.pause()}
             .sheet(isPresented:$showPrices){NavigationStack{List(scanner.captured){candidate in Button{picked?(candidate);if picked != nil {scanner.pause();dismiss()}}label:{VStack(alignment:.leading,spacing:8){Text(Money.php(candidate.amount)).font(.title3.bold());Text(candidate.context).font(.caption).foregroundColor(.secondary);Text(picked == nil ? "Saved for review in Discover" : "Use this amount, then verify full trip total").font(.caption).foregroundColor(Theme.teal)}}.disabled(picked==nil)}.navigationTitle("Captured prices").toolbar{ToolbarItem(placement:.confirmationAction){Button("Done"){showPrices=false}}}}}

@@ -17,14 +17,23 @@ struct DestinationView:View {
 }
 struct TripDetail:View {
     @EnvironmentObject var store:AppStore
-    let trip:RankedTrip
+    let original:RankedTrip
+    init(trip:RankedTrip){self.original=trip}
+    private var trip:RankedTrip {
+        guard let current=store.state.quotes.first(where:{$0.id==original.id}) else{return original}
+        var settings=store.state.settings
+        settings.firstDeparture=current.departure;settings.lastDeparture=current.departure
+        settings.minDays=current.days;settings.maxDays=current.days
+        settings.adults=current.adults;settings.rooms=current.rooms;settings.includeExpired=true
+        return Ranking.calculate([current],vouchers:store.state.vouchers,settings:settings).first ?? original
+    }
     @State private var editing=false
     @State private var plan:[String]=[]
     private var q:TripQuote{trip.quote}
     private var destination:Destination?{Destination.find(q.destination)}
     private var shareText:String {"GalaGo · \(destination?.name ?? q.destination)\nMNL ↔ \(q.destination) · \(q.departure) to \(q.returning)\n\(q.days) days / \(q.days-1) nights · \(q.adults) adult(s), \(q.rooms) room(s)\nPlanning total: \(Money.php(trip.total)) · \(Money.php(trip.perPerson)) per person\nChecked: \(q.checkedAt.formatted())\nSnapshot only. Recheck prices and availability at checkout.\n\n"+plan.enumerated().map{"Day \($0.offset+1): \($0.element)"}.joined(separator:"\n")}
     var body:some View{ScrollView{VStack(alignment:.leading,spacing:18){
-        TripCard(trip:trip,rank:1)
+        TripCard(trip:trip,rank:(store.destinations.firstIndex(where:{$0.quote.destination==q.destination}) ?? 0)+1)
         Card{
             Text("Every peso accounted for").font(.headline)
             cost("Cebu Pacific · return flights",q.flight)
