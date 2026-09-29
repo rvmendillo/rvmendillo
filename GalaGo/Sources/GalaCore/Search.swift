@@ -26,6 +26,13 @@ public struct PriceCandidate: Codable, Identifiable, Equatable {
     public let capturedAt:Date
     public init(job:ScanJob, amount:Int, context:String, url:String, capturedAt:Date=Date()) {self.job=job;self.amount=amount;self.context=context;self.url=url;self.capturedAt=capturedAt}
 }
+public struct PromoHint: Codable, Identifiable, Equatable {
+    public var id:String {provider.rawValue+"|"+code}
+    public let code:String
+    public let provider:Provider
+    public let sourceURL:String
+    public let capturedAt:Date
+}
 public enum ScanPlan {
     public static func jobs(settings:SearchSettings, destinations:[String]) -> [ScanJob] {
         guard settings.validation == nil else {return []}
@@ -79,9 +86,16 @@ public enum CaptureScript {
       while ((m = re.exec(text)) !== null && out.length < 60) {
         const cents = Math.round(Number(m[1].replace(/,/g,'')) * 100);
         const context = text.slice(Math.max(0,m.index-70), Math.min(text.length,re.lastIndex+100)).replace(/\s+/g,' ').trim();
-        if (cents > 0 && cents <= 1000000000 && !seen.has(context)) { seen.add(context); out.push({amount:cents,context}); }
+        if (cents > 0 && cents <= 1000000000 && !seen.has(cents+"|"+context)) { seen.add(cents+"|"+context); out.push({amount:cents,context}); }
       }
-      return {blocked, prices:out, title:document.title, url:location.href};
+      const codes = [];
+      const codePattern = /(?:promo(?:tion)?\s*code|coupon\s*code|use\s*code|code\s*:)\s*[:：]?\s*["'“]?([A-Z0-9][A-Z0-9_-]{3,23})/gi;
+      let codeMatch;
+      while ((codeMatch=codePattern.exec(text)) !== null && codes.length<20) {
+        const code=codeMatch[1].toUpperCase();
+        if (!['HERE','BELOW','ENTER','APPLY','YOUR','WITH','THIS','THAT','VALID','ONLY','CANNOT','ERROR','REQUIRED'].includes(code) && !codes.includes(code)) codes.push(code);
+      }
+      return {blocked, prices:out, codes, title:document.title, url:location.href};
     })()
     """#
 }

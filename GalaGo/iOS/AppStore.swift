@@ -10,6 +10,7 @@ struct LocalState: Codable {
     var jobs:[ScanJob] = []
     var candidates:[PriceCandidate] = []
     var cooldowns:[String:Date] = [:]
+    var promoHints:[PromoHint] = []
 }
 @MainActor final class AppStore: ObservableObject {
     @Published var state = LocalState()

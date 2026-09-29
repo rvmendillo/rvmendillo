@@ -22,7 +22,7 @@ import WebKit
         super.init();webView.navigationDelegate=self;webView.allowsBackForwardNavigationGestures=true
     }
     func startQueue() {guard !running else{return};automatic=true;sessionCount=0;running=true;next()}
-    func open(_ job:ScanJob) {pause();automatic=false;running=true;load(job)}
+    func open(_ job:ScanJob) {pause();self.job=job;if let until=store.state.cooldowns[job.provider.rawValue],until>Date(){status="Provider cooling down until \(until.formatted(date:.omitted,time:.shortened)). Your progress is saved.";return};automatic=false;running=true;load(job)}
     func pause() {
         running=false;automatic=false;timeout?.cancel();scheduled?.cancel();generation=UUID();webView.stopLoading()
         if let current=job,let i=store.state.jobs.firstIndex(where:{$0.id==current.id}),store.state.jobs[i].status=="running"{store.state.jobs[i].status="queued";store.save()}
@@ -52,6 +52,13 @@ import WebKit
             let items=result["prices"] as? [[String:Any]] ?? []
             let candidates=items.compactMap { item -> PriceCandidate? in guard let cents=item["amount"] as? Int,let context=item["context"] as? String else{return nil};return PriceCandidate(job:current,amount:cents,context:context,url:url.absoluteString) }
             self.captured=candidates
+            let codes=result["codes"] as? [String] ?? []
+            for code in codes {
+                let hint=PromoHint(code:code,provider:current.provider,sourceURL:url.absoluteString,capturedAt:Date())
+                self.store.state.promoHints.removeAll{$0.id==hint.id}
+                self.store.state.promoHints.append(hint)
+            }
+            self.store.state.promoHints=Array(self.store.state.promoHints.suffix(200))
             self.store.state.candidates.removeAll {$0.job.id==current.id}
             self.store.state.candidates.append(contentsOf:candidates)
             if self.store.state.candidates.count>3000 {self.store.state.candidates.removeFirst(self.store.state.candidates.count-3000)}
@@ -65,7 +72,7 @@ import WebKit
             let retryAllowed=retry && store.state.jobs[i].attempts<3
             store.state.jobs[i].status=block ? "review" : retryAllowed ? "queued" : captured.isEmpty ? "review" : "done"
             store.state.jobs[i].message=message
-            if retryAllowed || block {
+            if retry || block {
                 let seconds=delay ?? ScanPlan.retryDelay(attempt:store.state.jobs[i].attempts,retryAfter:nil)
                 store.state.jobs[i].retryAfter=Date().addingTimeInterval(seconds)
                 store.state.cooldowns[j.provider.rawValue]=Date().addingTimeInterval(seconds)

@@ -17,7 +17,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Test trip totals, vouchers and search resilience
         working-directory: GalaGo
-        run: swift test
+        run: |
+          swift test
+          node scripts/test-capture.cjs
       - name: Generate Xcode project and branded icon
         run: |
           python3 GalaGo/scripts/generate_project.py
