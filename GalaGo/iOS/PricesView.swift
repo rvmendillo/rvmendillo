@@ -72,7 +72,7 @@ struct PricesView:View {
         VStack(alignment:.leading,spacing:8) {
             HStack(alignment:.top){Image(systemName:row.destination.symbol).foregroundColor(Theme.teal).frame(width:25);VStack(alignment:.leading,spacing:3){Text(row.destination.name).font(.headline);Text("MNL ↔ \(row.destination.code) · \(row.destination.country)").font(.caption).foregroundColor(.secondary)};Spacer()}
             if let total=row.total {
-                HStack{Text("#\(rank)").font(.caption.bold()).foregroundColor(Theme.teal);Text(Money.php(total)).font(.title2.bold()).foregroundColor(Theme.ink);Spacer();Pill(text:row.checked != nil ? (store.demo ? "Demo" : "Checked") : "Estimate",color:row.checked != nil ? Theme.teal : Theme.coral)}
+                HStack{Text("#\(rank)").font(.caption.bold()).foregroundColor(Theme.teal);Text(Money.php(total)).font(.title2.bold()).foregroundColor(Theme.ink);Spacer();Pill(text:store.demo ? "Demo" : (row.checked?.quote.expiresAt ?? row.calculated?.quote.expiresAt ?? .distantFuture)<Date() ? "Expired" : row.checked != nil ? "Checked" : "Estimate",color:row.checked != nil ? Theme.teal : Theme.coral)}
                 if let q=row.checked?.quote ?? row.calculated?.quote {Text("\(q.departure) – \(q.returning) · \(q.days)D\(q.days-1)N · \(Money.php((total+q.adults-1)/q.adults)) / person").font(.caption).foregroundColor(.secondary)}
                 let savings=row.checked?.discount ?? row.calculated?.discount ?? 0
                 if savings>0{Text("Includes \(Money.php(savings)) in confirmed voucher-code savings").font(.caption).foregroundColor(Theme.teal)}
@@ -102,7 +102,7 @@ struct CalculatedPriceDetail:View {
                 Text("MNL ↔ \(q.destination) · \(q.departure) – \(q.returning)").font(.caption)
                 Text(trip.total.map{Money.php($0)} ?? "Incomplete total").font(.system(size:33,weight:.bold,design:.rounded)).foregroundColor(Theme.teal)
                 if let per=trip.perPerson {Text("\(Money.php(per)) per person · \(q.adults) travelers · \(q.rooms) rooms").font(.caption)}
-                Pill(text:"AUTOMATIC ESTIMATE",color:Theme.coral)
+                Pill(text:q.expiresAt<Date() ? "EXPIRED ESTIMATE" : "AUTOMATIC ESTIMATE",color:Theme.coral)
                 Text("Lowest recognized price for each provider in this captured search. Dates, product options, fees and availability still need confirmation.").font(.caption).foregroundColor(.secondary)
             }
             Section("Provider prices · automatically multiplied") {

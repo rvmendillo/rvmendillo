@@ -63,7 +63,7 @@ xcodebuild -project GalaGo.xcodeproj -scheme GalaGo -configuration Release \
 
 The GitHub Actions workflow performs the core tests, capture-script fixture checks, device build, IPA packaging, simulator build, launch and screenshots. Public-site end-to-end pricing reliability is **not** certified by those tests. The separate scraper test reads the actual embedded script from Swift so it cannot silently diverge from the app.
 
-32 core tests cover total arithmetic, day/night boundaries, date enumeration, voucher eligibility/caps/non-stacking/double counting, expired quotes, invalid input, demo separation, party matching, ranking and retry policy. 14 capture assertions cover currency, explicit code detection (including %), offer terms, separate price evidence, blocked pages and bounded output. New core cases verify all 27 international airports, correct country search parameters, automatic unit arithmetic, missing costs, extras, teaser exclusion, exact snapshot voucher eligibility and decoding older saved data.
+33 core tests cover total arithmetic, day/night boundaries, date enumeration, voucher eligibility/caps/non-stacking/double counting, expired quotes, invalid input, demo separation, party matching, ranking and retry policy. 14 capture assertions cover currency, explicit code detection (including %), offer terms, separate price evidence, blocked pages and bounded output. New core cases verify all 27 international airports, correct country search parameters, automatic unit arithmetic, missing costs, extras, teaser exclusion, exact snapshot voucher eligibility and decoding older saved data.
 
 ## Data and privacy
 

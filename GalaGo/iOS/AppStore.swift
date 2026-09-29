@@ -38,10 +38,11 @@ struct LocalState: Codable {
         return all.values.sorted{$0.capturedAt>$1.capturedAt}
     }
     func record(_ candidates:[PriceCandidate],for job:ScanJob) {
+        let normalized=candidates.map{input -> PriceCandidate in var c=input;if c.basis==nil{c.basis=PriceBasis.infer(c)};return c}
         let old=(state.priceInputs ?? []).filter{$0.job.id != job.id}
-        state.priceInputs=old+PriceCalculator.compact(candidates)
+        state.priceInputs=old+PriceCalculator.compact(normalized)
         state.candidates.removeAll{$0.job.id==job.id}
-        state.candidates.append(contentsOf:candidates)
+        state.candidates.append(contentsOf:normalized)
         if state.candidates.count>3000{state.candidates.removeFirst(state.candidates.count-3000)}
         save()
     }
@@ -67,7 +68,8 @@ struct LocalState: Codable {
     func makePlan(destinations:[String]) {
         let jobs=ScanPlan.jobs(settings:state.settings,destinations:destinations)
         let old=Dictionary(state.jobs.map{($0.id,$0)},uniquingKeysWith: {first,_ in first})
-        state.jobs=jobs.map {job in guard var prior=old[job.id] else{return job};if prior.status=="done" && (pricingInputs.filter{$0.job.id==job.id}.map(\.capturedAt).max() ?? .distantPast) < Date().addingTimeInterval(-3600){prior.status="queued";prior.attempts=0};return prior}
+        let newest=Dictionary(pricingInputs.map{($0.job.id,$0.capturedAt)},uniquingKeysWith:{max($0,$1)})
+        state.jobs=jobs.map {job in guard var prior=old[job.id] else{return job};if prior.status=="review" && (state.cooldowns[job.provider.rawValue] ?? .distantPast)<=Date(){prior.status="queued";prior.attempts=0;prior.retryAfter=nil};if prior.status=="done" && (newest[job.id] ?? .distantPast) < Date().addingTimeInterval(-3600){prior.status="queued";prior.attempts=0};return prior}
         save()
     }
     func importQuotes(_ url:URL) {

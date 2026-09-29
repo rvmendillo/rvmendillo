@@ -25,6 +25,12 @@ public enum PriceBasis: String, Codable, CaseIterable, Identifiable {
         func has(_ pattern:String)->Bool { text.range(of:pattern,options:.regularExpression) != nil }
         // Teasers, savings, child prices and crossed-out retail amounts must not win a trip ranking.
         guard !has("retail|original price|was |save |saving|discount|cashback|off\\b|from\\s*(?:php|₱)|starting at|child|infant|deposit|installment") else{return .unknown}
+        func count(_ pattern:String)->Int? {
+            guard let regex=try? NSRegularExpression(pattern:pattern),let match=regex.firstMatch(in:text,range:NSRange(text.startIndex...,in:text)),let range=Range(match.range(at:1),in:text) else{return nil}
+            return Int(text[range])
+        }
+        if let adults=count("total for ([0-9]+) adults"),adults != candidate.job.adults{return .unknown}
+        if candidate.job.provider == .hotel,let nights=count("total for ([0-9]+) nights"),nights != ManilaDate.days(candidate.job.departure,candidate.job.returning){return .unknown}
         let perPerson=has("per (?:adult|person|travell?er|passenger)|/(?:adult|person)")
         let group=has("grand total|booking total|total amount due|whole party|all (?:adults|travell?ers|passengers)|total for [1-9] adults")
         switch candidate.job.provider {
@@ -100,7 +106,7 @@ public enum PriceCalculator {
             if let old=best[key], old.total<part.total {continue}
             best[key]=part
         }
-        return best.values.map(\.candidate).sorted{$0.id<$1.id}
+        return best.values.map{part -> PriceCandidate in var c=part.candidate;c.basis=part.basis;return c}.sorted{$0.id<$1.id}
     }
     public static func calculate(_ candidates:[PriceCandidate],vouchers:[Voucher],settings:SearchSettings,now:Date=Date())->[CalculatedTrip] {
         guard settings.validation == nil else{return []}
