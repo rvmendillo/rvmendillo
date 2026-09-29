@@ -22,6 +22,7 @@ public struct SearchSettings: Codable, Equatable {
     public var newCustomer = false
     public var includeExpired = false
     public var extras: ExtraBudget? = nil
+    public var searchMode: SearchMode? = nil
     public var budget: ExtraBudget { extras ?? ExtraBudget() }
     public init() {}
     public var validation: String? {

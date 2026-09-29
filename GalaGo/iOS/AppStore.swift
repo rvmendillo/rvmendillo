@@ -12,6 +12,8 @@ struct LocalState: Codable {
     var cooldowns:[String:Date] = [:]
     var promoHints:[PromoHint] = []
     var priceInputs:[PriceCandidate]? = nil
+    var lastStarts:[String:Date]? = nil
+    var engineVersion:Int? = nil
 }
 @MainActor final class AppStore: ObservableObject {
     @Published var state = LocalState()
@@ -23,6 +25,12 @@ struct LocalState: Codable {
     init() {
         if let data=try? Data(contentsOf:file) {do {state=try Self.decoder.decode(LocalState.self,from:data)} catch {toast="Saved data could not be loaded. Your file has been kept for recovery."}}
         if state.priceInputs == nil {state.priceInputs=PriceCalculator.compact(state.candidates)}
+        state.candidates.removeAll{c in c.job.provider == .flight && !ProviderLinks.matchesFlightURL(URL(string:c.url),job:c.job)}
+        state.priceInputs?.removeAll{c in c.job.provider == .flight && !ProviderLinks.matchesFlightURL(URL(string:c.url),job:c.job)}
+        if (state.engineVersion ?? 1)<2 {
+            for i in state.jobs.indices where state.jobs[i].provider == .flight {state.jobs[i].status="queued";state.jobs[i].attempts=0}
+            state.engineVersion=2
+        }
         for i in state.jobs.indices where state.jobs[i].status == "running" {state.jobs[i].status="queued"}
     }
     func save() {do {try Self.encoder.encode(state).write(to:file,options:[.atomic,.completeFileProtection])} catch {toast="Could not save changes: \(error.localizedDescription)"}}
@@ -69,7 +77,10 @@ struct LocalState: Codable {
         let jobs=ScanPlan.jobs(settings:state.settings,destinations:destinations)
         let old=Dictionary(state.jobs.map{($0.id,$0)},uniquingKeysWith: {first,_ in first})
         let newest=Dictionary(pricingInputs.map{($0.job.id,$0.capturedAt)},uniquingKeysWith:{max($0,$1)})
-        state.jobs=jobs.map {job in guard var prior=old[job.id] else{return job};if prior.status=="review" && (state.cooldowns[job.provider.rawValue] ?? .distantPast)<=Date(){prior.status="queued";prior.attempts=0;prior.retryAfter=nil};if prior.status=="done" && (newest[job.id] ?? .distantPast) < Date().addingTimeInterval(-3600){prior.status="queued";prior.attempts=0};return prior}
+        let cache=Dictionary(grouping:pricingInputs,by:{$0.job.id})
+        state.jobs=jobs.map {job in
+            if !RetrievalPolicy.fresh(cache[job.id] ?? [],for:job).isEmpty {var cached=job;cached.status="done";cached.message="Using matching cached prices (less than 1 hour old).";return cached}
+            guard var prior=old[job.id] else{return job};if (prior.status=="review" || prior.status=="unavailable") && (state.cooldowns[job.provider.rawValue] ?? .distantPast)<=Date(){prior.status="queued";prior.attempts=0;prior.retryAfter=nil};if prior.status=="done" && ((newest[job.id] ?? .distantPast) < Date().addingTimeInterval(-3600) || job.provider == .flight){prior.status="queued";prior.attempts=0};return prior}
         save()
     }
     func importQuotes(_ url:URL) {

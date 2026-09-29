@@ -38,7 +38,7 @@ struct PricesView:View {
                         Text("Every trip.\nAlready added up.").font(.system(size:30,weight:.bold,design:.rounded)).foregroundColor(Theme.ink)
                         Text("MNL round trips · \(store.state.settings.minDays)–\(store.state.settings.maxDays) days · PHP").font(.subheadline)
                         HStack{Pill(text:"LOWEST TOTAL FIRST");Pill(text:"\(rows.filter{$0.total != nil}.count) PRICED")}
-                        Text("Totals recalculate from captured prices and your budgets. Estimates need checkout verification; unpriced trips stay visible.").font(.caption).foregroundColor(.secondary)
+                        Text("\(store.state.settings.retrievalMode.title). Totals update as prices arrive. Quick mode samples three departure dates; unpriced trips stay visible.").font(.caption).foregroundColor(.secondary)
                         if store.demo {Pill(text:"ILLUSTRATIVE DEMO · NOT LIVE",color:Theme.coral)}
                     }.padding(.vertical,7)
                     Picker("Coverage",selection:$scope){Text("All").tag("All");Text("International").tag("International");Text("Domestic").tag("Domestic")}.pickerStyle(.segmented)

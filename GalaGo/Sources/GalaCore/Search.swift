@@ -44,7 +44,7 @@ public enum ScanPlan {
         guard settings.validation == nil else {return []}
         var result:[ScanJob]=[]
         // Round-robin by date, length and destination; no destination is silently dropped.
-        for pair in settings.dates() {
+        for pair in settings.scanDates() {
             for dest in Array(Set(destinations)).sorted() where Destination.find(dest) != nil {
                 for provider in Provider.allCases { result.append(ScanJob(provider:provider,destination:dest,departure:pair.0,returning:pair.1,adults:settings.adults,rooms:settings.rooms)) }
             }
@@ -64,7 +64,9 @@ public enum ProviderLinks {
         switch provider {
         case .flight:
             c=URLComponents(string:"https://www.cebupacificair.com/en-PH/booking/select-flight")!
-            c.queryItems=[.init(name:"isRoundTrip",value:"true"),.init(name:"o1",value:"MNL"),.init(name:"d1",value:destination),.init(name:"dd1",value:departure),.init(name:"o2",value:destination),.init(name:"d2",value:"MNL"),.init(name:"dd2",value:returning),.init(name:"ADT",value:String(adults)),.init(name:"CHD",value:"0"),.init(name:"INF",value:"0"),.init(name:"mon",value:"true")]
+            // Cebu's current deep-link parser treats o2 as MULTI-CITY. A round trip is
+            // one o1/d1 pair plus dd1/dd2, with lowercase passenger keys.
+            c.queryItems=[.init(name:"o1",value:"MNL"),.init(name:"d1",value:destination),.init(name:"dd1",value:departure),.init(name:"dd2",value:returning),.init(name:"adt",value:String(adults)),.init(name:"chd",value:"0"),.init(name:"inl",value:"0"),.init(name:"inf",value:"0")]
         case .hotel:
             c=URLComponents(string:"https://www.agoda.com/search")!
             c.queryItems=[.init(name:"textToSearch",value:name+", "+(Destination.find(destination)?.country ?? "Philippines")),.init(name:"checkIn",value:departure),.init(name:"checkOut",value:returning),.init(name:"adults",value:String(adults)),.init(name:"rooms",value:String(rooms)),.init(name:"children",value:"0"),.init(name:"currencyCode",value:"PHP")]

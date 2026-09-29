@@ -13,6 +13,10 @@ struct SettingsView:View {
     @State private var paidActivity=true
     var body:some View{NavigationStack{Form{
         Section("Trip search"){LabeledContent("Origin",value:"Manila · MNL (fixed)");DatePicker("Earliest departure",selection:dateBinding(\.firstDeparture),displayedComponents:.date);DatePicker("Latest departure",selection:dateBinding(\.lastDeparture),displayedComponents:.date);Stepper("At least \(settings.minDays) days",value:$settings.minDays,in:3...7).onChange(of:settings.minDays){v in if settings.maxDays<v{settings.maxDays=v}};Stepper("Up to \(settings.maxDays) days",value:$settings.maxDays,in:settings.minDays...7);Text("3 days = 2 nights. The return date may fall after the last departure date.").font(.caption).foregroundColor(.secondary)}
+        Section("Retrieval speed") {
+            Picker("Search mode",selection:Binding(get:{settings.retrievalMode},set:{settings.searchMode=$0})){ForEach(SearchMode.allCases){Text($0.title).tag($0)}}
+            Text("Quick results checks the first, middle and last departure dates, with every selected trip length and destination. Every departure date covers the full window. Both reuse fresh prices and search the three providers concurrently.").font(.caption).foregroundColor(.secondary)
+        }
         Section("Travel party"){Stepper("\(settings.adults) adult(s)",value:$settings.adults,in:1...9).onChange(of:settings.adults){v in settings.rooms=min(settings.rooms,v)};Stepper("\(settings.rooms) room(s)",value:$settings.rooms,in:1...settings.adults);Text("Adult fares only. Include all room occupancy charges in your hotel quote.").font(.caption).foregroundColor(.secondary)}
         Section("Daily budget · PHP per person"){TextField("Meals per day",text:$food).keyboardType(.decimalPad);TextField("Local transport per day",text:$transport).keyboardType(.decimalPad);Text("These are your planning allowances, not prices from a provider. Airport transfers are a separate trip total.").font(.caption).foregroundColor(.secondary)}
         Section("Trip extras · PHP for the whole party") {

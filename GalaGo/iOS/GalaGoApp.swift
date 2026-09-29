@@ -2,7 +2,7 @@ import SwiftUI
 
 @main struct GalaGoApp:App {
     @StateObject private var store=AppStore()
-    var body:some Scene {WindowGroup{RootView().environmentObject(store).tint(Theme.teal).preferredColorScheme(.light)}}
+    var body:some Scene {WindowGroup{RootView().environmentObject(store).tint(Theme.teal).preferredColorScheme(.light).environment(\.timeZone,ManilaDate.calendar.timeZone)}}
 }
 enum Theme {
     static let teal=Color(red:0.02,green:0.40,blue:0.39)
@@ -71,10 +71,10 @@ struct DiscoverView:View {
                         Text("\(store.state.settings.adults) adult(s) · \(store.state.settings.rooms) room(s) · PHP totals").font(.caption).foregroundColor(.secondary)
                         Picker("Destinations",selection:$selected){Text("All \(Destination.all.count) airports").tag("ALL");Text("All \(Destination.international.count) international").tag("INTL");Text("All Philippine airports").tag("DOMESTIC");ForEach(Destination.all){Text("\($0.name) · \($0.code)").tag($0.code)}}.tint(Theme.ink)
                         Button {guard store.state.settings.validation==nil else{store.toast=store.state.settings.validation;return};store.makePlan(destinations:selected=="ALL" ? Destination.all.map(\.code) : selected=="INTL" ? Destination.international.map(\.code) : selected=="DOMESTIC" ? Destination.domestic.map(\.code) : [selected]);scanner=true} label:{Label("Search public pages",systemImage:"magnifyingglass").font(.headline).frame(maxWidth:.infinity).padding(.vertical,8)}.buttonStyle(.borderedProminent)
-                        Text("Scans Cebu Pacific, Agoda and Klook in saved batches. Keep the scanner open. Open Prices for automatically calculated totals.").font(.caption).foregroundColor(.secondary)
+                        Text("\(store.state.settings.retrievalMode.title): three provider queues, fresh-price reuse and automatic totals. Keep the scanner open.").font(.caption).foregroundColor(.secondary)
                     }
                     HStack(spacing:10){ForEach(Provider.allCases){p in Pill(text:p.name)}}
-                    if !store.state.jobs.isEmpty {Card{HStack{Text("Your search progress").font(.headline);Spacer();Button("Resume"){scanner=true}};let done=store.state.jobs.filter{$0.status=="done" || $0.status=="review"}.count;ProgressView(value:Double(done),total:Double(max(1,store.state.jobs.count))).tint(Theme.teal);Text("\(done) / \(store.state.jobs.count) pages checked · \(store.state.candidates.count) candidates").font(.caption);Text("Search coverage is partial until every page is checked. Candidate prices can omit taxes, use per-night rates or require a different date.").font(.caption).foregroundColor(.secondary)}}
+                    if !store.state.jobs.isEmpty {Card{HStack{Text("Your search progress").font(.headline);Spacer();Button("Resume"){scanner=true}};let done=store.state.jobs.filter{$0.status=="done" || $0.status=="review" || $0.status=="unavailable"}.count;ProgressView(value:Double(done),total:Double(max(1,store.state.jobs.count))).tint(Theme.teal);Text("\(done) / \(store.state.jobs.count) pages checked · \(store.state.candidates.count) candidates").font(.caption);Text("Search coverage is partial until every page is checked. Candidate prices can omit taxes, use per-night rates or require a different date.").font(.caption).foregroundColor(.secondary)}}
                     if !store.state.candidates.isEmpty {Card{Text("Recent captures for review").font(.headline);NavigationLink("View all captured prices"){CapturesView()};Text("Up to 3,000 recent candidates are kept. Recognized costs are kept separately for the Prices page.").font(.caption).foregroundColor(.secondary);ForEach(Array(store.state.candidates.suffix(8).reversed())){item in Button{candidate=item}label:{HStack{VStack(alignment:.leading){Text("\(item.job.destination) · \(item.job.provider.name)").font(.subheadline.bold());Text(item.context).font(.caption).lineLimit(2).foregroundColor(.secondary)};Spacer();Text(Money.php(item.amount)).font(.subheadline.bold())}}}}}
                     Card {
                         HStack{Text("Build a complete comparison").font(.headline);Spacer();Image(systemName:"plus.circle.fill").foregroundColor(Theme.coral)}

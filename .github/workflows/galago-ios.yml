@@ -20,6 +20,7 @@ jobs:
         run: |
           swift test
           node scripts/test-capture.cjs
+          node scripts/test-readiness.cjs
       - name: Generate Xcode project and branded icon
         run: |
           python3 GalaGo/scripts/generate_project.py
