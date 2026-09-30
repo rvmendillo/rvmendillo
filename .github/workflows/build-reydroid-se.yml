@@ -1,0 +1,59 @@
+name: Build ReyDroid SE
+on:
+  push:
+    branches: ['codex/reydroid-se-20260930']
+    paths: ['reydroid-se/**', '.github/workflows/build-reydroid-se.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Prepare build tools
+        run: |
+          command -v xcodegen >/dev/null || brew install xcodegen
+          xcodebuild -version
+          python3 --version
+      - name: Fetch and verify interpreter runtime
+        working-directory: reydroid-se
+        run: python3 scripts/prepare_runtime.py
+      - name: Run protocol and framebuffer checks
+        working-directory: reydroid-se
+        run: |
+          swiftc App/FrameBuffer.swift App/Connection.swift Tests/main.swift -o /tmp/reydroid-tests
+          /tmp/reydroid-tests
+      - name: Build unsigned iPhone app
+        working-directory: reydroid-se
+        run: |
+          set -o pipefail
+          swift scripts/make_icon.swift App/Assets.xcassets/AppIcon.appiconset
+          xcodegen generate
+          xcodebuild -project ReyDroidSE.xcodeproj -scheme ReyDroidSE -sdk iphoneos -configuration Release -derivedDataPath build CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO build 2>&1 | tee build-xcode.log
+      - name: Verify and package IPA
+        working-directory: reydroid-se
+        run: python3 scripts/package.py ../reydroid-artifacts
+      - name: Upload build outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: ReyDroid-SE-unsigned
+          path: reydroid-artifacts/
+          retention-days: 14
+      - name: Save downloadable build to this branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reydroid-artifacts/
+          git commit -m 'Add verified unsigned ReyDroid SE build'
+          git push origin HEAD:codex/reydroid-se-20260930
+      - name: Keep diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ReyDroid-SE-build-logs
+          path: reydroid-se/build-xcode.log
+          if-no-files-found: ignore

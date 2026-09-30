@@ -1,0 +1,11 @@
+.downloads/
+Runtime/
+build/
+project.yml
+*.xcodeproj/
+App/Assets.xcassets/
+App/Resources/qemu/
+App/Resources/*.qcow2
+App/Resources/*.fd
+App/Resources/RuntimeProvenance.json
+App/Resources/ThirdPartyLicenses.plist
