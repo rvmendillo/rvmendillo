@@ -19,6 +19,10 @@ targets:
         excludes: ['Resources/**']
       - path: App/Resources
         buildPhase: resources
+        excludes: ['qemu/**']
+      - path: App/Resources/qemu
+        type: folder
+        buildPhase: resources
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.rvmendillo.reydroidse
