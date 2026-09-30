@@ -1,0 +1,18 @@
+{
+  "name": "ReyDroid-SE-unsigned.ipa",
+  "size": 33951470,
+  "sha256": "bd4d3d194257f572aea4772c40549ca0c82ac25b63bd6ac35ac3e2320fbb7d95",
+  "runtime": "UTM SE v4.7.5 ARM64 TCTI",
+  "jit_required": false,
+  "signing": "unsigned; normal sideload signing needed",
+  "device_boot_test": "NOT PERFORMED",
+  "frameworks": 21,
+  "checks": [
+    "ARM64 executable",
+    "interpreter provenance",
+    "dependency closure",
+    "both guest disk seeds",
+    "UEFI firmware",
+    "archive integrity"
+  ]
+}
